@@ -15,14 +15,25 @@ public class ESCUI : MonoBehaviour, IUserInterface
     [field: SerializeField]
     public UnityEvent OnCloseUI { get; set; }
 
+    [SerializeField]
+    private GameObject _ContinueUI = null;
+    [SerializeField]
+    private GameObject _OptionUI = null;
+
+    private CanvasGroup _canvasGroup = null;
+
+    private void Awake()
+    {
+        _canvasGroup = GetComponent<CanvasGroup>();
+    }
+
     public void CloseUI()
     {
         if (_seq != null)
             _seq.Kill();
 
-        Time.timeScale = 1f;
         _seq = DOTween.Sequence();
-        _seq.Append(transform.DOLocalMove(_initPos, 0.5f));
+        _seq.Append(transform.DOLocalMove(_initPos, 0.3f)).SetUpdate(true);
         _seq.AppendCallback(() =>
         {
             Debug.Log("¾Ó ±â¸ð¶ì");
@@ -35,11 +46,15 @@ public class ESCUI : MonoBehaviour, IUserInterface
         if (_seq != null)
             _seq.Kill();
 
+        _canvasGroup.interactable = false;
+        _canvasGroup.blocksRaycasts = false;
         _seq = DOTween.Sequence();
         _seq.Append(transform.DOLocalMove(Vector3.zero, 0.5f));
         _seq.AppendCallback(()=> 
             { 
-                Debug.Log("¾Ó ±â¸ð¶ì"); 
+                Debug.Log("¾Ó ±â¸ð¶ì");
+                _canvasGroup.interactable = true;
+                _canvasGroup.blocksRaycasts = true;
                 Time.timeScale = 0f; 
             });
         OnOpenUI?.Invoke();
@@ -53,7 +68,7 @@ public class ESCUI : MonoBehaviour, IUserInterface
 
     public void ReStart()
     {
-        CloseUI();
+        _ContinueUI.GetComponent<IUserInterface>().OpenUI();
     }
 
 }
