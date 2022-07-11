@@ -21,10 +21,13 @@ public class ContinueUI : MonoBehaviour, IUserInterface
 
     private Vector2 _initPos = Vector2.zero;
 
+    [SerializeField]
+    private float _secTime = 1f;
+
 
     private void Start()
     {
-        _initPos = new Vector2(0f, -800f);
+        _initPos = new Vector2(0f, -700f);
         transform.localPosition = _initPos;
     }
 
@@ -71,10 +74,10 @@ public class ContinueUI : MonoBehaviour, IUserInterface
 
             _text.transform.localScale = Vector3.one;
             _seq = DOTween.Sequence();
-            _seq.Append(_text.transform.DOShakePosition(1f, _shakePower, 15, 90, false, true)).SetUpdate(true);
-            _seq.Join(_text.transform.DOScale(1.5f, 1f).SetUpdate(true));
+            _seq.Append(_text.transform.DOShakePosition(_secTime, _shakePower, 15, 90, false, true)).SetUpdate(true);
+            _seq.Join(_text.transform.DOScale(1.5f, _secTime).SetUpdate(true));
 
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(_secTime);
         }
 
         _text.SetText("");

@@ -18,7 +18,7 @@ public class ExitUI : MonoBehaviour, IUserInterface
 
     private void Start()
     {
-        _originPos = new Vector3(0f, -700f, 0f);
+        _originPos = new Vector3(0f, -800f, 0f);
         transform.localPosition = _originPos;
     }
 
