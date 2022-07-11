@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
     [SerializeField] private float dashFixValue = 3;
     [SerializeField] private float dashTime = 0.1f;
+    [SerializeField] private TextMeshProUGUI warringTMP;
     [SerializeField] private Transform firePos;
     [SerializeField] private GameObject bullet;
     [SerializeField] private LayerMask layerMask;
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour
         if (isInDeadZone)
         {
             deadClock -= Time.deltaTime;
+            warringTMP.text = $"OUT OF AREA : {deadClock:0.0} SEC";
         }
         else
         {
@@ -102,9 +106,13 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         print("너 죽어!");
+        warringTMP.gameObject.SetActive(true);
+        isInDeadZone = true;
     }
     private void OnTriggerExit(Collider other)
     {
         print("너 살어!");
+        warringTMP.gameObject.SetActive(false);
+        isInDeadZone = false;
     }
 }
