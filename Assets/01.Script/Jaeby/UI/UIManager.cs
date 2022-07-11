@@ -9,7 +9,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private CanvasGroup _escUI = null;
 
+    [SerializeField]
     private bool _openUI = false;
+
+    [SerializeField]
+    private AudioClip _lightClick = null;
+    [SerializeField]
+    private AudioClip _middleClick = null;
+    [SerializeField]
+    private AudioClip _HardClick = null;
 
     private void Update()
     {
@@ -20,6 +28,7 @@ public class UIManager : MonoBehaviour
             _escUI.GetComponent<IUserInterface>().OpenUI();
             _openUI = true;
         }
+       // PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play();
     }
 
     public void OpenUI(CanvasGroup canvasGroup)
@@ -49,5 +58,19 @@ public class UIManager : MonoBehaviour
     public void OpenUIDisable()
     {
         _openUI = false;
+    }
+
+
+    public void LightClickSoundPlay()
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_lightClick);
+    }
+    public void MiddleClickSoundPlay()
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_middleClick);
+    }
+    public void HardClickSoundPlay()
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_HardClick);
     }
 }

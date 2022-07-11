@@ -37,8 +37,8 @@ public class ESCUI : MonoBehaviour, IUserInterface
         _seq.AppendCallback(() =>
         {
             Debug.Log("¾Ó ±â¸ð¶ì");
+            //OnCloseUI?.Invoke();
         });
-        OnCloseUI?.Invoke();
     }
 
     public void OpenUI()
@@ -48,14 +48,13 @@ public class ESCUI : MonoBehaviour, IUserInterface
 
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
+        Time.timeScale = 0f;
         _seq = DOTween.Sequence();
-        _seq.Append(transform.DOLocalMove(Vector3.zero, 0.5f));
+        _seq.Append(transform.DOLocalMove(Vector3.zero, 0.5f)).SetUpdate(true);
         _seq.AppendCallback(()=> 
             { 
-                Debug.Log("¾Ó ±â¸ð¶ì");
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
-                Time.timeScale = 0f; 
             });
         OnOpenUI?.Invoke();
     }

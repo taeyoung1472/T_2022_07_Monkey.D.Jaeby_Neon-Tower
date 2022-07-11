@@ -69,7 +69,6 @@ public class OptionUI : MonoBehaviour, IUserInterface
         _canvasGroup.interactable = false;
         _canvasGroup.interactable = false;
 
-        Time.timeScale = 0f;
         Debug.Log("¾¾´í¾Æ");
         _EscUI.GetComponent<IUserInterface>().CloseUI();
         _seq = DOTween.Sequence();
