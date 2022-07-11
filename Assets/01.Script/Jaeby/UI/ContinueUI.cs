@@ -8,7 +8,8 @@ using TMPro;
 public class ContinueUI : MonoBehaviour, IUserInterface
 {
     public UnityEvent OnOpenUI { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public UnityEvent OnCloseUI { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    [field:SerializeField]
+    public UnityEvent OnCloseUI { get; set; }
 
     private Sequence _seq = null;
     [SerializeField]
@@ -23,7 +24,7 @@ public class ContinueUI : MonoBehaviour, IUserInterface
 
     private void Start()
     {
-        _initPos = new Vector2(0f, -700f);
+        _initPos = new Vector2(0f, -800f);
         transform.localPosition = _initPos;
     }
 
@@ -34,8 +35,12 @@ public class ContinueUI : MonoBehaviour, IUserInterface
 
         _seq = DOTween.Sequence();
         _seq.Append(transform.DOLocalMoveY(_initPos.y, 0.3f)).SetUpdate(true);
+        _seq.AppendCallback(() =>
+        {
+            OnCloseUI?.Invoke();
+            Time.timeScale = 1f;
+        });
 
-        Time.timeScale = 1f;
     }
 
     public void OpenUI()

@@ -12,6 +12,8 @@ public class OptionUI : MonoBehaviour, IUserInterface
 
     [SerializeField]
     private GameObject _EscUI = null;
+    [SerializeField]
+    private GameObject _ContinueUI = null;
 
     private Sequence _seq = null;
     private Vector3 _originPos = Vector3.zero;
@@ -33,10 +35,10 @@ public class OptionUI : MonoBehaviour, IUserInterface
     {
         if (_seq != null)
             _seq.Kill();
-
+        _ContinueUI.GetComponent<IUserInterface>().OpenUI();
         _seq = DOTween.Sequence();
         _seq.Append(transform.DOLocalMoveY(_originPos.y, 0.3f)).SetUpdate(true);
-        _seq.AppendCallback(() => { Time.timeScale = 1f; OnCloseUI?.Invoke(); });
+        //_seq.AppendCallback(() => { _ContinueUI.GetComponent<IUserInterface>().OpenUI(); });
         
     }
 

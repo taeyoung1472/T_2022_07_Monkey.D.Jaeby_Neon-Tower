@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
     }
 
+    public void GameExit()
+    {
+        Application.Quit();
+    }
+
 
     public void OpenUIEnable ()
     {
