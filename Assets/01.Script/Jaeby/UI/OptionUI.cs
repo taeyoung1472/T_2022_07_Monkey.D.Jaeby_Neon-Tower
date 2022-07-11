@@ -20,6 +20,14 @@ public class OptionUI : MonoBehaviour, IUserInterface
 
     private CanvasGroup _canvasGroup = null;
 
+    [SerializeField]
+    private GameObject[] _directerNames = null;
+    private bool _directerNameOn = false;
+
+    [SerializeField]
+    private GameObject[] _menNames = null;
+    private bool _menNameOn = false;
+
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -38,6 +46,17 @@ public class OptionUI : MonoBehaviour, IUserInterface
         _ContinueUI.GetComponent<IUserInterface>().OpenUI();
         _seq = DOTween.Sequence();
         _seq.Append(transform.DOLocalMoveY(_originPos.y, 0.3f)).SetUpdate(true);
+
+        if(_menNameOn)
+        {
+            _menNameOn = false;
+            CloseMen();
+        }
+        if(_directerNameOn)
+        {
+            _directerNameOn = false;
+            CloseName();
+        }
         //_seq.AppendCallback(() => { _ContinueUI.GetComponent<IUserInterface>().OpenUI(); });
         
     }
@@ -62,4 +81,58 @@ public class OptionUI : MonoBehaviour, IUserInterface
             _canvasGroup.interactable = true;
         });
     }
+
+    public void OpenName()
+    {
+        if (_directerNameOn)
+        {
+            CloseName();
+            _directerNameOn = false;
+            return;
+        }
+        _directerNameOn = true;
+
+        for (int i = 0; i<_directerNames.Length; i++)
+        {
+            _directerNames[i].SetActive(true);
+            _directerNames[i].transform.position += Vector3.up * 130f;
+        }
+    }
+
+
+    public void CloseName()
+    {
+        for (int i = _directerNames.Length - 1; i >= 0; i--)
+        {
+            _directerNames[i].SetActive(false);
+            _directerNames[i].transform.position += Vector3.up * -130f;
+        }
+    }
+
+    public void OpenMen()
+    {
+        if(_menNameOn)
+        {
+            CloseMen();
+            _menNameOn = false;
+            return;
+        }
+        _menNameOn = true;
+
+        for (int i = 0; i < _menNames.Length; i++)
+        {
+            _menNames[i].SetActive(true);
+            _menNames[i].transform.position += Vector3.up * 130f;
+        }
+    }
+
+    public void CloseMen()
+    {
+        for (int i = _menNames.Length -1 ; i >= 0; i--)
+        {
+            _menNames[i].SetActive(false);
+            _menNames[i].transform.position += Vector3.up * -130f;
+        }
+    }
+
 }
