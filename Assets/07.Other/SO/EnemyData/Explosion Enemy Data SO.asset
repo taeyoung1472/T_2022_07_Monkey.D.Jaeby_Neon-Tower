@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547dc08f42c960a43a0994379bda4fe8, type: 3}
+  m_Name: Explosion Enemy Data SO
+  m_EditorClassIdentifier: 
+  enemyName: Explosion Enemy
+  maxHealth: 3
+  prefab: {fileID: 0}
+  damage: 1
+  attackDelay: 1
+  attackRadius: 2
+  attackDistance: 2
+  dodgeRadius: 2
+  maxSpeed: 1
+  stoppingDistance: 2
+  dashDistance: 3.5
+  dashSpeed: 4
+  dashDamage: 3
+  hitClip: {fileID: 0}
+  deathClip: {fileID: 0}
