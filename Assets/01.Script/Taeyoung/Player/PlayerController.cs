@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private LayerMask layerMask;
     CharacterController controller;
     Vector3 moveDir;
     Camera cam;
@@ -24,15 +24,17 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        
-        if(Physics.Raycast(ray, out hit))
+
+        Debug.DrawRay(cam.transform.position, ray.direction * 100, Color.red, 0.5f);
+        if(Physics.Raycast(ray, out hit, 1000, layerMask))
         {
             Vector3 hitPos = hit.point;
 
-            float angle = MathF.Atan2(transform.position.x - hitPos.x, transform.position.z - hitPos.z) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(hitPos.x - transform.position.x, hitPos.z - transform.position.z) * Mathf.Rad2Deg;
+
+            print(angle);
 
             transform.eulerAngles = new Vector3(0, angle, 0);
-            //transform.rotation = Quaternion.LookRotation(hit.point);
         }
     }
 
