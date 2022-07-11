@@ -7,4 +7,5 @@ public class BulletData : MonoBehaviour
     //[SerializeField] private float fixSpeed = 1f;
     [SerializeField] private int bulletCount = 1;
     [SerializeField] private int penetrationChance = 0;
+    //[SerializeField] private 
 }
