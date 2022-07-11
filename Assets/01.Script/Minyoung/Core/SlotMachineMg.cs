@@ -17,14 +17,12 @@ public class SlotMachineMg : MonoBehaviour
     private bool _isStop;
     private float _delay = 0;
 
-    public Image selectImage;
-    public Text selectTxt;
-
+    public ResultButton resultButton;
+    public Image a;
     float timerp = 0f;
     float timerb = 0f;
     float timere = 0f;
 
-    public Button useUpgradeBtn;
     private void Awake()
     {
         instance = this;
@@ -37,7 +35,7 @@ public class SlotMachineMg : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (_isSpin == true)
             {
@@ -49,23 +47,31 @@ public class SlotMachineMg : MonoBehaviour
                 StartCoroutine(StartSpinBullet(_bulletSlotObj));
                 StartCoroutine(StartSpinETC(_etcSlotObj));
             }
-            
+
         }
     }
 
-    IEnumerator StartSpinPlayer(Transform target)
+    public void StartRolling()
     {
-        timerp += Time.time;
-        Debug.Log(timerp);
-        if (timerp > 3f)
+        if (_isSpin == true)
         {
             _isStop = true;
         }
+        else
+        {
+            StartCoroutine(StartSpinPlayer(_playerSlotObj));
+            StartCoroutine(StartSpinBullet(_bulletSlotObj));
+            StartCoroutine(StartSpinETC(_etcSlotObj));
+        }
+    }
+    IEnumerator StartSpinPlayer(Transform target)
+    {
+
 
         if (_isStop)
         {
             _delay += 0.25f;
-            if(_delay >= 1.5f)
+            if (_delay >= 1.5f)
             {
                 yield break;
             }
@@ -88,24 +94,20 @@ public class SlotMachineMg : MonoBehaviour
             });
 
         }
-            
-        yield return null;        
-        
-    } 
+
+        yield return null;
+
+    }
 
 
     IEnumerator StartSpinBullet(Transform target)
     {
-        timerb += Time.time;
-        if (timerb > 4f)
-        {
-            _isStop = true;
-        }
+       
 
         if (_isStop)
         {
             _delay += 0.25f;
-            if(_delay >= 1.5f)
+            if (_delay >= 1.5f)
             {
                 yield break;
             }
@@ -128,20 +130,14 @@ public class SlotMachineMg : MonoBehaviour
             });
 
         }
-            
-        yield return null;        
-        
+
+        yield return null;
+
     }
 
 
     IEnumerator StartSpinETC(Transform target)
     {
-        timere += Time.time;
-        if (timere > 20f)
-        {
-            _isStop = true;
-        }
-
         if (_isStop)
         {
             _delay += 0.25f;
@@ -172,16 +168,16 @@ public class SlotMachineMg : MonoBehaviour
         yield return null;
     }
 
-    public void Use(AbilitySO so)
+    public void InvokeAction(AbilitySO so)
     {
-        useUpgradeBtn.onClick.AddListener(()=> Upgrade(so));
-    }
-    public void Upgrade(AbilitySO so)
-    {
-        GameManager.Instance.damage += so.damage;
-        GameManager.Instance.hp += so.hp;
-        GameManager.Instance.speed += so.speed;
-        Debug.Log("Sex");
+        // if(so.머머머에 해당하는 함수 적용
+
+        GameManagerHan.Instance.damage += so.damage;
+        GameManagerHan.Instance.hp += so.hp;
+        GameManagerHan.Instance.speed += so.speed;
+        _isStop = false;
+        _isSpin = false;
+        _delay = 0f;
     }
 
 }

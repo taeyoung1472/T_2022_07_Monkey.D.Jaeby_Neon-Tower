@@ -23,4 +23,4 @@ MonoBehaviour:
   bulletSpeed: 0
   wallCnt: 0
   sprite: {fileID: 21300000, guid: 59d38d7de06465541aa6504bdab38775, type: 3}
-  abilTxt: "\uACF5\uACA9\uB825\uC744 \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
+  abilTxt: "\uACF5\uACA9\uB825\uC744 \uC99D\uAC00\uC2DC\uD0A8\uB2E4"
