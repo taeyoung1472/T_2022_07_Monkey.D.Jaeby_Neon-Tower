@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-public class Enemy : LivingEntity
+
+public class DashEnemy : LivingEntity
 {
     protected enum State
     {
         Tracking,
         AttackBegin,
         Attacking,
-        Dash
+        Dash,
     }
 
     protected State state;
@@ -33,6 +30,8 @@ public class Enemy : LivingEntity
     protected float turnSmoothVelocity;
 
     public float damage = 30f;
+    public bool isDash = false;
+    public float dashTime = 0.5f;
 
     [HideInInspector] public LivingEntity targetEntity; // 추적할 대상
     public LayerMask whatIsTarget; // 추적 대상 레이어
@@ -40,7 +39,6 @@ public class Enemy : LivingEntity
 
     protected RaycastHit[] hits = new RaycastHit[10];
     protected List<LivingEntity> lastAttackedTargets = new List<LivingEntity>();
-
 
 
 #if UNITY_EDITOR
@@ -56,7 +54,6 @@ public class Enemy : LivingEntity
             Gizmos.color = new Color(1f, 1f, 0f, 0.5f);
             Gizmos.DrawSphere(dodgeRoot.position, EnemyData.dodgeRadius);
         }
-
     }
 
 #endif
@@ -71,10 +68,11 @@ public class Enemy : LivingEntity
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
 
 
-        EnemyData.attackDistance = EnemyData.stoppingDistance; 
+        agent.stoppingDistance = EnemyData.stoppingDistance;
+        //EnemyData.attackDistance = EnemyData.stoppingDistance;
 
-        agent.stoppingDistance = EnemyData.attackDistance;
-
+        //agent.stoppingDistance = EnemyData.attackDistance;
+        isDash = false;
         //나중에 지울거임
         Setup();
     }
@@ -92,6 +90,7 @@ public class Enemy : LivingEntity
         state = State.Tracking;
 
         agent.speed = runSpeed;
+
     }
 
     protected virtual void Start()
@@ -118,7 +117,7 @@ public class Enemy : LivingEntity
     {
         if (dead) return;
 
-        if (state == State.AttackBegin || state == State.Attacking)
+        if (state == State.AttackBegin || state == State.Attacking || state == State.Dash)
         {
             var lookRotation =
                 Quaternion.LookRotation(targetEntity.transform.position - transform.position, Vector3.up);
@@ -133,7 +132,55 @@ public class Enemy : LivingEntity
             Attack();
         }
     }
+    IEnumerator Dash()
+    {
+        agent.isStopped = true;
+        agent.stoppingDistance = 0;
+        yield return new WaitForSeconds(0.5f);
+        
+        agent.isStopped = false;
+        float startTime = Time.time;
 
+        while (Time.time < startTime + dashTime)
+        {
+            agent.speed = EnemyData.dashSpeed;
+
+
+            yield return null;
+        }
+        isDash = false;
+        agent.speed = EnemyData.maxSpeed;
+        DashAttack();
+    }
+    protected virtual void DashAttack() 
+    {
+        var direction = transform.forward;
+        var deltaDistance = agent.velocity.magnitude * Time.deltaTime;
+
+        var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.attackRadius, direction, hits, deltaDistance,
+            whatIsTarget);
+
+        for (var i = 0; i < size; i++)
+        {
+            var attackTargetEntity = hits[i].collider.GetComponent<LivingEntity>();
+
+            if (attackTargetEntity != null && !lastAttackedTargets.Contains(attackTargetEntity))
+            {
+                var message = new DamageMessage();
+                message.amount = EnemyData.dashDamage;
+                message.damager = gameObject;
+                message.hitPoint = attackRoot.TransformPoint(hits[i].point);
+                message.hitNormal = attackRoot.TransformDirection(hits[i].normal);
+
+                attackTargetEntity.ApplyDamage(message);
+
+                lastAttackedTargets.Add(attackTargetEntity);
+                break;
+            }
+        }
+        state = State.Tracking;
+        agent.stoppingDistance = EnemyData.attackDistance;
+    }
     protected virtual void Attack()
     {
         var direction = transform.forward;
@@ -162,6 +209,7 @@ public class Enemy : LivingEntity
         }
     }
 
+
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
     protected virtual IEnumerator UpdatePath()
     {
@@ -169,20 +217,27 @@ public class Enemy : LivingEntity
         while (!dead)
         {
 
-            agent.SetDestination(targetEntity.transform.position);
-
-            if (state == State.Tracking)
+            //Debug.Log("남은 거리" + agent.remainingDistance);
+            if (state == State.Tracking && isDash == false)
             {
-                int randomDodge = Random.Range(0, 10);
-                if (randomDodge > 5)
+                if(agent.remainingDistance >= 4f && agent.remainingDistance <= 5f)
                 {
-                    var patrolPosition = Utility.GetRandomPointOnNavMesh(dodgeRoot.position, EnemyData.dodgeRadius, NavMesh.AllAreas);
-                    agent.SetDestination(patrolPosition);
+                    isDash = true;
+                    print("대쉬 시작");
+                    state = State.Dash;
+
+                    //agent.SetDestination(targetEntity.transform.position);
+                    StartCoroutine(Dash());
+
                 }
 
-                
+            }
+            else
+            {
+
             }
 
+            agent.SetDestination(targetEntity.transform.position);
 
             // 0.2 초 주기로 처리 반복
             yield return new WaitForSeconds(0.2f);
@@ -224,6 +279,7 @@ public class Enemy : LivingEntity
     {
         state = State.Tracking;
 
+        
         //agent.isStopped = false;
     }
 
@@ -249,5 +305,4 @@ public class Enemy : LivingEntity
         // 사망 효과음 재생
         if (EnemyData.deathClip != null) audioPlayer.PlayOneShot(EnemyData.deathClip);
     }
-
 }

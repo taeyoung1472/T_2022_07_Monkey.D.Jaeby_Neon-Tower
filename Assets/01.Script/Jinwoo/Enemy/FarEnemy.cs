@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-public class Enemy : LivingEntity
+
+public class FarEnemy : LivingEntity
 {
     protected enum State
     {
@@ -41,7 +38,7 @@ public class Enemy : LivingEntity
     protected RaycastHit[] hits = new RaycastHit[10];
     protected List<LivingEntity> lastAttackedTargets = new List<LivingEntity>();
 
-
+    
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
@@ -71,7 +68,7 @@ public class Enemy : LivingEntity
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
 
 
-        EnemyData.attackDistance = EnemyData.stoppingDistance; 
+        EnemyData.attackDistance = EnemyData.stoppingDistance;
 
         agent.stoppingDistance = EnemyData.attackDistance;
 
@@ -136,30 +133,9 @@ public class Enemy : LivingEntity
 
     protected virtual void Attack()
     {
-        var direction = transform.forward;
-        var deltaDistance = agent.velocity.magnitude * Time.deltaTime;
+        print("원거리 공격");
 
-        var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.attackRadius, direction, hits, deltaDistance,
-            whatIsTarget);
-
-        for (var i = 0; i < size; i++)
-        {
-            var attackTargetEntity = hits[i].collider.GetComponent<LivingEntity>();
-
-            if (attackTargetEntity != null && !lastAttackedTargets.Contains(attackTargetEntity))
-            {
-                var message = new DamageMessage();
-                message.amount = damage;
-                message.damager = gameObject;
-                message.hitPoint = attackRoot.TransformPoint(hits[i].point);
-                message.hitNormal = attackRoot.TransformDirection(hits[i].normal);
-
-                attackTargetEntity.ApplyDamage(message);
-
-                lastAttackedTargets.Add(attackTargetEntity);
-                break;
-            }
-        }
+        
     }
 
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
@@ -170,19 +146,7 @@ public class Enemy : LivingEntity
         {
 
             agent.SetDestination(targetEntity.transform.position);
-
-            if (state == State.Tracking)
-            {
-                int randomDodge = Random.Range(0, 10);
-                if (randomDodge > 5)
-                {
-                    var patrolPosition = Utility.GetRandomPointOnNavMesh(dodgeRoot.position, EnemyData.dodgeRadius, NavMesh.AllAreas);
-                    agent.SetDestination(patrolPosition);
-                }
-
-                
-            }
-
+            
 
             // 0.2 초 주기로 처리 반복
             yield return new WaitForSeconds(0.2f);
@@ -249,5 +213,4 @@ public class Enemy : LivingEntity
         // 사망 효과음 재생
         if (EnemyData.deathClip != null) audioPlayer.PlayOneShot(EnemyData.deathClip);
     }
-
 }
