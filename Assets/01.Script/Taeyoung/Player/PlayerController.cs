@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     Vector3 moveDir;
     Camera cam;
+    bool isInDeadZone = false;
     bool isCanControll = true;
+    float deadClock = 2f;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -27,14 +29,22 @@ public class PlayerController : MonoBehaviour
         Move();
         Gravity();
         Rotate();
-        Shoot();
+        Dead();
     }
 
-    private void Shoot()
+    private void Dead()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (isInDeadZone)
         {
-            Instantiate(bullet, firePos.position, Quaternion.Euler(0,transform.eulerAngles.y,0));
+            deadClock -= Time.deltaTime;
+        }
+        else
+        {
+            deadClock = 2;
+        }
+        if (deadClock <= 0)
+        {
+            print("DEAD!");
         }
     }
 
@@ -55,7 +65,6 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        Debug.DrawRay(cam.transform.position, ray.direction * 100, Color.red, 0.5f);
         if(Physics.Raycast(ray, out hit, 1000, layerMask))
         {
             Vector3 hitPos = hit.point;
@@ -89,5 +98,13 @@ public class PlayerController : MonoBehaviour
         {
             moveDir.y = 0;
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        print("너 죽어!");
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        print("너 살어!");
     }
 }
