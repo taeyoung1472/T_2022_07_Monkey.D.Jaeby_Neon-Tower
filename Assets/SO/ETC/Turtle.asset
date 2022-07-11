@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99884dd90734fbe4582c9d39d8487d30, type: 3}
+  m_Name: Turtle
+  m_EditorClassIdentifier: 
+  myCategory: 1
+  upAmount: 0
+  sprite: {fileID: 21300000, guid: ed38cbfbd8a2ca1408c6c9df7d9506f0, type: 3}
+  abilTxt: "\uC815\uC9C0\uD574\uC788\uC744 \uB54C \uBC29\uC5B4\uB825\uC744 \uB300\uD3ED
+    \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
