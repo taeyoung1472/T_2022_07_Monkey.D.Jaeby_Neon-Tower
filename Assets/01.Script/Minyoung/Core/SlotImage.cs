@@ -26,8 +26,10 @@ public class SlotImage : MonoBehaviour
     }
     public void Set()
     {
-        Debug.Log(SlotMachineMg.instance.selectImage.sprite);
-        SlotMachineMg.instance.selectImage.sprite = abilitySO.sprite; 
-        SlotMachineMg.instance.selectTxt.text = abilitySO.abilTxt; 
+        SlotMachineMg.instance.a.color = new Color(1, 1, 1, 1);
+        SlotMachineMg.instance.resultButton.SetData(abilitySO);
+        
+        //SlotMachineMg.instance.selectImage.sprite = abilitySO.sprite; 
+        //SlotMachineMg.instance.selectTxt.text = abilitySO.abilTxt; 
     }
 }
