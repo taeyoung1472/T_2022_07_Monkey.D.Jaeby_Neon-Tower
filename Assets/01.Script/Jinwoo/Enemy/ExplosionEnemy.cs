@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-public class Enemy : LivingEntity
+
+public class ExplosionEnemy : LivingEntity
 {
     protected enum State
     {
         Tracking,
         AttackBegin,
         Attacking,
-        Dash
+        
     }
 
     protected State state;
@@ -71,7 +68,7 @@ public class Enemy : LivingEntity
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
 
 
-        EnemyData.attackDistance = EnemyData.stoppingDistance; 
+        EnemyData.attackDistance = EnemyData.stoppingDistance;
 
         agent.stoppingDistance = EnemyData.attackDistance;
 
@@ -180,7 +177,7 @@ public class Enemy : LivingEntity
                     agent.SetDestination(patrolPosition);
                 }
 
-                
+
             }
 
 
@@ -249,5 +246,4 @@ public class Enemy : LivingEntity
         // 사망 효과음 재생
         if (EnemyData.deathClip != null) audioPlayer.PlayOneShot(EnemyData.deathClip);
     }
-
 }
