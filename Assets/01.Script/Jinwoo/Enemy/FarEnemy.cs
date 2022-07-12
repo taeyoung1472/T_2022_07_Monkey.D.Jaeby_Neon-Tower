@@ -12,7 +12,16 @@ public class FarEnemy : LivingEntity
         Attacking,
         Dash
     }
-
+    [SerializeField]
+    private EnemyDataSO _enemyData;
+    public EnemyDataSO EnemyData
+    {
+        get => _enemyData;
+        set
+        {
+            _enemyData = value;
+        }
+    }
     protected State state;
 
     protected NavMeshAgent agent; // 경로계산 AI 에이전트
@@ -41,6 +50,10 @@ public class FarEnemy : LivingEntity
     [SerializeField] private BulletDataSO _bulletData;
     [SerializeField] private Transform _firePos;
     [SerializeField] private GameObject _muzzle;
+
+    Transform player;
+    [SerializeField] private Transform eye;
+    [SerializeField] private LayerMask playerLayer;
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
@@ -72,8 +85,6 @@ public class FarEnemy : LivingEntity
 
         EnemyData.attackDistance = EnemyData.stoppingDistance;
 
-        agent.stoppingDistance = EnemyData.attackDistance;
-
         //나중에 지울거임
         Setup();
     }
@@ -96,6 +107,7 @@ public class FarEnemy : LivingEntity
     protected virtual void Start()
     {
         // 게임 오브젝트 활성화와 동시에 AI의 추적 루틴 시작
+        player = Define.Instance.controller.transform;
         StartCoroutine(UpdatePath());
     }
     private void Update()
@@ -105,7 +117,22 @@ public class FarEnemy : LivingEntity
         if (state == State.Tracking &&
             Vector3.Distance(targetEntity.transform.position, transform.position) <= EnemyData.attackDistance)
         {
-            BeginAttack();
+            RaycastHit hit;
+            Debug.DrawRay(eye.position, (player.position - eye.position).normalized * 100, Color.blue, 1);
+            if(Physics.Raycast(eye.position, (player.position - eye.position).normalized, out hit, 100, playerLayer))
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    print(hit.transform.name);
+                    BeginAttack();
+                }
+            }
+            else
+            {
+                agent.isStopped = false;
+                agent.SetDestination(player.position);
+            }
+            print("BBB");
         }
 
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생

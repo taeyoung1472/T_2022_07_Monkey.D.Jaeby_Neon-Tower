@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Far Enemy
   maxHealth: 3
-  prefab: {fileID: 0}
+  prefab: {fileID: 4242152534033021666, guid: 906001b9614bb5d47ba40dbfc54804d5, type: 3}
   damage: 1
   attackDelay: 2
   attackRadius: 2

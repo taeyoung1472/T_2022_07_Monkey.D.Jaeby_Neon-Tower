@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Common Enemy
   maxHealth: 3
-  prefab: {fileID: 0}
+  prefab: {fileID: 6437738306033802312, guid: 7de9fb07db952294c89c159904ce03b8, type: 3}
   damage: 1
   attackDelay: 1
   attackRadius: 2
@@ -29,5 +29,5 @@ MonoBehaviour:
   explosionDistance: 0
   explosionDamage: 0
   explosionRange: 0
-  hitClip: {fileID: 0}
-  deathClip: {fileID: 0}
+  hitClip: {fileID: 8300000, guid: ab59340ef60c4fc48be6af2ff943e11c, type: 3}
+  deathClip: {fileID: 8300000, guid: ab59340ef60c4fc48be6af2ff943e11c, type: 3}

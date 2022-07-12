@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Explosion Enemy
   maxHealth: 3
-  prefab: {fileID: 0}
+  prefab: {fileID: 2130471020164515853, guid: 11f119b3508409149adfd43edaecc4d6, type: 3}
   damage: 1
   attackDelay: 1
   attackRadius: 3

@@ -17,6 +17,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Slider steminaSlider;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private int maxStemina = 3;
+    private MeshRenderer meshRenderer;
+
+    [Header("생명관련")]
+    [SerializeField] private int maxHp = 10;
+    [SerializeField] private float ignoreTime = 0.25f;
+    [SerializeField] private Color maxHpColor = Color.yellow;
+    [SerializeField] private Color minHpColor = Color.red;
+    int curHp;
+    bool isDamaged = false;
+
     int stemina;
     int Stemina { get { return stemina; } set { stemina = value; steminaSlider.value = (float)stemina / (float)maxStemina; } }
     CharacterController controller;
@@ -30,19 +40,22 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
         Stemina = maxStemina;
+        curHp = maxHp;
+        meshRenderer = GetComponent<MeshRenderer>();
 
         StartCoroutine(DashSystem());
         StartCoroutine(SteminaSystem());
+        StartCoroutine(DamagedCor());
     }
     void Update()
     {
         Move();
         Gravity();
         Rotate();
-        Dead();
+        OutRangeCheck();
     }
 
-    private void Dead()
+    private void OutRangeCheck()
     {
         if (isInDeadZone)
         {
@@ -55,8 +68,18 @@ public class PlayerController : MonoBehaviour
         }
         if (deadClock <= 0)
         {
-            print("DEAD!");
+            Dead();
         }
+    }
+
+    private void Dead()
+    {
+        print("죽음!");
+    }
+
+    public void Damaged()
+    {
+        isDamaged = true;
     }
 
     IEnumerator DashSystem()
@@ -80,6 +103,28 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(steminaChargeTime);
             Stemina++;
         }
+    }
+
+    IEnumerator DamagedCor()
+    {
+        bool isDead = false;
+        while (!isDead)
+        {
+            yield return new WaitUntil(() => isDamaged);
+
+            curHp--;
+
+            if(curHp <= 0)
+            {
+                Dead();
+                isDead = true;
+            }
+
+            isDamaged = false;
+            meshRenderer.material.color = Color.Lerp(minHpColor, maxHpColor, (float)curHp / (float)maxHp);
+            yield return new WaitForSeconds(ignoreTime);
+        }
+        yield return null;
     }
 
     private void Rotate()

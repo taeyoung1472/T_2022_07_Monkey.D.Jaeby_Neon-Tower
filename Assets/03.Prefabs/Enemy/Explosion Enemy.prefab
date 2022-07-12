@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2130471019194884787}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackRoot
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2130471019227847013}
   - component: {fileID: 2130471019227847012}
   - component: {fileID: 2130471019227847015}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2130471019451917502}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DodgePos
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -174,9 +174,9 @@ GameObject:
   - component: {fileID: 2130471020164515851}
   - component: {fileID: 2130471020164515850}
   - component: {fileID: 2130471020164515860}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Explosion Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,6 +317,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac769dc24e6c104b8b3fee2fdfc14c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2130471020164515853}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _enemyData: {fileID: 11400000, guid: f6ad471de9d835643afe7458b3c94527, type: 2}
   attackRoot: {fileID: 2130471019194884787}
   dodgeRoot: {fileID: 2130471019451917502}
@@ -326,7 +341,7 @@ MonoBehaviour:
   targetEntity: {fileID: 0}
   whatIsTarget:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 64
   explosionEffect: {fileID: 6562739250803433395}
 --- !u!1001 &8349105357813736925
 PrefabInstance:
@@ -335,9 +350,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130471020164515863}
     m_Modifications:
+    - target: {fileID: 396627229620191337, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611613571193735705, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2940414623958612591, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
       propertyPath: m_Name
       value: ExplosionEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940414623958612591, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2940414623958612591, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
       propertyPath: m_IsActive
@@ -411,6 +438,18 @@ PrefabInstance:
       propertyPath: InitialModule.startSizeY.minScalar
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3019714721045018294, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019714721840744309, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019714722082438656, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3019714722082438659, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 1
@@ -442,6 +481,10 @@ PrefabInstance:
     - target: {fileID: 4838585611362063769, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7540219807509045395, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc094dc45f399b241b68fd5cd5fb8eae, type: 3}

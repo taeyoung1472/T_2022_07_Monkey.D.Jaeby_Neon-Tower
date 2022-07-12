@@ -174,9 +174,9 @@ GameObject:
   - component: {fileID: 6437738306033802305}
   - component: {fileID: 6437738306033802307}
   - component: {fileID: 6437738306033802306}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CommonEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -292,7 +292,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 7.5
   m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -316,6 +316,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3aa809905c6d7f43bec6a1943fc7dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6437738306033802312}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _enemyData: {fileID: 11400000, guid: ddec0a0c52a936048a6632bc68ef67f0, type: 2}
   attackRoot: {fileID: 6437738305936765590}
   dodgeRoot: {fileID: 6437738304834778798}
