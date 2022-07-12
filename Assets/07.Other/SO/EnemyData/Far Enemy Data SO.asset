@@ -20,7 +20,7 @@ MonoBehaviour:
   attackRadius: 2
   attackDistance: 2
   dodgeRadius: 2
-  bulletSpeed: 0
+  bulletSpeed: 3
   maxSpeed: 3
   stoppingDistance: 5
   dashDistance: 0

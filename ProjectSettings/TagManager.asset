@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Wall
   layers:
   - Default
@@ -13,15 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-<<<<<<< HEAD
-  - Mouse Check
-  - 
-  - BulletParticle
-=======
-  - Player
+  - enmey
   - 
   - 
->>>>>>> 476879c49d069e16d0f8afb9a3906952d648967a
   - 
   - 
   - 
