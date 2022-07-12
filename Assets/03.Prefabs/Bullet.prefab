@@ -9665,18 +9665,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02b582c3e46fe254cb09cedb43e57065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  defaultSpeed: 25
   hitOffset: 0.1
   UseFirePointRotation: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   isCanBump: 1
   isCanExplosion: 1
   bumpCount: 3
-  hit: {fileID: 1021820888038418, guid: 4754d1c93d0ffde46a4b52472f289725, type: 3}
-  flash: {fileID: 1013902274184218, guid: 8f3f932519e18564e81c0a4c89d87f11, type: 3}
-  explosionEffect: {fileID: 7771203178047226794, guid: c42dbaca19d57334bb2218b83c09e0b1, type: 3}
   Detached:
   - {fileID: 7745610947242120633}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!199 &7619775336487163703
 ParticleSystemRenderer:
   serializedVersion: 6

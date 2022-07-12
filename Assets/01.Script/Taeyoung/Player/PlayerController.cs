@@ -13,9 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashTime = 0.1f;
     [SerializeField] private float steminaChargeTime = 1.5f;
     [SerializeField] private TextMeshProUGUI warringTMP;
-    [SerializeField] private Transform firePos;
     [SerializeField] private Transform mouseFocusObject;
-    [SerializeField] private GameObject bullet;
     [SerializeField] private Slider steminaSlider;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private int maxStemina = 3;
@@ -127,13 +125,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print("너 죽어!");
         warringTMP.gameObject.SetActive(true);
         isInDeadZone = true;
     }
     private void OnTriggerExit(Collider other)
     {
-        print("너 살어!");
         warringTMP.gameObject.SetActive(false);
         isInDeadZone = false;
     }
