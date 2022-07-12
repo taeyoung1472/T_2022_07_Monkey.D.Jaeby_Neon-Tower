@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 public class Enemy : LivingEntity
 {
@@ -15,6 +13,16 @@ public class Enemy : LivingEntity
         Attacking,
         Dash
     }
+    [SerializeField]
+    private EnemyDataSO _enemyData;
+    public EnemyDataSO EnemyData
+    {
+        get => _enemyData;
+        set
+        {
+            _enemyData = value;
+        }
+    }
 
     protected State state;
 
@@ -23,8 +31,6 @@ public class Enemy : LivingEntity
 
     public Transform attackRoot;
     public Transform dodgeRoot;
-
-    protected AudioSource audioPlayer; // 오디오 소스 컴포넌트
 
     protected Renderer skinRenderer; // 렌더러 컴포넌트
 
@@ -41,6 +47,7 @@ public class Enemy : LivingEntity
     protected RaycastHit[] hits = new RaycastHit[10];
     protected List<LivingEntity> lastAttackedTargets = new List<LivingEntity>();
 
+    bool isAttacked;
 
 
 #if UNITY_EDITOR
@@ -65,7 +72,6 @@ public class Enemy : LivingEntity
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        audioPlayer = GetComponent<AudioSource>();
         skinRenderer = GetComponentInChildren<Renderer>();
 
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
@@ -128,7 +134,7 @@ public class Enemy : LivingEntity
                                         ref turnSmoothVelocity, turnSmoothTime);
         }
 
-        if (state == State.Attacking)
+        if (state == State.Attacking && !isAttacked)
         {
             Attack();
         }
@@ -136,30 +142,14 @@ public class Enemy : LivingEntity
 
     protected virtual void Attack()
     {
-        var direction = transform.forward;
-        var deltaDistance = agent.velocity.magnitude * Time.deltaTime;
+        Collider[] cols = Physics.OverlapSphere(attackRoot.position, _enemyData.attackRadius, whatIsTarget);
 
-        var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.attackRadius, direction, hits, deltaDistance,
-            whatIsTarget);
-
-        for (var i = 0; i < size; i++)
+        if(cols.Length > 0)
         {
-            var attackTargetEntity = hits[i].collider.GetComponent<LivingEntity>();
-
-            if (attackTargetEntity != null && !lastAttackedTargets.Contains(attackTargetEntity))
-            {
-                var message = new DamageMessage();
-                message.amount = damage;
-                message.damager = gameObject;
-                message.hitPoint = attackRoot.TransformPoint(hits[i].point);
-                message.hitNormal = attackRoot.TransformDirection(hits[i].normal);
-
-                attackTargetEntity.ApplyDamage(message);
-
-                lastAttackedTargets.Add(attackTargetEntity);
-                break;
-            }
+            Define.Instance.controller.Damaged();
         }
+
+        isAttacked = true;
     }
 
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
@@ -171,17 +161,7 @@ public class Enemy : LivingEntity
 
             agent.SetDestination(targetEntity.transform.position);
 
-            if (state == State.Tracking)
-            {
-                int randomDodge = Random.Range(0, 10);
-                if (randomDodge > 5)
-                {
-                    var patrolPosition = Utility.GetRandomPointOnNavMesh(dodgeRoot.position, EnemyData.dodgeRadius, NavMesh.AllAreas);
-                    agent.SetDestination(patrolPosition);
-                }
-
-                
-            }
+            
 
 
             // 0.2 초 주기로 처리 반복
@@ -200,7 +180,7 @@ public class Enemy : LivingEntity
         }
 
         //EffectManager.Instance.PlayHitEffect(damageMessage.hitPoint, damageMessage.hitNormal, transform, EffectManager.EffectType.Flesh);
-        audioPlayer.PlayOneShot(EnemyData.hitClip);
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
 
         return true;
     }
@@ -215,6 +195,10 @@ public class Enemy : LivingEntity
 
     public void EnableAttack()
     {
+        isAttacked = false;
+
+        print("공격 가능!");
+
         state = State.Attacking;
 
         lastAttackedTargets.Clear();
@@ -222,6 +206,7 @@ public class Enemy : LivingEntity
 
     public void DisableAttack()
     {
+
         state = State.Tracking;
 
         //agent.isStopped = false;
@@ -237,17 +222,13 @@ public class Enemy : LivingEntity
         state = State.Tracking;
 
         // 다른 AI들을 방해하지 않도록 자신의 모든 콜라이더들을 비활성화
-        GetComponent<Collider>().enabled = false;
+        //GetComponent<Collider>().enabled = false;
 
         // AI 추적을 중지하고 내비메쉬 컴포넌트를 비활성화
         agent.enabled = false;
 
-        // 사망 애니메이션 재생
-        animator.applyRootMotion = true;
-        animator.SetTrigger("Die");
-
         // 사망 효과음 재생
-        if (EnemyData.deathClip != null) audioPlayer.PlayOneShot(EnemyData.deathClip);
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.deathClip, 1, Random.Range(0.9f,1.1f));
     }
 
 }

@@ -21,8 +21,9 @@ public class AbilitySO : ScriptableObject
         BouncingShot,
         ExplosionShot,
         PenetrationShot
-
     }
+    public AttackType attackType;
+
     public bool stiffen;//°æÁ÷
 
     public int reflexPower;

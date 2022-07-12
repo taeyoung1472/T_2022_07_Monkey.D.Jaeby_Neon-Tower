@@ -110,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
 
         // 적의 onDeath 이벤트에 익명 메서드 등록
         // 사망한 적을 리스트에서 제거
-        enemy.OnDeath += () => enemies.Remove(enemy);
+        enemy.OnDeath.AddListener(() => enemies.Remove(enemy));
 
 
         // 사망한 적을 10 초 뒤에 파괴

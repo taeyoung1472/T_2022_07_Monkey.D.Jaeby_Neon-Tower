@@ -40,7 +40,7 @@ public class CubeMap : MonoBehaviour
                 Sequence seq = DOTween.Sequence();
                 MeshRenderer renderer = item.GetComponent<MeshRenderer>();
                 seq.AppendCallback(() => item.gameObject.SetActive(true));
-                seq.Append(item.DOScaleY(2 + Random.Range(0, 2.5f), 1f));
+                seq.Append(item.DOScaleY(3 + Random.Range(0, 2f), 1f));
                 seq.Join(DOTween.To(() => renderer.material.color, x => renderer.material.color = x, Color.yellow, 1));
                 prevPattern.Add(item);
             }

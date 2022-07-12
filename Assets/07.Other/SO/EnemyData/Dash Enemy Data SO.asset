@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Dash Enemy
   maxHealth: 5
-  prefab: {fileID: 0}
+  prefab: {fileID: 5732408649967109691, guid: 66717cadac0126e47ac42ff14cef05da, type: 3}
   damage: 2
   attackDelay: 1
   attackRadius: 1

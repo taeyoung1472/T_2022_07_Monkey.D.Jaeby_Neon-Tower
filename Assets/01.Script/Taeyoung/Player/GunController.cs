@@ -11,7 +11,6 @@ public class GunController : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private int fireUpgradeIndex = 0;
     [SerializeField] private float delay = 0.4f;
-    [SerializeField] private Image reloadImage;
     private void Start()
     {
         StartCoroutine(ShootSystem());
@@ -26,8 +25,6 @@ public class GunController : MonoBehaviour
                 Bullet bullet = PoolManager.instance.Pop(PoolType.Bullet).GetComponent<Bullet>();
                 bullet.Set(pos.position, pos.rotation);
             }
-            reloadImage.rectTransform.sizeDelta = new Vector2(0, 20);
-            reloadImage.rectTransform.DOSizeDelta(new Vector2(350, 20), delay);
             yield return new WaitForSeconds(delay);
         }
     }

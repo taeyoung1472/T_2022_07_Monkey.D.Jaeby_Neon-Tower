@@ -19450,6 +19450,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletData: {fileID: 11400000, guid: 18b5f0f8409df4c49b1969307a6e1db2, type: 2}
   damageFactor: 1
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!54 &6351648016090896239
 Rigidbody:
   m_ObjectHideFlags: 0

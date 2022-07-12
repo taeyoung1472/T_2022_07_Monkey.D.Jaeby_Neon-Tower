@@ -12,7 +12,16 @@ public class DashEnemy : LivingEntity
         Attacking,
         Dash,
     }
-
+    [SerializeField]
+    private EnemyDataSO _enemyData;
+    public EnemyDataSO EnemyData
+    {
+        get => _enemyData;
+        set
+        {
+            _enemyData = value;
+        }
+    }
     protected State state;
 
     protected NavMeshAgent agent; // 경로계산 AI 에이전트
@@ -40,6 +49,7 @@ public class DashEnemy : LivingEntity
     protected RaycastHit[] hits = new RaycastHit[10];
     protected List<LivingEntity> lastAttackedTargets = new List<LivingEntity>();
 
+    bool isAttacked;
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
@@ -127,7 +137,7 @@ public class DashEnemy : LivingEntity
                                         ref turnSmoothVelocity, turnSmoothTime);
         }
 
-        if (state == State.Attacking)
+        if (state == State.Attacking && !isAttacked)
         {
             Attack();
         }
@@ -135,7 +145,7 @@ public class DashEnemy : LivingEntity
     IEnumerator Dash()
     {
         agent.isStopped = true;
-        agent.stoppingDistance = 0;
+        agent.stoppingDistance = 1;
         yield return new WaitForSeconds(0.5f);
         
         agent.isStopped = false;
@@ -183,10 +193,15 @@ public class DashEnemy : LivingEntity
     }
     protected virtual void Attack()
     {
-        var direction = transform.forward;
-        var deltaDistance = agent.velocity.magnitude * Time.deltaTime;
+        Collider[] cols = Physics.OverlapSphere(transform.position, EnemyData.attackRadius, whatIsTarget);
 
-        var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.attackRadius, direction, hits, deltaDistance,
+        if(cols.Length > 0)
+        {
+            Define.Instance.controller.Damaged();
+        }
+
+        isAttacked = true;
+        /*var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.attackRadius, direction, hits, deltaDistance,
             whatIsTarget);
 
         for (var i = 0; i < size; i++)
@@ -206,7 +221,7 @@ public class DashEnemy : LivingEntity
                 lastAttackedTargets.Add(attackTargetEntity);
                 break;
             }
-        }
+        }*/
     }
 
 
@@ -273,6 +288,8 @@ public class DashEnemy : LivingEntity
         state = State.Attacking;
 
         lastAttackedTargets.Clear();
+
+        isAttacked = false;
     }
 
     public void DisableAttack()
