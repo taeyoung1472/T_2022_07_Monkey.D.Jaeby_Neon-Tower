@@ -27,12 +27,12 @@ public class SlotMachineManager : MonoBehaviour
         _bulletSlotTrm = _slotMachineTrm.Find("Panel/BulletButton/SlotObj");
 
         _etcSlotTrm = _slotMachineTrm.Find("Panel/ETCButton/SlotObj");
+        Make();
     }
 
-    
-    private void Start()
+    void Make()
     {
-        for(int i = 0; i < playerSO.Count; i++)
+        for (int i = 0; i < playerSO.Count; i++)
         {
             SlotImage slot = Instantiate(slotImagePrefab, _playerSlotTrm) as SlotImage;
 
@@ -64,6 +64,10 @@ public class SlotMachineManager : MonoBehaviour
 
             rectTrm.sizeDelta = new Vector2(100, 100);
         }
+    }
+    private void Start()
+    {
+      
 
 
     }

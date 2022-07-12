@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -10,14 +11,37 @@ public class SlotImage : MonoBehaviour
 
     private Image _image;
 
-    private Button _btn;
+    public Button _btn;
 
+    float timer;
 
     private void Awake()
     {
         _image = GetComponent<Image>();
         _btn = GetComponent<Button>();
-        _btn.onClick.AddListener(() => Set());
+        _btn.onClick.AddListener(() =>
+        {
+            Set();
+        });
+    }
+    private void OnEnable()
+    {
+
+    }
+   public void Push()
+    {
+        StartCoroutine(a());
+    }
+    IEnumerator a()
+    {
+        yield return new WaitForSeconds(4f);
+    }
+    private void A()
+    {
+        
+    }
+private void Update()
+    {
     }
     public void SetData(AbilitySO so)
     {

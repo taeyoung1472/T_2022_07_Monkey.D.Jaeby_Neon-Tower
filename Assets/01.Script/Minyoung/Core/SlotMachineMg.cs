@@ -21,9 +21,9 @@ public class SlotMachineMg : MonoBehaviour
 
     public Button resultImageBtn;
     public TextMeshProUGUI explainTxt;
-    float timerp = 0f;
-    float timerb = 0f;
     float timere = 0f;
+
+    public SlotImage[] slotImages;
 
     public bool isShow = false;   
     private void Awake()
@@ -33,6 +33,10 @@ public class SlotMachineMg : MonoBehaviour
         _bulletSlotObj = transform.Find("Panel/BulletButton/SlotObj");
         _etcSlotObj = transform.Find("Panel/ETCButton/SlotObj");
     }
+    private void Start()
+    {
+         slotImages = transform.Find("Panel").GetComponentsInChildren<SlotImage>();
+    }
 
 
     private void Update()
@@ -40,7 +44,6 @@ public class SlotMachineMg : MonoBehaviour
         if (isShow)
         {
             timere += Time.unscaledDeltaTime;
-            Debug.Log(timere);
             if (timere >= 2f)
             {
                 if (_isSpin == true)
@@ -55,21 +58,7 @@ public class SlotMachineMg : MonoBehaviour
                 }
             }
         }
-   
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    if (_isSpin == true)
-        //    {
-        //        _isStop = true;
-        //    }
-        //    else
-        //    {
-        //        StartCoroutine(StartSpinPlayer(_playerSlotObj));
-        //        StartCoroutine(StartSpinBullet(_bulletSlotObj));
-        //        StartCoroutine(StartSpinETC(_etcSlotObj));
-        //    }
 
-        //}
     }
 
     public void StartRolling()
@@ -80,21 +69,32 @@ public class SlotMachineMg : MonoBehaviour
         }
         else
         {
+            //for (int i = 0; i < slotImages.Length; i++)
+            //{
+            //  slotImages[i].Push();
+            //}
             StartCoroutine(StartSpinPlayer(_playerSlotObj));
             StartCoroutine(StartSpinBullet(_bulletSlotObj));
             StartCoroutine(StartSpinETC(_etcSlotObj));
         }
         resultImageBtn.enabled = true;
     }
+    IEnumerator A()
+    {
+        yield return new WaitForSeconds(5f);
+    }
+
     IEnumerator StartSpinPlayer(Transform target)
     {
-
-
         if (_isStop)
         {
             _delay += 0.25f;
             if (_delay >= 1.5f)
             {
+                for (int i = 0; i < slotImages.Length; i++)
+                {
+                    slotImages[i]._btn.enabled = true;
+                }
                 yield break;
             }
         }
@@ -116,7 +116,6 @@ public class SlotMachineMg : MonoBehaviour
             });
 
         }
-
         yield return null;
 
     }
@@ -124,13 +123,15 @@ public class SlotMachineMg : MonoBehaviour
 
     IEnumerator StartSpinBullet(Transform target)
     {
-       
-
         if (_isStop)
         {
             _delay += 0.25f;
             if (_delay >= 1.5f)
             {
+                for (int i = 0; i < slotImages.Length; i++)
+                {
+                    slotImages[i]._btn.enabled = true;
+                }
                 yield break;
             }
         }
@@ -149,6 +150,7 @@ public class SlotMachineMg : MonoBehaviour
                     rect.anchoredPosition = new Vector2(0, (target.childCount - 1) * 100);
                     StartCoroutine(StartSpinBullet(target));
                 }
+                
             });
 
         }
@@ -165,6 +167,10 @@ public class SlotMachineMg : MonoBehaviour
             _delay += 0.25f;
             if (_delay >= 1.5f)
             {
+                for (int i = 0; i < slotImages.Length; i++)
+                {
+                    slotImages[i]._btn.enabled = true;
+                }
                 yield break;
             }
         }
@@ -197,6 +203,13 @@ public class SlotMachineMg : MonoBehaviour
         //GameManagerHan.Instance.damage += so.damage;
         //GameManagerHan.Instance.hp += so.hp;
         //GameManagerHan.Instance.speed += so.speed;
+
+
+        for (int i = 0; i < slotImages.Length; i++)
+        {
+            slotImages[i]._btn.enabled = false;
+        }
+
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
