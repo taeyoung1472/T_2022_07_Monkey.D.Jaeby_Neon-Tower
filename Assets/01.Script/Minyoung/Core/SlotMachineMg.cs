@@ -222,8 +222,6 @@ public class SlotMachineMg : MonoBehaviour
         GameManager.Instance.KnowbackPower += so.knockbackPower;
         GameManager.Instance.ReflexPower += so.reflexPower;
         GameManager.Instance.WallBounceCnt += so.wallCnt;
-
-
         Init();
     }
 
