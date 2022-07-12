@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
@@ -10,10 +11,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] private float dashFixValue = 3;
     [SerializeField] private float dashTime = 0.1f;
+    [SerializeField] private float steminaChargeTime = 1.5f;
     [SerializeField] private TextMeshProUGUI warringTMP;
-    [SerializeField] private Transform firePos;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform mouseFocusObject;
+    [SerializeField] private Slider steminaSlider;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private int maxStemina = 3;
+    int stemina;
+    int Stemina { get { return stemina; } set { stemina = value; steminaSlider.value = (float)stemina / (float)maxStemina; } }
     CharacterController controller;
     Vector3 moveDir;
     Camera cam;
@@ -24,8 +29,10 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
+        Stemina = maxStemina;
 
         StartCoroutine(DashSystem());
+        StartCoroutine(SteminaSystem());
     }
     void Update()
     {
@@ -56,11 +63,22 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift) && Stemina > 0);
+            Stemina--;
             isCanControll = false;
             moveDir = moveDir.normalized * dashFixValue;
             yield return new WaitForSeconds(dashTime);
             isCanControll = true;
+        }
+    }
+
+    IEnumerator SteminaSystem()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => Stemina < maxStemina);
+            yield return new WaitForSeconds(steminaChargeTime);
+            Stemina++;
         }
     }
 
@@ -76,6 +94,8 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.Atan2(hitPos.x - transform.position.x, hitPos.z - transform.position.z) * Mathf.Rad2Deg;
 
             transform.eulerAngles = new Vector3(0, angle, 0);
+
+            mouseFocusObject.position = hitPos;
         }
     }
 
@@ -105,13 +125,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print("너 죽어!");
         warringTMP.gameObject.SetActive(true);
         isInDeadZone = true;
     }
     private void OnTriggerExit(Collider other)
     {
-        print("너 살어!");
         warringTMP.gameObject.SetActive(false);
         isInDeadZone = false;
     }

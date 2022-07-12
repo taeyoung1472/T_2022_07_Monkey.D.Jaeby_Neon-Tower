@@ -3,8 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
+  tags: []
+=======
   tags:
-  - E
+  - Wall
+>>>>>>> 19e6f978ca80232f1fcf1e934d3e14ad3ed52ee9
   layers:
   - Default
   - TransparentFX
@@ -12,10 +16,17 @@ TagManager:
   - 
   - Water
   - UI
+<<<<<<< HEAD
   - 
   - 
   - 
   - 
+=======
+  - enmey
+  - 
+  - 
+  - 
+>>>>>>> 19e6f978ca80232f1fcf1e934d3e14ad3ed52ee9
   - 
   - 
   - 
