@@ -44,7 +44,7 @@ public class CubeMap : MonoBehaviour
                 seq.Join(DOTween.To(() => renderer.material.color, x => renderer.material.color = x, Color.yellow, 1));
                 prevPattern.Add(item);
             }
-            float cycleTime = Random.Range(2f, 3f);
+            float cycleTime = Random.Range(7.5f, 15f);
             yield return new WaitForSeconds(cycleTime);
         }
     }
