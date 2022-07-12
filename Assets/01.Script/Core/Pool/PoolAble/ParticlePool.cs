@@ -16,11 +16,9 @@ public class ParticlePool : PoolAbleObject
 
     }
 
-    public void Set(RaycastHit info)
+    public void Set(Vector3 pos, Quaternion rot)
     {
-        Quaternion rot = Quaternion.LookRotation(info.normal);
-        transform.position = info.point + info.normal * 0.15f;
-        transform.rotation = rot;
+        transform.SetPositionAndRotation(pos, rot);//transform.position = info.point + info.normal * 0.15f;
     }
     
     IEnumerator Wait()
