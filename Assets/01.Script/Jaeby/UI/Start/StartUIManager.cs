@@ -25,6 +25,9 @@ public class StartUIManager : MonoBehaviour
     [SerializeField]
     private GameObject _textParent = null;
 
+    [SerializeField]
+    private GameObject[] _lights = null;
+
     private void Start()
     {
         _mainPosition = transform.position;
@@ -33,10 +36,10 @@ public class StartUIManager : MonoBehaviour
         {
             //_texts[i].transform.DOMoveZ(13f, 0.5f).SetLoops(-1, LoopType.Yoyo);
             Sequence seq = DOTween.Sequence();
-            seq.Append(_texts[i].transform.DOMoveZ(13f, 0.5f));
-            seq.AppendInterval(0.25f);
-            seq.Append(_texts[i].transform.DOMoveZ(14f, 0.5f));
-            seq.AppendInterval(0.25f);
+            seq.Append(_texts[i].transform.DOMoveZ(13f, 0.5f)).SetUpdate(true);
+            seq.AppendInterval(0.25f).SetUpdate(true);
+            seq.Append(_texts[i].transform.DOMoveZ(14f, 0.5f)).SetUpdate(true);
+            seq.AppendInterval(0.25f).SetUpdate(true);
             seq.SetLoops(-1);
         }
     }
@@ -51,24 +54,37 @@ public class StartUIManager : MonoBehaviour
 
     public void StartInit()
     {
+        //StartCoroutine(LightDown());
+
         Sequence seq = DOTween.Sequence();
-        seq.Append(_vCam.transform.DOMove(_startInitPosition.position, 1f));
+        //seq.AppendInterval(0.2f * _lights.Length);
+        seq.Append(_vCam.transform.DOMove(_startInitPosition.position, 1.5f));
         seq.AppendCallback(() =>
         {
-            CameraManager.instance.ZoomCamera(45f, 1f);
+            CameraManager.instance.ZoomCamera(45f, 0.5f);
         });
         seq.AppendInterval(1f);
         seq.AppendCallback(() =>
         {
-            SceneManager.LoadScene("");
+            SceneManager.LoadScene(1);
         });
     }
+
+    /*private IEnumerator LightDown()
+    {
+        for(int i = 0; i<_lights.Length; i++)
+        {
+            _lights[i].SetActive(false);
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
+    }*/
 
     public void ExitInit()
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(_startButton.transform.DOMoveX(-800f, 0.2f));
         seq.Append(_exitButton.transform.DOMoveX(-800f, 0.2f));
+        seq.AppendInterval(0.4f);
         seq.Append(_textParent.transform.DOMoveY(-14f, 0.5f));
         Application.Quit();
     }
