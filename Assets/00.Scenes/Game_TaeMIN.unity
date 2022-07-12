@@ -19730,6 +19730,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxStemina: 3
+  maxHp: 10
+  ignoreTime: 0.25
+  maxHpColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  minHpColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!96 &799309374
 TrailRenderer:
   serializedVersion: 2
@@ -45552,7 +45556,6 @@ MonoBehaviour:
   bullet: {fileID: 7746078569958995857, guid: a242b4e1f826fe04b87fa51f0261ae5f, type: 3}
   fireUpgradeIndex: 0
   delay: 0.4
-  reloadImage: {fileID: 1565139341}
 --- !u!1001 &1849929201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54571,4 +54574,5 @@ MonoBehaviour:
   resultButton: {fileID: 1879284425211402669}
   resultImageBtn: {fileID: 1879284425211402642}
   explainTxt: {fileID: 1847186003046606046}
+  slotImages: []
   isShow: 0
