@@ -26,7 +26,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 278
+  controlID: 1317
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 256
+  controlID: 1254
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -395,9 +395,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -8.824676, y: -1.1608661, z: -0.9957922}
+    m_Target: {x: -8.515887, y: -1.4907918, z: -1.7739706}
     speed: 2
-    m_Value: {x: -8.824676, y: -1.1608661, z: -0.9957922}
+    m_Value: {x: -8.515887, y: -1.4907918, z: -1.7739706}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -444,9 +444,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.12792389, y: 0.7530466, z: -0.15367717, w: -0.62685025}
+    m_Target: {x: -0.1299167, y: 0.76551926, z: -0.1634125, w: -0.60860485}
     speed: 2
-    m_Value: {x: -0.1279238, y: 0.75304604, z: -0.15367706, w: -0.6268498}
+    m_Value: {x: -0.1299166, y: 0.7655186, z: -0.16341236, w: -0.6086043}
   m_Size:
     m_Target: 10
     speed: 2
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
+  m_Name: GameView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 365
+  controlID: 1318
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -628,8 +628,8 @@ MonoBehaviour:
     y: 0
     width: 367
     height: 626
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -691,7 +691,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 7a7a0000
     m_LastClickedID: 31354
-    m_ExpandedIDs: ffffffff000000005a7800006c7800007a7a00007c7a00007e7a0000807a0000827a0000847a00008e7a0000947a0000967a00009a7a0000a07a0000a47a0000a87a0000aa7a0000ac7a0000
+    m_ExpandedIDs: ffffffff000000005a7800006c7800007a7a00007c7a00007e7a0000807a0000827a0000847a0000867a0000887a00008a7a00008c7a00008e7a0000907a0000927a0000947a0000967a0000987a00009a7a00009c7a00009e7a0000a27a0000a47a0000a67a0000a87a0000aa7a0000ac7a0000ae7a0000b07a0000227b0000567b0000ac7b0000ae7b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

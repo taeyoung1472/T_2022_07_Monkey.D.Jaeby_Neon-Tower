@@ -5368,6 +5368,8 @@ MonoBehaviour:
   _shakePower: 10
   _ESCUI: {fileID: 833835121}
   _secTime: 0.5
+  _continueNumberChangeClip: {fileID: 0}
+  _continueEndClip: {fileID: 0}
 --- !u!224 &243256079
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43362,6 +43364,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _escUI: {fileID: 833835122}
+  _openUI: 0
+  _lightClick: {fileID: 0}
+  _middleClick: {fileID: 0}
+  _HardClick: {fileID: 0}
 --- !u!4 &1794145581
 Transform:
   m_ObjectHideFlags: 0
