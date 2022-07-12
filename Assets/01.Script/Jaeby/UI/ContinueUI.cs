@@ -24,6 +24,11 @@ public class ContinueUI : MonoBehaviour, IUserInterface
     [SerializeField]
     private float _secTime = 1f;
 
+    [SerializeField]
+    private AudioClip _continueNumberChangeClip = null;
+    [SerializeField]
+    private AudioClip _continueEndClip = null;
+
 
     private void Start()
     {
@@ -76,10 +81,12 @@ public class ContinueUI : MonoBehaviour, IUserInterface
             _seq = DOTween.Sequence();
             _seq.Append(_text.transform.DOShakePosition(_secTime, _shakePower, 15, 90, false, true)).SetUpdate(true);
             _seq.Join(_text.transform.DOScale(1.5f, _secTime).SetUpdate(true));
+            PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_continueNumberChangeClip);
 
             yield return new WaitForSecondsRealtime(_secTime);
         }
 
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_continueEndClip);
         _text.SetText("");
         CloseUI();
     }
