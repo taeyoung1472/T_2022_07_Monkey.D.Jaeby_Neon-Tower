@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3facd5a72ff66bb44a131df666dfa36f, type: 3}
+  m_Name: Enemy Bullet Data SO
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4082722505820593956, guid: 3655427044d43254099eb7ceb32a13e3, type: 3}
+  damage: 1
+  bulletSpeed: 10
+  explosionRadius: 0
+  friction: 0
+  bounce: 0
+  goThroughHit: 0
+  isRayCast: 0
+  isCharging: 0
+  impactObstaclePrefab: {fileID: 8811541867228887351, guid: 17d9e6168fc98d1458b236add663418a, type: 3}
+  impactEnemyPrefab: {fileID: 8811541867228887351, guid: 17d9e6168fc98d1458b236add663418a, type: 3}
+  knockBackPower: 1
+  knockBackDelay: 0.01
+  bulletMat: {fileID: 0}
+  lifeTime: 2

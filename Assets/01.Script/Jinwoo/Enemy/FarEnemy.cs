@@ -38,7 +38,9 @@ public class FarEnemy : LivingEntity
     protected RaycastHit[] hits = new RaycastHit[10];
     protected List<LivingEntity> lastAttackedTargets = new List<LivingEntity>();
 
-    
+    [SerializeField] private BulletDataSO _bulletData;
+    [SerializeField] private Transform _firePos;
+    [SerializeField] private GameObject _muzzle;
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
@@ -106,7 +108,6 @@ public class FarEnemy : LivingEntity
             BeginAttack();
         }
 
-
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
         animator.SetFloat("Speed", agent.desiredVelocity.magnitude);
     }
@@ -125,28 +126,49 @@ public class FarEnemy : LivingEntity
                                         ref turnSmoothVelocity, turnSmoothTime);
         }
 
-        if (state == State.Attacking)
-        {
-            Attack();
-        }
     }
 
     protected virtual void Attack()
     {
         print("원거리 공격");
 
-        
-    }
+        Transform target = targetEntity.transform;
 
+        Vector3 aimDirection = target.position - _firePos.position;
+        float desireAngle = Mathf.Atan2(aimDirection.x, aimDirection.z) * Mathf.Rad2Deg;
+
+        Quaternion rot = Quaternion.AngleAxis(desireAngle, Vector3.up);
+
+        SpawnBullet(_firePos.position, rot, true, damage);
+        StartCoroutine(SpawnMuzzle());
+
+    }
+    private void SpawnBullet(Vector3 pos, Quaternion rot, bool isEnemyBullet, float damage)
+    {
+        EnemyBullet b = PoolManager.instance.Pop(PoolType.EnemyBullet).GetComponent<EnemyBullet>();
+
+        b.SetPositionAndRotation(pos, rot);
+        b.IsEnemy = isEnemyBullet;
+        b.BulletData = _bulletData;
+        b.damageFactor = damage;
+    }
+    IEnumerator SpawnMuzzle()
+    {
+        _muzzle.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        _muzzle.SetActive(false);
+    }
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
     protected virtual IEnumerator UpdatePath()
     {
         // 살아있는 동안 무한 루프
         while (!dead)
         {
+            if(state == State.Tracking)
+            {
+                agent.SetDestination(targetEntity.transform.position);
 
-            agent.SetDestination(targetEntity.transform.position);
-            
+            }
 
             // 0.2 초 주기로 처리 반복
             yield return new WaitForSeconds(0.2f);
@@ -173,7 +195,7 @@ public class FarEnemy : LivingEntity
     {
         state = State.AttackBegin;
         print("attackbeggin");
-        //agent.isStopped = true;
+        agent.isStopped = true;
         animator.SetTrigger("Attack");
     }
 
@@ -186,9 +208,9 @@ public class FarEnemy : LivingEntity
 
     public void DisableAttack()
     {
+        Attack();
         state = State.Tracking;
-
-        //agent.isStopped = false;
+        agent.isStopped = false;
     }
 
 

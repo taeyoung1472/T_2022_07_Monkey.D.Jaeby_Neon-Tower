@@ -56,8 +56,15 @@ public enum PoolType/*풀링 타입(풀링할 에들이 많아지면 계속 추가*/
     Sound,
     Bullet,
     BulletImpact,
+<<<<<<< HEAD
     BulletExplosionImpact,
     BulletMuzzleImpact,
     Popup
+=======
+    CommonEnemy,
+    EnemyBullet,
+    EnemyBulletImpact,
+
+>>>>>>> 19e6f978ca80232f1fcf1e934d3e14ad3ed52ee9
 }
 
