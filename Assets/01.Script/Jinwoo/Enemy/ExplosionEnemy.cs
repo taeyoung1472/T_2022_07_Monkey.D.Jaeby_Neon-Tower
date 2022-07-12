@@ -12,7 +12,16 @@ public class ExplosionEnemy : LivingEntity
         Attacking,
         
     }
-
+    [SerializeField]
+    private EnemyDataSO _enemyData;
+    public EnemyDataSO EnemyData
+    {
+        get => _enemyData;
+        set
+        {
+            _enemyData = value;
+        }
+    }
     protected State state;
 
     protected NavMeshAgent agent; // 경로계산 AI 에이전트
@@ -136,11 +145,18 @@ public class ExplosionEnemy : LivingEntity
     protected virtual void Attack()
     {
         explosionEffect.gameObject.SetActive(true);
+        explosionEffect.transform.SetParent(null);
 
-        var direction = transform.forward;
-        //var deltaDistance = agent.velocity.magnitude * Time.deltaTime;
-        var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.explosionRange, direction, hits, EnemyData.explosionDistance,
-            whatIsTarget);
+        Collider[] cols = Physics.OverlapSphere(transform.position, EnemyData.explosionRange, whatIsTarget);
+
+        if(cols.Length > 0)
+        {
+            Define.Instance.controller.Damaged();
+        }
+
+        OnDeath?.Invoke();
+        //.SphereCastNonAlloc(attackRoot.position, EnemyData.explosionRange, direction, hits, EnemyData.explosionDistance,
+        //whatIsTarget);
 
         //var attackTargetEntity = hits[0].collider.GetComponent<LivingEntity>();
 
@@ -158,7 +174,7 @@ public class ExplosionEnemy : LivingEntity
         //    print("공격성공");
         //}
 
-        for (var i = 0; i < size; i++)
+        /*for (var i = 0; i < size; i++)
         {
             var attackTargetEntity = hits[i].collider.GetComponent<LivingEntity>();
 
@@ -176,13 +192,8 @@ public class ExplosionEnemy : LivingEntity
                 print("공격성공");
                 break;
             }
-        }
-        StartCoroutine(Deading());
-    }
-    IEnumerator Deading()
-    {
-        yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
+        }*/
+        //StartCoroutine(Deading());
     }
 
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
