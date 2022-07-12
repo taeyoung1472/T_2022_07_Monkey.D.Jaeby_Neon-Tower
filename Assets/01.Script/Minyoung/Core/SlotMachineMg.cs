@@ -25,6 +25,7 @@ public class SlotMachineMg : MonoBehaviour
     float timerb = 0f;
     float timere = 0f;
 
+    public bool isShow = false;   
     private void Awake()
     {
         instance = this;
@@ -36,20 +37,39 @@ public class SlotMachineMg : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isShow)
         {
-            if (_isSpin == true)
+            timere += Time.unscaledDeltaTime;
+            Debug.Log(timere);
+            if (timere >= 2f)
             {
-                _isStop = true;
+                if (_isSpin == true)
+                {
+                    _isStop = true;
+                }
+                else
+                {
+                    StartCoroutine(StartSpinPlayer(_playerSlotObj));
+                    StartCoroutine(StartSpinBullet(_bulletSlotObj));
+                    StartCoroutine(StartSpinETC(_etcSlotObj));
+                }
             }
-            else
-            {
-                StartCoroutine(StartSpinPlayer(_playerSlotObj));
-                StartCoroutine(StartSpinBullet(_bulletSlotObj));
-                StartCoroutine(StartSpinETC(_etcSlotObj));
-            }
-
         }
+   
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    if (_isSpin == true)
+        //    {
+        //        _isStop = true;
+        //    }
+        //    else
+        //    {
+        //        StartCoroutine(StartSpinPlayer(_playerSlotObj));
+        //        StartCoroutine(StartSpinBullet(_bulletSlotObj));
+        //        StartCoroutine(StartSpinETC(_etcSlotObj));
+        //    }
+
+        //}
     }
 
     public void StartRolling()
@@ -85,7 +105,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -121,7 +141,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -155,7 +175,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -174,15 +194,17 @@ public class SlotMachineMg : MonoBehaviour
     {
         // if(so.머머머에 해당하는 함수 적용
 
-        GameManagerHan.Instance.damage += so.damage;
-        GameManagerHan.Instance.hp += so.hp;
-        GameManagerHan.Instance.speed += so.speed;
+        //GameManagerHan.Instance.damage += so.damage;
+        //GameManagerHan.Instance.hp += so.hp;
+        //GameManagerHan.Instance.speed += so.speed;
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
         resultImageBtn.enabled = false;
         resultImageBtn.image.color = new Color(1, 1, 1, 0);
         explainTxt.text = "";
+        timere = 0f;
+        isShow = false;
     }
 
 }
