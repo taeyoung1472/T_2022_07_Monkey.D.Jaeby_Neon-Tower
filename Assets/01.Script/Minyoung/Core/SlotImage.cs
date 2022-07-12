@@ -26,10 +26,7 @@ public class SlotImage : MonoBehaviour
     }
     public void Set()
     {
-        SlotMachineMg.instance.a.color = new Color(1, 1, 1, 1);
+        SlotMachineMg.instance.resultImageBtn.image.color = new Color(1, 1, 1, 1);
         SlotMachineMg.instance.resultButton.SetData(abilitySO);
-        
-        //SlotMachineMg.instance.selectImage.sprite = abilitySO.sprite; 
-        //SlotMachineMg.instance.selectTxt.text = abilitySO.abilTxt; 
     }
 }

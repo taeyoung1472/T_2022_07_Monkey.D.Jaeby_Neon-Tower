@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
+using TMPro;
 
 public class SlotMachineMg : MonoBehaviour
 {
@@ -18,7 +18,9 @@ public class SlotMachineMg : MonoBehaviour
     private float _delay = 0;
 
     public ResultButton resultButton;
-    public Image a;
+
+    public Button resultImageBtn;
+    public TextMeshProUGUI explainTxt;
     float timerp = 0f;
     float timerb = 0f;
     float timere = 0f;
@@ -29,7 +31,6 @@ public class SlotMachineMg : MonoBehaviour
         _playerSlotObj = transform.Find("Panel/PlayerButton/SlotObj");
         _bulletSlotObj = transform.Find("Panel/BulletButton/SlotObj");
         _etcSlotObj = transform.Find("Panel/ETCButton/SlotObj");
-
     }
 
 
@@ -63,6 +64,7 @@ public class SlotMachineMg : MonoBehaviour
             StartCoroutine(StartSpinBullet(_bulletSlotObj));
             StartCoroutine(StartSpinETC(_etcSlotObj));
         }
+        resultImageBtn.enabled = true;
     }
     IEnumerator StartSpinPlayer(Transform target)
     {
@@ -83,7 +85,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.2f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -119,7 +121,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.2f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -153,7 +155,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.2f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -178,6 +180,9 @@ public class SlotMachineMg : MonoBehaviour
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
+        resultImageBtn.enabled = false;
+        resultImageBtn.image.color = new Color(1, 1, 1, 0);
+        explainTxt.text = "";
     }
 
 }
