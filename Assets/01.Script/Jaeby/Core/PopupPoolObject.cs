@@ -52,16 +52,16 @@ public class PopupPoolObject : PoolAbleObject
 
     public void PopupJumpWithRandomness(Vector3 startPos, float jumpPower, float randomXmove, Color color, float duration, int fontSize = 5)
     {
+        float originPos = startPos.z;
         startPos.z += jumpPower;
         startPos.y += 2f;
 
-        float originPos = startPos.z;
         transform.position = startPos;
         _text.color = color;
         _text.fontSize = fontSize;
 
         _seq = DOTween.Sequence();
-        _seq.Append(transform.DOMoveZ(0f, duration).SetEase(Ease.OutBounce));
+        _seq.Append(transform.DOMoveZ(originPos, duration).SetEase(Ease.OutBounce));
         _seq.Join(transform.DOMoveX(transform.position.x + Random.Range(-randomXmove, randomXmove), duration));
         _seq.Join(_text.DOFade(0, duration));
 

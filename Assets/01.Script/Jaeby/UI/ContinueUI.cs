@@ -91,7 +91,7 @@ public class ContinueUI : MonoBehaviour, IUserInterface
         CloseUI();
     }
 
-    /*[SerializeField]
+    [SerializeField]
     private GameObject _target;
     private void Update()
     {
@@ -117,5 +117,5 @@ public class ContinueUI : MonoBehaviour, IUserInterface
 
             PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupJumpWithRandomness(_target.transform.position, 0.5f, 1f, Color.green, 0.5f);
         }
-    }*/
+    }
 }
