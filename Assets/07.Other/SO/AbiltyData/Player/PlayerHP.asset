@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99884dd90734fbe4582c9d39d8487d30, type: 3}
+  m_Script: {fileID: 11500000, guid: effc34a6b1c100442a9ef3e1392e07c3, type: 3}
   m_Name: PlayerHP
   m_EditorClassIdentifier: 
   myCategory: 0
@@ -22,5 +22,5 @@ MonoBehaviour:
   speed: 0
   bulletSpeed: 0
   wallCnt: 0
-  sprite: {fileID: 21300000, guid: 7efad48c5f62d7b4eabea3f29f386102, type: 3}
-  abilTxt: "\uCCB4\uB825\uC744 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4"
+  sprite: {fileID: 21300000, guid: 2e78d6e8be7bfe84e927b8cc7b91ef10, type: 3}
+  abilTxt: "\uCCB4\uB825\uC774\uC99D\uAC00\uD560\uC9C0\uB3C4?"

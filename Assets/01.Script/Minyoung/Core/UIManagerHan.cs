@@ -12,10 +12,12 @@ public class UIManagerHan : MonoBehaviour
 
     public void OpenLevelMenu()
     {
-        levelUPMenu.DOAnchorPos(Vector2.zero, 0.25f);
+        Time.timeScale = 0f;
+        levelUPMenu.DOAnchorPos(Vector2.zero, 0.25f).SetUpdate(true);
     }
     public void CloseLevelMenu()
     {
-        levelUPMenu.DOAnchorPos(new Vector2(0, 1070), 0.25f);
+        levelUPMenu.DOAnchorPos(new Vector2(0, 1070), 0.25f).SetUpdate(true);
+        Time.timeScale = 1f;
     }
 }

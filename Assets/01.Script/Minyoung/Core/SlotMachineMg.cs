@@ -85,7 +85,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -121,7 +121,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -155,7 +155,7 @@ public class SlotMachineMg : MonoBehaviour
             RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
 
             Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).OnComplete(() =>
+            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
             {
                 rect.anchoredPosition = origin + new Vector2(0, -100);
                 if (rect.anchoredPosition.y <= -50)
@@ -174,9 +174,9 @@ public class SlotMachineMg : MonoBehaviour
     {
         // if(so.머머머에 해당하는 함수 적용
 
-        GameManagerHan.Instance.damage += so.damage;
-        GameManagerHan.Instance.hp += so.hp;
-        GameManagerHan.Instance.speed += so.speed;
+        //GameManagerHan.Instance.damage += so.damage;
+        //GameManagerHan.Instance.hp += so.hp;
+        //GameManagerHan.Instance.speed += so.speed;
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
