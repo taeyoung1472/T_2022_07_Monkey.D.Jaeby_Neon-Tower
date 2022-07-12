@@ -40,12 +40,38 @@ public class VolumeManager : MonoBehaviour
     private void Update()
     {
         MasterVolumeUpdate();
+        BGMVolumeUpdate();
+        EffectVolumeUpdate();
     }
 
     private void MasterVolumeUpdate()
     {
         float sound = _masterSlider.value;
+        if (sound <= -29f)
+        {
+            sound = -80f;
+        }
 
-        _audioMixer.SetFloat("Master",sound);
+        _audioMixer.SetFloat("Master", sound);
+    }
+    private void BGMVolumeUpdate()
+    {
+        float sound = _bgSlider.value;
+        if (sound <= -29f)
+        {
+            sound = -80f;
+        }
+
+        _audioMixer.SetFloat("BGM", sound);
+    }
+    private void EffectVolumeUpdate()
+    {
+        float sound = _sfxSlider.value;
+        if (sound <= -29f)
+        {
+            sound = -80f;
+        }
+
+        _audioMixer.SetFloat("Effect", sound);
     }
 }
