@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 // 생명체로서 동작할 게임 오브젝트들을 위한 뼈대를 제공
 // 체력, 데미지 받아들이기, 사망 기능, 사망 이벤트를 제공
@@ -8,21 +9,12 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public float health { get; protected set; } // 현재 체력
     public bool dead { get; protected set; } // 사망 상태
     
-    public event Action OnDeath; // 사망시 발동할 이벤트
+    public UnityEvent OnDeath; // 사망시 발동할 이벤트
     
     private const float minTimeBetDamaged = 0.1f;
     private float lastDamagedTime;
 
-    [SerializeField]
-    private EnemyDataSO _enemyData;
-    public EnemyDataSO EnemyData
-    {
-        get => _enemyData;
-        set
-        {
-            _enemyData = value;
-        }
-    }
+    
 
     protected bool IsInvulnerable
     {
@@ -40,7 +32,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         // 사망하지 않은 상태로 시작
         dead = false;
         // 체력을 시작 체력으로 초기화
-        health = _enemyData.maxHealth;
+        //health = _enemyData.maxHealth;
     }
 
     // 데미지를 입는 기능
@@ -72,7 +64,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         // onDeath 이벤트에 등록된 메서드가 있다면 실행
-        if (OnDeath != null) OnDeath();
+        if (OnDeath != null) OnDeath?.Invoke();
 
         // 사망 상태를 참으로 변경
         dead = true;

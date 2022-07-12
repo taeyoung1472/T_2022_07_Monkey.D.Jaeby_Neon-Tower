@@ -1061,6 +1061,9 @@ MonoBehaviour:
   - poolType: 0
     initCount: 10
     poolAbleObject: {fileID: 7504345784565839962, guid: 57992529545f3244bb72cced6df13efb, type: 3}
+  - poolType: 4
+    initCount: 10
+    poolAbleObject: {fileID: 9009372924661237160, guid: 03369e7c3e4e0ed40bd2a1580ce19f0f, type: 3}
 --- !u!4 &256918318
 Transform:
   m_ObjectHideFlags: 0
@@ -4002,6 +4005,7 @@ MonoBehaviour:
   _secTime: 0.5
   _continueNumberChangeClip: {fileID: 8300000, guid: 606e360ffdc154c4baef9c61b3ffd7de, type: 3}
   _continueEndClip: {fileID: 8300000, guid: 606e360ffdc154c4baef9c61b3ffd7de, type: 3}
+  _target: {fileID: 799309367}
 --- !u!1 &1195255113
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,16 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Explosion Enemy
   maxHealth: 3
-  prefab: {fileID: 0}
+  prefab: {fileID: 2130471020164515853, guid: 11f119b3508409149adfd43edaecc4d6, type: 3}
   damage: 1
   attackDelay: 1
-  attackRadius: 2
-  attackDistance: 2
+  attackRadius: 3
+  attackDistance: 3
   dodgeRadius: 2
-  maxSpeed: 1
+  bulletSpeed: 0
+  maxSpeed: 2
   stoppingDistance: 2
   dashDistance: 3.5
   dashSpeed: 4
   dashDamage: 3
+  explosionDistance: 2
+  explosionDamage: 5
+  explosionRange: 3
   hitClip: {fileID: 0}
   deathClip: {fileID: 0}

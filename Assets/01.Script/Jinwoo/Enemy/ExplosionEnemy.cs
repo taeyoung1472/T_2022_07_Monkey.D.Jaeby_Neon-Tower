@@ -12,7 +12,16 @@ public class ExplosionEnemy : LivingEntity
         Attacking,
         
     }
-
+    [SerializeField]
+    private EnemyDataSO _enemyData;
+    public EnemyDataSO EnemyData
+    {
+        get => _enemyData;
+        set
+        {
+            _enemyData = value;
+        }
+    }
     protected State state;
 
     protected NavMeshAgent agent; // 경로계산 AI 에이전트
@@ -38,6 +47,8 @@ public class ExplosionEnemy : LivingEntity
     protected RaycastHit[] hits = new RaycastHit[10];
     protected List<LivingEntity> lastAttackedTargets = new List<LivingEntity>();
 
+
+    public Explosion explosionEffect;
 
 
 #if UNITY_EDITOR
@@ -101,7 +112,7 @@ public class ExplosionEnemy : LivingEntity
         if (dead) return;
 
         if (state == State.Tracking &&
-            Vector3.Distance(targetEntity.transform.position, transform.position) <= EnemyData.attackDistance)
+            Vector3.Distance(targetEntity.transform.position, transform.position) <= EnemyData.explosionDistance)
         {
             BeginAttack();
         }
@@ -133,20 +144,44 @@ public class ExplosionEnemy : LivingEntity
 
     protected virtual void Attack()
     {
-        var direction = transform.forward;
-        var deltaDistance = agent.velocity.magnitude * Time.deltaTime;
+        explosionEffect.gameObject.SetActive(true);
+        explosionEffect.transform.SetParent(null);
 
-        var size = Physics.SphereCastNonAlloc(attackRoot.position, EnemyData.attackRadius, direction, hits, deltaDistance,
-            whatIsTarget);
+        Collider[] cols = Physics.OverlapSphere(transform.position, EnemyData.explosionRange, whatIsTarget);
 
-        for (var i = 0; i < size; i++)
+        if(cols.Length > 0)
+        {
+            Define.Instance.controller.Damaged();
+        }
+
+        OnDeath?.Invoke();
+        //.SphereCastNonAlloc(attackRoot.position, EnemyData.explosionRange, direction, hits, EnemyData.explosionDistance,
+        //whatIsTarget);
+
+        //var attackTargetEntity = hits[0].collider.GetComponent<LivingEntity>();
+
+        //if (explosionEffect._isDamage)
+        //{
+        //    var message = new DamageMessage();
+        //    message.amount = EnemyData.explosionDamage;
+        //    message.damager = gameObject;
+        //    message.hitPoint = attackRoot.TransformPoint(hits[0].point);
+        //    message.hitNormal = attackRoot.TransformDirection(hits[0].normal);
+
+        //    attackTargetEntity.ApplyDamage(message);
+
+        //    lastAttackedTargets.Add(attackTargetEntity);
+        //    print("공격성공");
+        //}
+
+        /*for (var i = 0; i < size; i++)
         {
             var attackTargetEntity = hits[i].collider.GetComponent<LivingEntity>();
 
             if (attackTargetEntity != null && !lastAttackedTargets.Contains(attackTargetEntity))
             {
                 var message = new DamageMessage();
-                message.amount = damage;
+                message.amount = EnemyData.explosionDamage;
                 message.damager = gameObject;
                 message.hitPoint = attackRoot.TransformPoint(hits[i].point);
                 message.hitNormal = attackRoot.TransformDirection(hits[i].normal);
@@ -154,9 +189,11 @@ public class ExplosionEnemy : LivingEntity
                 attackTargetEntity.ApplyDamage(message);
 
                 lastAttackedTargets.Add(attackTargetEntity);
+                print("공격성공");
                 break;
             }
-        }
+        }*/
+        //StartCoroutine(Deading());
     }
 
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
@@ -170,12 +207,6 @@ public class ExplosionEnemy : LivingEntity
 
             if (state == State.Tracking)
             {
-                int randomDodge = Random.Range(0, 10);
-                if (randomDodge > 5)
-                {
-                    var patrolPosition = Utility.GetRandomPointOnNavMesh(dodgeRoot.position, EnemyData.dodgeRadius, NavMesh.AllAreas);
-                    agent.SetDestination(patrolPosition);
-                }
 
 
             }
@@ -219,9 +250,13 @@ public class ExplosionEnemy : LivingEntity
 
     public void DisableAttack()
     {
-        state = State.Tracking;
-
+        //state = State.Tracking;
         //agent.isStopped = false;
+
+
+
+
+
     }
 
 

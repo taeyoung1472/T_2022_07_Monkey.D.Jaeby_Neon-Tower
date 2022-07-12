@@ -9672,11 +9672,13 @@ MonoBehaviour:
   isCanBump: 1
   isCanExplosion: 1
   bumpCount: 3
+  explosionDamage: 1
+  damage: 1
   Detached:
   - {fileID: 7745610947242120633}
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!199 &7619775336487163703
 ParticleSystemRenderer:
   serializedVersion: 6
