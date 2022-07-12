@@ -40,7 +40,7 @@ public class SlotMachineMg : MonoBehaviour
         if (isShow)
         {
             timere += Time.unscaledDeltaTime;
-            Debug.Log(timere);
+            //Debug.Log(timere);
             if (timere >= 2f)
             {
                 if (_isSpin == true)
