@@ -2064,7 +2064,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultButton: {fileID: 267413152790269922}
-  a: {fileID: 267413152790269919}
+  resultImageBtn: {fileID: 267413152790269917}
+  explainTxt: {fileID: 559428241}
 --- !u!224 &267413152556900415
 RectTransform:
   m_ObjectHideFlags: 0

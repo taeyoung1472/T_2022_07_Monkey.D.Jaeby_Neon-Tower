@@ -3931,8 +3931,8 @@ MonoBehaviour:
   _shakePower: 10
   _ESCUI: {fileID: 904678902}
   _secTime: 0.5
-  _continueNumberChangeClip: {fileID: 8300000, guid: 56e86f7c11bda4949bd27852b7e87e05, type: 3}
-  _continueEndClip: {fileID: 8300000, guid: 56e86f7c11bda4949bd27852b7e87e05, type: 3}
+  _continueNumberChangeClip: {fileID: 8300000, guid: 606e360ffdc154c4baef9c61b3ffd7de, type: 3}
+  _continueEndClip: {fileID: 8300000, guid: 606e360ffdc154c4baef9c61b3ffd7de, type: 3}
 --- !u!1 &1205672768
 GameObject:
   m_ObjectHideFlags: 0
