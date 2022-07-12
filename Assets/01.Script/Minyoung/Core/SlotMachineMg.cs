@@ -25,6 +25,7 @@ public class SlotMachineMg : MonoBehaviour
     float timerb = 0f;
     float timere = 0f;
 
+    public bool isShow = false;   
     private void Awake()
     {
         instance = this;
@@ -36,20 +37,39 @@ public class SlotMachineMg : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isShow)
         {
-            if (_isSpin == true)
+            timere += Time.unscaledDeltaTime;
+            Debug.Log(timere);
+            if (timere >= 2f)
             {
-                _isStop = true;
+                if (_isSpin == true)
+                {
+                    _isStop = true;
+                }
+                else
+                {
+                    StartCoroutine(StartSpinPlayer(_playerSlotObj));
+                    StartCoroutine(StartSpinBullet(_bulletSlotObj));
+                    StartCoroutine(StartSpinETC(_etcSlotObj));
+                }
             }
-            else
-            {
-                StartCoroutine(StartSpinPlayer(_playerSlotObj));
-                StartCoroutine(StartSpinBullet(_bulletSlotObj));
-                StartCoroutine(StartSpinETC(_etcSlotObj));
-            }
-
         }
+   
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    if (_isSpin == true)
+        //    {
+        //        _isStop = true;
+        //    }
+        //    else
+        //    {
+        //        StartCoroutine(StartSpinPlayer(_playerSlotObj));
+        //        StartCoroutine(StartSpinBullet(_bulletSlotObj));
+        //        StartCoroutine(StartSpinETC(_etcSlotObj));
+        //    }
+
+        //}
     }
 
     public void StartRolling()
@@ -183,6 +203,8 @@ public class SlotMachineMg : MonoBehaviour
         resultImageBtn.enabled = false;
         resultImageBtn.image.color = new Color(1, 1, 1, 0);
         explainTxt.text = "";
+        timere = 0f;
+        isShow = false;
     }
 
 }

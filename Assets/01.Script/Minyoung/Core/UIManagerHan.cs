@@ -14,6 +14,7 @@ public class UIManagerHan : MonoBehaviour
     {
         Time.timeScale = 0f;
         levelUPMenu.DOAnchorPos(Vector2.zero, 0.25f).SetUpdate(true);
+        SlotMachineMg.instance.isShow = true;
     }
     public void CloseLevelMenu()
     {
