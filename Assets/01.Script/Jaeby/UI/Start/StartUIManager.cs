@@ -30,6 +30,8 @@ public class StartUIManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
+
         _mainPosition = transform.position;
 
         for(int i =0; i<_texts.Length; i++)
