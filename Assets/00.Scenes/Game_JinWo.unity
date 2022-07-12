@@ -529,10 +529,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolAbleDatas:
-  - poolType: 4
+  - poolType: 7
     initCount: 5
     poolAbleObject: {fileID: 7525079870743210411, guid: 3655427044d43254099eb7ceb32a13e3, type: 3}
-  - poolType: 5
+  - poolType: 8
     initCount: 5
     poolAbleObject: {fileID: -431970516020439954, guid: 17d9e6168fc98d1458b236add663418a, type: 3}
 --- !u!4 &1181599867
@@ -732,7 +732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4242152534033021666, guid: 906001b9614bb5d47ba40dbfc54804d5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4242152534033021673, guid: 906001b9614bb5d47ba40dbfc54804d5, type: 3}
       propertyPath: m_RootOrder
