@@ -198,13 +198,37 @@ public class SlotMachineMg : MonoBehaviour
 
     public void InvokeAction(AbilitySO so)
     {
-        // if(so.머머머에 해당하는 함수 적용
+        if (so.attackType == AbilitySO.AttackType.BouncingShot)
+        {
+            // 총알튕기는함수
+        }
+        if (so.attackType == AbilitySO.AttackType.ExplosionShot)
+        {
+            //폭발탄
+        }
+        if (so.attackType == AbilitySO.AttackType.MultiShot)
+        {
+            // 총알 한개더나감
+        }
+        if (so.attackType == AbilitySO.AttackType.PenetrationShot)
+        {
+            //관통샷 함수
+        }
 
-        //GameManagerHan.Instance.damage += so.damage;
-        //GameManagerHan.Instance.hp += so.hp;
-        //GameManagerHan.Instance.speed += so.speed;
+        GameManager.Instance.Damage += so.damage;
+        GameManager.Instance.HP += so.hp;
+        GameManager.Instance.Speed += so.speed;
+        GameManager.Instance.BulletSpd += so.bulletSpeed;
+        GameManager.Instance.KnowbackPower += so.knockbackPower;
+        GameManager.Instance.ReflexPower += so.reflexPower;
+        GameManager.Instance.WallBounceCnt += so.wallCnt;
 
 
+        Init();
+    }
+
+    public void Init()
+    {
         for (int i = 0; i < slotImages.Length; i++)
         {
             slotImages[i]._btn.enabled = false;
@@ -219,5 +243,4 @@ public class SlotMachineMg : MonoBehaviour
         timere = 0f;
         isShow = false;
     }
-
 }
