@@ -17,6 +17,14 @@ public class StartUIManager : MonoBehaviour
     [SerializeField]
     private GameObject[] _texts = null;
 
+    [SerializeField]
+    private GameObject _startButton = null;
+    [SerializeField]
+    private GameObject _exitButton = null;
+
+    [SerializeField]
+    private GameObject _textParent = null;
+
     private void Start()
     {
         _mainPosition = transform.position;
@@ -33,7 +41,14 @@ public class StartUIManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("¾Ó³¢¸ð¶ì")]
+    public void FadeButton()
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_startButton.transform.DOMoveX(-800f, 0.2f));
+        seq.Append(_exitButton.transform.DOMoveX(-800f, 0.2f));
+        seq.AppendCallback(() => StartInit());
+    }
+
     public void StartInit()
     {
         Sequence seq = DOTween.Sequence();
@@ -42,6 +57,19 @@ public class StartUIManager : MonoBehaviour
         {
             CameraManager.instance.ZoomCamera(45f, 1f);
         });
+        seq.AppendInterval(1f);
+        seq.AppendCallback(() =>
+        {
+            SceneManager.LoadScene("");
+        });
     }
 
+    public void ExitInit()
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_startButton.transform.DOMoveX(-800f, 0.2f));
+        seq.Append(_exitButton.transform.DOMoveX(-800f, 0.2f));
+        seq.Append(_textParent.transform.DOMoveY(-14f, 0.5f));
+        Application.Quit();
+    }
 }
