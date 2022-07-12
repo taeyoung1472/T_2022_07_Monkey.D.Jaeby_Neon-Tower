@@ -25,10 +25,10 @@ public class GunController : MonoBehaviour
             {
                 Bullet bullet = PoolManager.instance.Pop(PoolType.Bullet).GetComponent<Bullet>();
                 bullet.Set(pos.position, pos.rotation);
-                reloadImage.rectTransform.sizeDelta = new Vector2(0, 20);
             }
-            yield return new WaitForSeconds(delay);
+            reloadImage.rectTransform.sizeDelta = new Vector2(0, 20);
             reloadImage.rectTransform.DOSizeDelta(new Vector2(350, 20), delay);
+            yield return new WaitForSeconds(delay);
         }
     }
     [Serializable]
