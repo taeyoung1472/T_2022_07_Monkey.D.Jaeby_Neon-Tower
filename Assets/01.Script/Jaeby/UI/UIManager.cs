@@ -11,9 +11,16 @@ public class UIManager : MonoBehaviour
 
     private bool _openUI = false;
 
+    public GameObject rotateItem;
+
     private void Update()
     {
         if (_openUI) return;
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            rotateItem.SetActive(true);
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
