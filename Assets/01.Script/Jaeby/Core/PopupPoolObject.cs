@@ -114,7 +114,7 @@ public class PopupPoolObject : PoolAbleObject
     {
         float originPos = startPos.z;
         startPos.z += jumpPower;
-        startPos.y += 2f;
+        startPos.y += 0.5f;
 
         transform.position = startPos;
         _text.color = color;
