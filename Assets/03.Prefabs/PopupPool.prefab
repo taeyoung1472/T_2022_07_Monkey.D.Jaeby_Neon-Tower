@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9009372924661237160}
   - component: {fileID: 9009372924661237175}
   - component: {fileID: 9009372924661237174}
+  - component: {fileID: 1964555633}
   m_Layer: 0
   m_Name: PopupPool
   m_TagString: Untagged
@@ -52,6 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 9009372924661237174}
+  _normalMat: {fileID: 2081446301306759604, guid: c9f0ab9a170fa4c3596972aa1db04a9a, type: 2}
+  _criticalMat: {fileID: 2100000, guid: bc0c236562d314243b57678d3e770659, type: 2}
+  _normalColor: {r: 1, g: 1, b: 1, a: 1}
+  _criticalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!23 &9009372924661237175
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -72,7 +77,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5333026380689483516, guid: 1e7f9170bac948f4b93ecb092a062969, type: 2}
+  - {fileID: 2100000, guid: bc0c236562d314243b57678d3e770659, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,8 +121,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1e7f9170bac948f4b93ecb092a062969, type: 2}
-  m_sharedMaterial: {fileID: -5333026380689483516, guid: 1e7f9170bac948f4b93ecb092a062969, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9f0ab9a170fa4c3596972aa1db04a9a, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: bc0c236562d314243b57678d3e770659, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -186,3 +191,11 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 9009372924661237175}
   m_maskType: 0
+--- !u!33 &1964555633
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009372924661237173}
+  m_Mesh: {fileID: 0}

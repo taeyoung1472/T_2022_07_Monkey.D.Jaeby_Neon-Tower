@@ -9676,6 +9676,7 @@ MonoBehaviour:
   damage: 1
   Detached:
   - {fileID: 7745610947242120633}
+  bounceClip: {fileID: 8300000, guid: 6d61056b4d2edd24aab12c261c17aacc, type: 3}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

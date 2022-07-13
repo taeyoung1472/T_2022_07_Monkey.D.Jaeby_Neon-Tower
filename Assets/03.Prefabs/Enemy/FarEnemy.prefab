@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 955578578}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1918071398}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4242152533226489575}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: AttackRoot
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4242152533906644702}
   - component: {fileID: 4242152533906644641}
   - component: {fileID: 4242152533906644640}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4242152533955942899}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: DodgePos
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 4242152534033021669}
   - component: {fileID: 4242152534033021667}
   - component: {fileID: 8587372591924825231}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FarEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -408,7 +408,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5190129527738269434, guid: ace66560a68d6fe41a3ff44aa951bd5a, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5190129528462974896, guid: ace66560a68d6fe41a3ff44aa951bd5a, type: 3}
       propertyPath: m_Name
@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5190129528462974896, guid: ace66560a68d6fe41a3ff44aa951bd5a, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5190129528462974901, guid: ace66560a68d6fe41a3ff44aa951bd5a, type: 3}
       propertyPath: m_RootOrder
@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5190129528908482729, guid: ace66560a68d6fe41a3ff44aa951bd5a, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace66560a68d6fe41a3ff44aa951bd5a, type: 3}

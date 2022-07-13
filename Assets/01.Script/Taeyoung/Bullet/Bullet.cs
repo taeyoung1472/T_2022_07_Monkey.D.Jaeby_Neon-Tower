@@ -15,6 +15,7 @@ public class Bullet : PoolAbleObject
     public int damage = 1;
     private Rigidbody rb;
     public GameObject[] Detached;
+    public AudioClip bounceClip;
     public LayerMask enemyLayer;
     float speed;
 
@@ -26,6 +27,7 @@ public class Bullet : PoolAbleObject
             Vector3 calculDir = new Vector3(reflectDir.x, 0, reflectDir.z).normalized;
             rb.velocity = calculDir * speed;
             bumpCount--;
+            PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(bounceClip, 0.5f, Random.Range(0.9f, 1.1f));
         }
         else
         {
@@ -57,6 +59,10 @@ public class Bullet : PoolAbleObject
 
                 collision.gameObject.GetComponent<LivingEntity>().ApplyDamage(message);
             }
+            else
+            {
+                PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(bounceClip, 1f, Random.Range(1.9f, 2.1f));
+            }
             #region ÃÑ¾Ë ÆÄ±« ÀÌÆåÆ®
             rb.constraints = RigidbodyConstraints.FreezeAll;
             speed = 0;
@@ -65,7 +71,6 @@ public class Bullet : PoolAbleObject
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point + contact.normal * hitOffset;
             PopParticle(PoolType.BulletImpact);
-
             Push();
             #endregion
         }

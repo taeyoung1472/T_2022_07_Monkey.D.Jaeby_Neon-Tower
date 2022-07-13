@@ -17,6 +17,8 @@ public class CameraManager : MonoBehaviour
     private Coroutine _zoomCoroutine = null;
     private Coroutine _shakeCoroutine = null;
 
+    private float _currentShakeAmount = 0f;
+
     private void OnEnable()
     {
         if(instance == null)
@@ -42,6 +44,7 @@ public class CameraManager : MonoBehaviour
 
         _noise.m_FrequencyGain = 0; // Èçµå´Â ºóµµ Á¤µµ
         _noise.m_AmplitudeGain = 0;
+        _currentShakeAmount = 0f;
     }
 
     /// <summary>
@@ -52,10 +55,17 @@ public class CameraManager : MonoBehaviour
     /// <param name="Èçµé¸± ½Ã°£"></param>
     public void CameraShake(float amplitude, float intensity, float duration)
     {
+        Debug.Log(_currentShakeAmount);
+        if(_currentShakeAmount > amplitude)
+        {
+            return;
+        }
         CompletePrevFeedBack();
 
         _noise.m_AmplitudeGain = amplitude; // Èçµé¸®´Â Á¤µµ
         _noise.m_FrequencyGain = intensity; // Èçµå´Â ºóµµ Á¤µµ
+
+        _currentShakeAmount = _noise.m_AmplitudeGain;
 
         _shakeCoroutine = StartCoroutine(ShakeCorutine(amplitude, duration));
     }
@@ -68,7 +78,7 @@ public class CameraManager : MonoBehaviour
             yield return null;
             time -= Time.deltaTime;
         }
-        _noise.m_AmplitudeGain = 0;
+        CompletePrevFeedBack();
     }
 
     public void ZoomCamera(float maxValue, float time)

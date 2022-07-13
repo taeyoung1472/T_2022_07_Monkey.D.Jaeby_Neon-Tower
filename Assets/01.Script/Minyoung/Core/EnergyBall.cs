@@ -9,6 +9,7 @@ public class EnergyBall : MonoBehaviour
     [SerializeField] private Transform[] fireBalls;
     [SerializeField] private float sinSpeed = 1;
     [SerializeField] private float sinValue = 1;
+    [SerializeField] private float offset = 3;
     private float time;
     public void OnEnable()
     {
@@ -21,17 +22,14 @@ public class EnergyBall : MonoBehaviour
     }
     void Rotate()
     {
-        transform.Rotate(new Vector3(0, 120f, 0) * Time.deltaTime);
+        transform.Rotate(new Vector3(0, 180f, 0) * Time.deltaTime);
 
         time += Time.deltaTime * sinSpeed;
 
-        float timeFix = 0;
-
         foreach (Transform fireBall in fireBalls)
         {
-            float sin = Mathf.Sin(time + timeFix);
-            fireBall.localPosition = new Vector3(0, 0, 2) + (Vector3.forward * sin) * sinValue;
-            timeFix += 0.1f;
+            float sin = Mathf.Sin(time);
+            fireBall.localPosition = new Vector3(0, 0, offset) + (Vector3.forward * sin) * sinValue;
         }
     }
     IEnumerator ItemRotate()
