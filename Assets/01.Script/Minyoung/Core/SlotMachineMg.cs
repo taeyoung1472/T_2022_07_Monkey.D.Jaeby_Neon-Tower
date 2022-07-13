@@ -221,7 +221,7 @@ public class SlotMachineMg : MonoBehaviour
 
         selectImage.sprite = so.sprite;
 
-
+            
         Init();
     }
     public void Init()

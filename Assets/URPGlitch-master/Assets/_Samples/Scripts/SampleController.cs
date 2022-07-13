@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 using UnityEngine.Rendering.Universal.Glitch;
 
 namespace Samples
