@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Common Enemy Data SO
   m_EditorClassIdentifier: 
   enemyName: Common Enemy
-  maxHealth: 3
+  maxHealth: 2
   prefab: {fileID: 6437738306033802312, guid: 7de9fb07db952294c89c159904ce03b8, type: 3}
   damage: 1
   attackDelay: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
   attackDistance: 2
   dodgeRadius: 2
   bulletSpeed: 0
-  maxSpeed: 1
+  maxSpeed: 2
   stoppingDistance: 2
   dashDistance: 0
   dashSpeed: 0

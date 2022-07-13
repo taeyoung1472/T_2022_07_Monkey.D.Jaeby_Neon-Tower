@@ -4,34 +4,41 @@ using UnityEngine;
 
 public class Bullet : PoolAbleObject
 {
-    public float defaultSpeed = 15f;
     public float hitOffset = 0f;
     public bool UseFirePointRotation;
     public Vector3 rotationOffset = new Vector3(0, 0, 0);
-    public bool isCanBump;
-    public bool isCanExplosion;
-    public int bumpCount = 3;
-    public int explosionDamage = 1;
-    public int damage = 1;
+
+    [Header("·¹º§ ´ëÀÀ ¹è¿­")]
+    public float[] knockBackForce;
+    public float[] freezeTime;
+    public float[] explosionDamage;
+    public float[] bulletSpeedFixValue;
+    int bumpCount;
+    int penetrationCount;
+    int damage;
+    BulletStat stat;
+
+    [Header("")]
     private Rigidbody rb;
     public GameObject[] Detached;
     public AudioClip bounceClip;
     public LayerMask enemyLayer;
-    float speed;
+    public float speed;
+    float curSpeed;
 
     void OnCollisionEnter(Collision collision)
     {
-        if (isCanBump && bumpCount > 0 && collision.gameObject.CompareTag("Wall"))
+        if (bumpCount > 0 && collision.gameObject.CompareTag("Wall"))
         {
             Vector3 reflectDir = Vector3.Reflect(transform.position, collision.contacts[0].normal);
             Vector3 calculDir = new Vector3(reflectDir.x, 0, reflectDir.z).normalized;
-            rb.velocity = calculDir * speed;
+            rb.velocity = calculDir * curSpeed;
             bumpCount--;
             PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(bounceClip, 0.5f, Random.Range(0.9f, 1.1f));
         }
         else
         {
-            if (isCanExplosion)
+            if (explosionDamage[stat.explosion] > 0)
             {
                 PopParticle(PoolType.BulletExplosionImpact);
                 Collider[] cols = Physics.OverlapSphere(transform.position, 2, enemyLayer);
@@ -41,11 +48,16 @@ public class Bullet : PoolAbleObject
                     {
                         DamageMessage message;
                         message.damager = gameObject;
-                        message.amount = explosionDamage;
+                        message.amount = damage * explosionDamage[stat.explosion];
                         message.hitPoint = Vector3.zero;
                         message.hitNormal = Vector3.zero;
 
                         col.GetComponent<LivingEntity>().ApplyDamage(message);
+
+                        if(stat.knockback != 0)
+                        {
+                            col.GetComponent<IEnemy>().KnockBack(col.transform.position - transform.position, knockBackForce[stat.knockback]);
+                        }
                     }
                 }
             }
@@ -53,11 +65,19 @@ public class Bullet : PoolAbleObject
             {
                 DamageMessage message;
                 message.damager = gameObject;
-                message.amount = damage;
+                message.amount = GameManager.Instance.bulletStat.damage;
                 message.hitPoint = Vector3.zero;
                 message.hitNormal = Vector3.zero;
 
                 collision.gameObject.GetComponent<LivingEntity>().ApplyDamage(message);
+                if (stat.freeze != 0)
+                {
+                    collision.gameObject.GetComponent<IEnemy>().Freeze(freezeTime[stat.freeze]);
+                }
+                if (stat.knockback != 0)
+                {
+                    collision.gameObject.GetComponent<IEnemy>().KnockBack(collision.transform.position - transform.position, knockBackForce[stat.knockback]);
+                }
             }
             else
             {
@@ -65,7 +85,6 @@ public class Bullet : PoolAbleObject
             }
             #region ÃÑ¾Ë ÆÄ±« ÀÌÆåÆ®
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            speed = 0;
 
             ContactPoint contact = collision.contacts[0];
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
@@ -96,13 +115,19 @@ public class Bullet : PoolAbleObject
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.None;
         transform.SetPositionAndRotation(pos, rot);
-        bumpCount = 3;
-        speed = defaultSpeed;
+
+        if(stat == null)
+            stat = GameManager.Instance.bulletStat;
+
+        penetrationCount = stat.penetrationShot;
+        bumpCount = stat.wallBounceCnt;
+        damage = stat.damage;
+        curSpeed = speed * bulletSpeedFixValue[stat.bulletSpd];
 
         PopParticle(PoolType.BulletMuzzleImpact);
 
-        rb.velocity = transform.forward * speed;
-        print($"Velo : {transform.forward * speed}");
+
+        rb.velocity = transform.forward * curSpeed;
     }
 
     public override void Init_Pop()
