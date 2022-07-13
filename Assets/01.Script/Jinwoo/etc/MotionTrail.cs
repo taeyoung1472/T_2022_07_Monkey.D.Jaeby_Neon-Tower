@@ -108,7 +108,6 @@ public class MotionTrail : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {   
             StopTrail();
-
         }
     }
     public void StartTrail()
