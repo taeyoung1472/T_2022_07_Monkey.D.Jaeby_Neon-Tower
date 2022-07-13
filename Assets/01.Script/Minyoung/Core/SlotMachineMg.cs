@@ -25,7 +25,10 @@ public class SlotMachineMg : MonoBehaviour
 
     public SlotImage[] slotImages;
 
-    public bool isShow = false;   
+    public bool isShow = false;
+
+
+    public Image selectImage;
     private void Awake()
     {
         instance = this;
@@ -61,6 +64,7 @@ public class SlotMachineMg : MonoBehaviour
 
     }
 
+
     public void StartRolling()
     {
         if (_isSpin == true)
@@ -69,19 +73,11 @@ public class SlotMachineMg : MonoBehaviour
         }
         else
         {
-            //for (int i = 0; i < slotImages.Length; i++)
-            //{
-            //  slotImages[i].Push();
-            //}
             StartCoroutine(StartSpinPlayer(_playerSlotObj));
             StartCoroutine(StartSpinBullet(_bulletSlotObj));
             StartCoroutine(StartSpinETC(_etcSlotObj));
         }
         resultImageBtn.enabled = true;
-    }
-    IEnumerator A()
-    {
-        yield return new WaitForSeconds(5f);
     }
 
     IEnumerator StartSpinPlayer(Transform target)
@@ -222,9 +218,12 @@ public class SlotMachineMg : MonoBehaviour
         GameManager.Instance.KnowbackPower += so.knockbackPower;
         GameManager.Instance.ReflexPower += so.reflexPower;
         GameManager.Instance.WallBounceCnt += so.wallCnt;
+
+        selectImage.sprite = so.sprite;
+
+
         Init();
     }
-
     public void Init()
     {
         for (int i = 0; i < slotImages.Length; i++)
@@ -235,6 +234,8 @@ public class SlotMachineMg : MonoBehaviour
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
+        
+
         resultImageBtn.enabled = false;
         resultImageBtn.image.color = new Color(1, 1, 1, 0);
         explainTxt.text = "";

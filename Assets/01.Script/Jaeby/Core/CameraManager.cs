@@ -59,6 +59,7 @@ public class CameraManager : MonoBehaviour
 
         _shakeCoroutine = StartCoroutine(ShakeCorutine(amplitude, duration));
     }
+
     private IEnumerator ShakeCorutine(float amplitude, float duration)
     {
         float time = duration;
