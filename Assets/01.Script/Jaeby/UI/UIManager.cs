@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private CanvasGroup _escUI = null;
+    [SerializeField]
+    private GameObject _dieUI = null;
+    [SerializeField]
+    private GameObject _fadeUI = null;
 
     [SerializeField]
     private bool _openUI = false;
@@ -28,6 +34,7 @@ public class UIManager : MonoBehaviour
             _escUI.GetComponent<IUserInterface>().OpenUI();
             _openUI = true;
         }
+
        // PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play();
     }
 
@@ -47,7 +54,30 @@ public class UIManager : MonoBehaviour
 
     public void GameExit()
     {
-        Application.Quit();
+        _fadeUI.SetActive(true);
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_fadeUI.GetComponent<Image>().DOFade(1f, 1f)).SetUpdate(true);
+        seq.AppendCallback(() =>
+        {
+            SceneManager.LoadScene(0);
+        });
+    }
+
+    public void GameReStart()
+    {
+        _fadeUI.SetActive(true);
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_fadeUI.GetComponent<Image>().DOFade(1f, 1f)).SetUpdate(true);
+        seq.AppendCallback(() =>
+        {
+            SceneManager.LoadScene(1);
+        });
+    }
+
+    public void DieUISet()
+    {
+        _openUI = true;
+        _dieUI.GetComponent<IUserInterface>().OpenUI();
     }
 
 

@@ -181,7 +181,7 @@ public class Enemy : LivingEntity
 
         //EffectManager.Instance.PlayHitEffect(damageMessage.hitPoint, damageMessage.hitNormal, transform, EffectManager.EffectType.Flesh);
         PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
-
+        PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(transform.position, "1");
         return true;
     }
 
@@ -227,8 +227,9 @@ public class Enemy : LivingEntity
         // AI 추적을 중지하고 내비메쉬 컴포넌트를 비활성화
         agent.enabled = false;
 
-        // 사망 효과음 재생
-        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.deathClip, 1, Random.Range(0.9f,1.1f));
+        // 사망 효과음 재생;
+        PoolManager.instance.Pop(PoolType.EnemyDeadImpact).GetComponentInParent<ParticlePool>().Set(transform.position + Vector3.up * 1f, Quaternion.identity);
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.deathClip, 1, Random.Range(0.9f, 1.1f));
     }
 
 }

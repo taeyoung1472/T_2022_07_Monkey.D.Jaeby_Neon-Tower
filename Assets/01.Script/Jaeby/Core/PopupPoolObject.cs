@@ -8,11 +8,25 @@ public class PopupPoolObject : PoolAbleObject
 {
     [SerializeField]
     private TextMeshPro _text = null;
+    [SerializeField]
+    private Material _normalMat = null;
+    [SerializeField]
+    private Material _criticalMat = null;
+    private MeshRenderer _meshRenderer = null;
+
+    [SerializeField]
+    private Color _normalColor = Color.white;
+    [SerializeField]
+    private Color _criticalColor = Color.white;
 
     private Sequence _seq = null;
 
     public override void Init_Pop()
     {
+        if(_meshRenderer == null)
+        {
+            _meshRenderer = GetComponent<MeshRenderer>();
+        }
     }
 
     public override void Init_Push()
@@ -50,11 +64,57 @@ public class PopupPoolObject : PoolAbleObject
         });
     }
 
+    public void PopupTextNormal(Vector3 startPos, string text) 
+    {
+        startPos.y += 1f;
+        _text.fontSize = 5f;
+        _text.color = Color.white;
+
+        Vector3 randomPos = Random.insideUnitSphere * 0.6f;
+        randomPos.y = 0f;
+        transform.position = startPos += randomPos;
+        transform.localScale = Vector3.one * 1.5f;
+        _meshRenderer.material = _normalMat;
+        _text.SetText(text);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_text.DOFade(1f, 0.2f));
+        seq.Join(transform.DOScale(0.8f, 0.1f));
+        seq.Join(_text.DOColor(_normalColor, 0.05f));
+        seq.AppendCallback(() =>
+        {
+            PoolManager.instance.Push(PoolType, gameObject);
+        });
+    }
+    public void PopupTextCritical(Vector3 startPos, string text)
+    {
+        startPos.y += 1f;
+        _text.fontSize = 5f;
+        _text.color = Color.white;
+
+        Vector3 randomPos = Random.insideUnitSphere * 0.6f;
+        randomPos.y = 0f;
+        transform.position = startPos += randomPos;
+        transform.localScale = Vector3.one * 2f;
+        _meshRenderer.material = _criticalMat;
+        _text.SetText(text);
+
+        CameraManager.instance.CameraShake(2f,2f,0.1f);
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_text.DOFade(1f, 0.2f));
+        seq.Join(transform.DOScale(1f, 0.1f));
+        seq.Join(_text.DOColor(_criticalColor, 0.05f));
+        seq.AppendCallback(() =>
+        {
+            PoolManager.instance.Push(PoolType, gameObject);
+        });
+    }
+
     public void PopupJumpWithRandomness(Vector3 startPos, float jumpPower, float randomXmove, Color color, float duration, int fontSize = 5)
     {
         float originPos = startPos.z;
         startPos.z += jumpPower;
-        startPos.y += 2f;
+        startPos.y += 0.5f;
 
         transform.position = startPos;
         _text.color = color;
