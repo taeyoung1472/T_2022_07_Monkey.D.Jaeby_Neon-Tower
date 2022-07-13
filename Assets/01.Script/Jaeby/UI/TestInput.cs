@@ -23,11 +23,11 @@ public class TestInput : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.U))
         {
-            PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupText(_target.transform.position, _target.transform.position + Vector3.forward * 0.5f, Color.green, 0.5f);
+            PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextNormal(_target.transform.position, "2");
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(_target.transform.position, _target.transform.position + Vector3.forward * 0.5f, Color.red, 0.5f);
+            PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(_target.transform.position, "10");
         }
     }
 }
