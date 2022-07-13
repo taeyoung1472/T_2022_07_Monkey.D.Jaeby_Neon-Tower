@@ -10,18 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: effc34a6b1c100442a9ef3e1392e07c3, type: 3}
-  m_Name: ContinueAttack
+  m_Name: StealHp
   m_EditorClassIdentifier: 
-  myCategory: 1
-  attackType: 1
-  stiffen: 0
-  reflexPower: 0
-  knockbackPower: 0
-  multiShotCnt: 0
-  hp: 0
+  myCategory: 2
   damage: 0
-  speed: 0
+  attackSpeed: 0
+  maxHp: 0
+  autoHeal: 0
   bulletSpeed: 0
-  wallCnt: 0
-  sprite: {fileID: 21300000, guid: d7fb76256b6aac44e8da0c7aa5139300, type: 3}
-  abilTxt: "\uACF5\uACA9\uD55C\uBC1C\uB354"
+  multiShoot: 0
+  penetration: 0
+  bulletBounce: 0
+  knockback: 0
+  bulletFreeze: 0
+  bulletExplosion: 0
+  stealHp: 1
+  dashChance: 0
+  dashGod: 0
+  sprite: {fileID: 21300000, guid: 1a3a3104b8a58394faad7b5aaaccd6f3, type: 3}
+  descString: "\uC801\uC744 \uC0AC\uC0B4\uD558\uBA74 \uCCB4\uB825\uC774 \uD68C\uBCF5\uB41C\uB2E4 "

@@ -27,7 +27,7 @@ public class ResultButton : MonoBehaviour
     {
         _so = so;
         _image.sprite = so.sprite;
-        _text.text = so.abilTxt;
+        _text.text = so.descString;
     }
 
 }

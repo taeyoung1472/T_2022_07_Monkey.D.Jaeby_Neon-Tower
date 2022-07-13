@@ -85,7 +85,7 @@ public class SlotMachineMg : MonoBehaviour
         if (_isStop)
         {
             _delay += 0.25f;
-            if (_delay >= 1.5f)
+            if (_delay > 1.5f)
             {
                 for (int i = 0; i < slotImages.Length; i++)
                 {

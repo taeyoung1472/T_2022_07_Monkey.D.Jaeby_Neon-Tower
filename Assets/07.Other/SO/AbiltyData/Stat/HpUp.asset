@@ -10,18 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: effc34a6b1c100442a9ef3e1392e07c3, type: 3}
-  m_Name: Explosion
+  m_Name: HpUp
   m_EditorClassIdentifier: 
-  myCategory: 1
-  attackType: 3
-  stiffen: 0
-  reflexPower: 0
-  knockbackPower: 0
-  multiShotCnt: 0
-  hp: 0
+  myCategory: 0
   damage: 0
-  speed: 0
+  attackSpeed: 0
+  maxHp: 1
+  autoHeal: 0
   bulletSpeed: 0
-  wallCnt: 0
-  sprite: {fileID: 21300000, guid: 62ede3aecaff00f43829ee62737d77e9, type: 3}
-  abilTxt: "\uD0C0\uC9C4\uB2E4"
+  multiShoot: 0
+  penetration: 0
+  bulletBounce: 0
+  knockback: 0
+  bulletFreeze: 0
+  bulletExplosion: 0
+  stealHp: 0
+  dashChance: 0
+  dashGod: 0
+  sprite: {fileID: 21300000, guid: fea4100eaa7c1564e837f810cc9ba27a, type: 3}
+  descString: "\uCCB4\uB825\uC774 \uC99D\uAC00\uD55C\uB2E4 "

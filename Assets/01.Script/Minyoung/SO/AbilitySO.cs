@@ -30,5 +30,5 @@ public class AbilitySO : ScriptableObject
     public bool dashGod;
 
     public Sprite sprite;
-    public string abilTxt;
+    public string descString;
 }
