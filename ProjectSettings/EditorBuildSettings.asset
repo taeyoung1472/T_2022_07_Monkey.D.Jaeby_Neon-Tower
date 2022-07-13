@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.Scenes/Game_Taeyoung.unity
     guid: 8afcb8cdbe8561047b57e12725864c4f
+  - enabled: 1
+    path: Assets/00.Scenes/Game_Ending.unity
+    guid: ab7285a77e8210448a9d265e1c870ef2
   m_configObjects: {}

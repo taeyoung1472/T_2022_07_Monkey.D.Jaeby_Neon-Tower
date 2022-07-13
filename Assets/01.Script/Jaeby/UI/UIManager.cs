@@ -74,6 +74,21 @@ public class UIManager : MonoBehaviour
         });
     }
 
+    public void GameEnding()
+    {
+        Time.timeScale = 0f;
+
+        _fadeUI.SetActive(true);
+        _fadeUI.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_fadeUI.GetComponent<Image>().DOFade(1f, 1f)).SetUpdate(true);
+        seq.AppendCallback(() =>
+        {
+            SceneManager.LoadScene(2);
+        });
+    }
+
     public void DieUISet()
     {
         _openUI = true;

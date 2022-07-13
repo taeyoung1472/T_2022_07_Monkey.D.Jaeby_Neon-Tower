@@ -58,6 +58,7 @@ public class EndingManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         _text.transform.localPosition = new Vector3(0f, -Screen.height + 200f, 0f);
     }
 
