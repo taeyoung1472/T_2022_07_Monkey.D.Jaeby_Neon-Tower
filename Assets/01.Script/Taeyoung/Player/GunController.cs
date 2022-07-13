@@ -25,6 +25,7 @@ public class GunController : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => Input.GetKey(KeyCode.Mouse0));
+            fireUpgradeIndex = GameManager.Instance.bulletStat.multiShotCount;
             foreach (var pos in firePos[fireUpgradeIndex].firepos)
             {
                 Bullet bullet = PoolManager.instance.Pop(PoolType.Bullet).GetComponent<Bullet>();

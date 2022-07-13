@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 5;
     [SerializeField] private float dashFixValue = 3;
     [SerializeField] private float dashTime = 0.1f;
     [SerializeField] private float steminaChargeTime = 1.5f;
@@ -28,6 +27,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Color maxHpColor = Color.yellow;
     [SerializeField] private Color minHpColor = Color.red;
     [SerializeField] private AudioSource rollingSource;
+    PlayerStat stat;
+    float stealHp;
     int curHp;
     bool isDamaged = false;
     float rollinVolumeGoal;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
     float deadClock = 2f;
     void Start()
     {
+        stat = GameManager.Instance.playerStat;
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
         Stemina = maxStemina;
@@ -88,6 +90,24 @@ public class PlayerController : MonoBehaviour
     public void Damaged()
     {
         isDamaged = true;
+    }
+
+    IEnumerator AutoHealSystem()
+    {
+        while (true)
+        {
+
+        }
+    }
+
+    public void StealHp()
+    {
+        stealHp += 0.1f;
+        if(stealHp >= 1)
+        {
+            stealHp -= 1;
+            curHp++;
+        }
     }
 
     IEnumerator DashSystem()
@@ -177,7 +197,7 @@ public class PlayerController : MonoBehaviour
         }
 
         rollingSource.volume = Mathf.Lerp(rollingSource.volume, rollinVolumeGoal, Time.deltaTime * 5);
-        controller.Move(moveDir * speed * Time.deltaTime);
+        controller.Move(moveDir * stat.speed * Time.deltaTime);
     }
 
     private void Gravity()

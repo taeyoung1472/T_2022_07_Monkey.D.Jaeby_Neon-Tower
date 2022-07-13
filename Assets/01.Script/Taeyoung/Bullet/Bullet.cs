@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class Bullet : PoolAbleObject
 {
-    public float defaultSpeed = 15f;
     public float hitOffset = 0f;
     public bool UseFirePointRotation;
     public Vector3 rotationOffset = new Vector3(0, 0, 0);
-    public bool isCanBump;
-    public bool isCanExplosion;
+    bool isCanBump;
+    bool isCanExplosion;
     public int bumpCount = 3;
     public int explosionDamage = 1;
-    public int damage = 1;
     private Rigidbody rb;
     public GameObject[] Detached;
     public AudioClip bounceClip;
     public LayerMask enemyLayer;
     float speed;
+    BulletStat stat;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -25,7 +24,7 @@ public class Bullet : PoolAbleObject
         {
             Vector3 reflectDir = Vector3.Reflect(transform.position, collision.contacts[0].normal);
             Vector3 calculDir = new Vector3(reflectDir.x, 0, reflectDir.z).normalized;
-            rb.velocity = calculDir * speed;
+            rb.velocity = calculDir * stat.bulletSpd;
             bumpCount--;
             PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(bounceClip, 0.5f, Random.Range(0.9f, 1.1f));
         }
@@ -53,7 +52,7 @@ public class Bullet : PoolAbleObject
             {
                 DamageMessage message;
                 message.damager = gameObject;
-                message.amount = damage;
+                message.amount = stat.damage;
                 message.hitPoint = Vector3.zero;
                 message.hitNormal = Vector3.zero;
 
@@ -97,7 +96,7 @@ public class Bullet : PoolAbleObject
         rb.constraints = RigidbodyConstraints.None;
         transform.SetPositionAndRotation(pos, rot);
         bumpCount = 3;
-        speed = defaultSpeed;
+        speed = stat.bulletSpd;
 
         PopParticle(PoolType.BulletMuzzleImpact);
 
@@ -107,6 +106,10 @@ public class Bullet : PoolAbleObject
 
     public override void Init_Pop()
     {
+        if (stat == null)
+            stat = GameManager.Instance.bulletStat;
+        isCanBump = stat.BouncingShot;
+        isCanExplosion = stat.ExplosionShot;
         StartCoroutine(TimePush());
     }
 

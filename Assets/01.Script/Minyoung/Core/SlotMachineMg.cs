@@ -199,29 +199,25 @@ public class SlotMachineMg : MonoBehaviour
     public void InvokeAction(AbilitySO so)
     {
         if (so.attackType == AbilitySO.AttackType.BouncingShot)
-        {
-            // ÃÑ¾ËÆ¨±â´ÂÇÔ¼ö
-        }
-        if (so.attackType == AbilitySO.AttackType.ExplosionShot)
-        {
-            //Æø¹ßÅº
-        }
-        if (so.attackType == AbilitySO.AttackType.MultiShot)
-        {
-            // ÃÑ¾Ë ÇÑ°³´õ³ª°¨
-        }
-        if (so.attackType == AbilitySO.AttackType.PenetrationShot)
-        {
-            //°üÅë¼¦ ÇÔ¼ö
-        }
+            GameManager.Instance.bulletStat.BouncingShot = true;
 
-        GameManager.Instance.Damage += so.damage;
-        GameManager.Instance.HP += so.hp;
-        GameManager.Instance.Speed += so.speed;
-        GameManager.Instance.BulletSpd += so.bulletSpeed;
-        GameManager.Instance.KnowbackPower += so.knockbackPower;
-        GameManager.Instance.ReflexPower += so.reflexPower;
-        GameManager.Instance.WallBounceCnt += so.wallCnt;
+        if (so.attackType == AbilitySO.AttackType.ExplosionShot)
+            GameManager.Instance.bulletStat.ExplosionShot = true;
+
+        if (so.attackType == AbilitySO.AttackType.MultiShot)
+            GameManager.Instance.bulletStat.multiShotCount++;
+
+        if (so.attackType == AbilitySO.AttackType.PenetrationShot)
+            GameManager.Instance.bulletStat.penetrationShot = true;
+
+        GameManager.Instance.playerStat.hp += so.hp;
+        GameManager.Instance.playerStat.speed += so.speed;
+
+        GameManager.Instance.bulletStat.damage += so.damage;
+        GameManager.Instance.bulletStat.bulletSpd += so.bulletSpeed;
+        GameManager.Instance.bulletStat.knockbackPower += so.knockbackPower;
+        GameManager.Instance.bulletStat.reflexPower += so.reflexPower;
+        GameManager.Instance.bulletStat.wallBounceCnt += so.wallCnt;
 
 
         Init();

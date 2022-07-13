@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Reflect
   m_EditorClassIdentifier: 
   myCategory: 2
+  attackType: 2
   stiffen: 0
   reflexPower: 0
   knockbackPower: 0
