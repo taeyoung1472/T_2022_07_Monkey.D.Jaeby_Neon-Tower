@@ -4,28 +4,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class ButtonMove : MonoBehaviour
+public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private bool _isAc = false;
-
-    void Update()
+    RectTransform rect;
+    public void Start()
     {
-        //UI위에 커서가 있을때 = ture/ 따라서 UI위에 커서가 없을때만 ClickAction함수를 실행
-        if (EventSystem.current.IsPointerOverGameObject() == true)
-        {
-            if(_isAc == false)
-            {
-                _isAc = true;
-                transform.DOLocalMoveX(100f, 0.5f);
-            }
-        }
-        else
-        {
-            if (_isAc == true)
-            {
-                _isAc = false;
-                transform.DOLocalMoveX(14f, 0.5f);
-            }
-        }
+        rect = GetComponent<RectTransform>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        rect.DOMoveX(150, 0.5f);
+        print("ENTER!");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        rect.DOMoveX(0, 0.5f);
+        print("EXIT!");
     }
 }
