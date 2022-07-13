@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Explosion
   m_EditorClassIdentifier: 
   myCategory: 1
+  attackType: 3
   stiffen: 0
   reflexPower: 0
   knockbackPower: 0

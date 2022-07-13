@@ -15,7 +15,7 @@ public class DieEffect : MonoBehaviour
     public Transform playerTrm;
     void Start()
     {
-      //  PlayerDieEffect();
+        PlayerDieEffect();
     }
     void PlayerDieEffect()
     {

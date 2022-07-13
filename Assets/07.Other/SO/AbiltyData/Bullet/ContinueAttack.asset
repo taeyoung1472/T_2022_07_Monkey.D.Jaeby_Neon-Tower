@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ContinueAttack
   m_EditorClassIdentifier: 
   myCategory: 1
+  attackType: 1
   stiffen: 0
   reflexPower: 0
   knockbackPower: 0

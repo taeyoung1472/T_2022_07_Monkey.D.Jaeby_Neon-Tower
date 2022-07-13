@@ -194,33 +194,25 @@ public class SlotMachineMg : MonoBehaviour
 
     public void InvokeAction(AbilitySO so)
     {
-        if (so.attackType == AbilitySO.AttackType.BouncingShot)
-        {
-            // ÃÑ¾ËÆ¨±â´ÂÇÔ¼ö
-        }
-        if (so.attackType == AbilitySO.AttackType.ExplosionShot)
-        {
-            //Æø¹ßÅº
-        }
-        if (so.attackType == AbilitySO.AttackType.MultiShot)
-        {
-            // ÃÑ¾Ë ÇÑ°³´õ³ª°¨
-        }
-        if (so.attackType == AbilitySO.AttackType.PenetrationShot)
-        {
-            //°üÅë¼¦ ÇÔ¼ö
-        }
+        GameManager manager = GameManager.Instance;
 
-        GameManager.Instance.Damage += so.damage;
-        GameManager.Instance.HP += so.hp;
-        GameManager.Instance.Speed += so.speed;
-        GameManager.Instance.BulletSpd += so.bulletSpeed;
-        GameManager.Instance.KnowbackPower += so.knockbackPower;
-        GameManager.Instance.ReflexPower += so.reflexPower;
-        GameManager.Instance.WallBounceCnt += so.wallCnt;
+        if (so.damage) manager.bulletStat.damage++;
+        if (so.attackSpeed) manager.bulletStat.bulletDelay++;
+        if (so.maxHp) manager.playerStat.hp++;
+        if (so.autoHeal) manager.playerStat.autoHealDelay++;
+        if (so.bulletSpeed) manager.bulletStat.bulletSpd++;
+        if (so.multiShoot) manager.bulletStat.multiShotCount++;
+        if (so.penetration) manager.bulletStat.penetrationShot++;
+        if (so.bulletBounce) manager.bulletStat.wallBounceCnt++;
+        if (so.knockback) manager.bulletStat.knockback++;
+        if (so.bulletFreeze) manager.bulletStat.freeze++;
+        if (so.bulletExplosion) manager.bulletStat.explosion++;
+        if (so.stealHp) manager.playerStat.stealHp++;
+        if (so.dashChance) manager.playerStat.dashChance++;
+        if (so.dashGod) manager.playerStat.dashGod++;
+
 
         selectImage.sprite = so.sprite;
-
 
         Init();
     }

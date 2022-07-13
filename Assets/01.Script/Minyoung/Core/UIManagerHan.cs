@@ -20,12 +20,12 @@ public class UIManagerHan : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         seq.AppendInterval(0.6f);
         seq.Append(selectDetail.DOAnchorPos(new Vector2(0, 160), 0.5f).SetUpdate(true));
-        seq.Append(selectDetail.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.3f));
-        seq.Append(rotateSelect.transform.DORotate(new Vector3(0, 0, 180), 0.5f));
-        seq.AppendInterval(0.5f);
-        seq.Append(selectDetail.DOScale(Vector3.one, 0.3f));
-        seq.Append(rotateSelect.transform.DORotate(new Vector3(0, 0, 0), 0.3f));
-        seq.AppendInterval(0.5f);
+        seq.Append(selectDetail.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.3f)).SetUpdate(true);
+        seq.Append(rotateSelect.transform.DORotate(new Vector3(0, 0, 180), 0.5f)).SetUpdate(true);
+        seq.AppendInterval(0.5f).SetUpdate(true);
+        seq.Append(selectDetail.DOScale(Vector3.one, 0.3f)).SetUpdate(true);
+        seq.Append(rotateSelect.transform.DORotate(new Vector3(0, 0, 0), 0.3f)).SetUpdate(true);
+        seq.AppendInterval(0.5f).SetUpdate(true);
         seq.Join(selectDetail.DOAnchorPos(new Vector2(0, -160), 0.5f).SetUpdate(true));
     }
 

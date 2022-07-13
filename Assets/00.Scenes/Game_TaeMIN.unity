@@ -2231,7 +2231,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c4929bb8941104691496f92deb5dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  playerStat:
+    hp: 5
+    speed: 10
+  bulletStat:
+    knockbackPower: 1
+    wallBounceCnt: 0
+    reflexPower: 5
+    bulletSpd: 5
+    damage: 1
+    multiShotCount: 0
+    penetrationShot: 0
+    ExplosionShot: 0
+    BouncingShot: 0
 --- !u!1001 &94924171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10117,7 +10129,6 @@ MonoBehaviour:
   _secTime: 0.5
   _continueNumberChangeClip: {fileID: 8300000, guid: 606e360ffdc154c4baef9c61b3ffd7de, type: 3}
   _continueEndClip: {fileID: 8300000, guid: 606e360ffdc154c4baef9c61b3ffd7de, type: 3}
-  _target: {fileID: 799309367}
 --- !u!224 &398801445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19479,21 +19490,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ff41a5ab1f2ff4a850b49c91408b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   dashFixValue: 5
   dashTime: 0.05
   steminaChargeTime: 1.5
   warringTMP: {fileID: 1562806186}
   mouseFocusObject: {fileID: 1140211896}
+  animator: {fileID: 0}
   steminaSlider: {fileID: 1623545902}
   layerMask:
     serializedVersion: 2
     m_Bits: 256
   maxStemina: 3
+  dashClip: {fileID: 0}
+  meshRenderer: {fileID: 0}
   maxHp: 10
   ignoreTime: 0.25
   maxHpColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   minHpColor: {r: 1, g: 0, b: 0, a: 1}
+  rollingSource: {fileID: 0}
+  autoHealDelay: []
 --- !u!96 &799309374
 TrailRenderer:
   serializedVersion: 2
@@ -22868,6 +22883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mat: {fileID: 2100000, guid: 8e47691c46a862d429d60db11666738c, type: 2}
   speed: 5
+  clip: {fileID: 0}
 --- !u!4 &905797277
 Transform:
   m_ObjectHideFlags: 0
@@ -45413,7 +45429,8 @@ MonoBehaviour:
     - {fileID: 2294496}
   bullet: {fileID: 7746078569958995857, guid: a242b4e1f826fe04b87fa51f0261ae5f, type: 3}
   fireUpgradeIndex: 3
-  delay: 0.1
+  delay: []
+  shootClip: {fileID: 0}
 --- !u!1001 &1849929201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49431,6 +49448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _escUI: {fileID: 1424861402}
+  _dieUI: {fileID: 0}
+  _fadeUI: {fileID: 0}
   _openUI: 0
   _lightClick: {fileID: 8300000, guid: 0afac0b0262abc5478a5c10f940f11cb, type: 3}
   _middleClick: {fileID: 8300000, guid: 6a94b13b6902675489ac8135c346da57, type: 3}

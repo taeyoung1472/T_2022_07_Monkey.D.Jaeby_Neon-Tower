@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 5;
     [SerializeField] private float dashFixValue = 3;
     [SerializeField] private float dashTime = 0.1f;
     [SerializeField] private float steminaChargeTime = 1.5f;
@@ -28,6 +27,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Color maxHpColor = Color.yellow;
     [SerializeField] private Color minHpColor = Color.red;
     [SerializeField] private AudioSource rollingSource;
+    [SerializeField] private int autoHealDelay;
+    [SerializeField] private float[] hpStealValue;
+    PlayerStat stat;
+    float stealHp;
     int curHp;
     bool isDamaged = false;
     float rollinVolumeGoal;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
     float deadClock = 2f;
     void Start()
     {
+        stat = GameManager.Instance.playerStat;
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
         Stemina = maxStemina;
@@ -54,9 +58,11 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DashSystem());
         StartCoroutine(SteminaSystem());
         StartCoroutine(DamagedCor());
+        StartCoroutine(AutoHealSystem());
     }
     void Update()
     {
+        maxHp = stat.hp;
         Move();
         Gravity();
         Rotate();
@@ -88,6 +94,36 @@ public class PlayerController : MonoBehaviour
     public void Damaged()
     {
         isDamaged = true;
+    }
+
+    IEnumerator AutoHealSystem()
+    {
+        yield return new WaitUntil(() => stat.autoHealDelay < 16);
+        while (true)
+        {
+            yield return new WaitUntil(() => curHp != maxHp);
+            yield return new WaitForSeconds(stat.autoHealDelay);
+            if(curHp != maxHp)
+            {
+                curHp++;
+            }
+        }
+    }
+
+    public void StealHp()
+    {
+        if(stealHp < 1)
+        {
+            stealHp += hpStealValue[stat.stealHp];
+        }
+        if(stealHp >= 1)
+        {
+            if (curHp != maxHp)
+            {
+                curHp++;
+                stealHp -= 1;
+            }
+        }
     }
 
     IEnumerator DashSystem()
@@ -177,7 +213,7 @@ public class PlayerController : MonoBehaviour
         }
 
         rollingSource.volume = Mathf.Lerp(rollingSource.volume, rollinVolumeGoal, Time.deltaTime * 5);
-        controller.Move(moveDir * speed * Time.deltaTime);
+        controller.Move(moveDir * stat.speed * Time.deltaTime);
     }
 
     private void Gravity()

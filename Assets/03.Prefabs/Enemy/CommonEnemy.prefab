@@ -156,10 +156,10 @@ GameObject:
   - component: {fileID: 6437738306033802308}
   - component: {fileID: 6437738306033802309}
   - component: {fileID: 6437738306033802310}
-  - component: {fileID: 6437738306033802311}
   - component: {fileID: 6437738306033802305}
   - component: {fileID: 6437738306033802307}
   - component: {fileID: 6437738306033802306}
+  - component: {fileID: 159637254020327886}
   m_Layer: 8
   m_Name: CommonEnemy
   m_TagString: Enemy
@@ -235,19 +235,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6437738306033802311
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6437738306033802312}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &6437738306033802305
 Animator:
   serializedVersion: 4
@@ -304,26 +291,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnDeath:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6437738306033802312}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   _enemyData: {fileID: 11400000, guid: ddec0a0c52a936048a6632bc68ef67f0, type: 2}
   attackRoot: {fileID: 6437738305936765590}
   dodgeRoot: {fileID: 6437738304834778798}
   runSpeed: 10
   turnSmoothTime: 0.1
-  damage: 30
-  targetEntity: {fileID: 0}
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 64
+--- !u!65 &159637254020327886
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6437738306033802312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
