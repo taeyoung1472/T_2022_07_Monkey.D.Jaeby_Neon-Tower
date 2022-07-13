@@ -25,7 +25,10 @@ public class SlotMachineMg : MonoBehaviour
 
     public SlotImage[] slotImages;
 
-    public bool isShow = false;   
+    public bool isShow = false;
+
+
+    public Image selectImage;
     private void Awake()
     {
         instance = this;
@@ -61,6 +64,7 @@ public class SlotMachineMg : MonoBehaviour
 
     }
 
+
     public void StartRolling()
     {
         if (_isSpin == true)
@@ -69,19 +73,11 @@ public class SlotMachineMg : MonoBehaviour
         }
         else
         {
-            //for (int i = 0; i < slotImages.Length; i++)
-            //{
-            //  slotImages[i].Push();
-            //}
             StartCoroutine(StartSpinPlayer(_playerSlotObj));
             StartCoroutine(StartSpinBullet(_bulletSlotObj));
             StartCoroutine(StartSpinETC(_etcSlotObj));
         }
         resultImageBtn.enabled = true;
-    }
-    IEnumerator A()
-    {
-        yield return new WaitForSeconds(5f);
     }
 
     IEnumerator StartSpinPlayer(Transform target)
@@ -198,35 +194,28 @@ public class SlotMachineMg : MonoBehaviour
 
     public void InvokeAction(AbilitySO so)
     {
-        if (so.attackType == AbilitySO.AttackType.BouncingShot)
-        {
-            // ÃÑ¾ËÆ¨±â´ÂÇÔ¼ö
-        }
-        if (so.attackType == AbilitySO.AttackType.ExplosionShot)
-        {
-            //Æø¹ßÅº
-        }
-        if (so.attackType == AbilitySO.AttackType.MultiShot)
-        {
-            // ÃÑ¾Ë ÇÑ°³´õ³ª°¨
-        }
-        if (so.attackType == AbilitySO.AttackType.PenetrationShot)
-        {
-            //°üÅë¼¦ ÇÔ¼ö
-        }
+        GameManager manager = GameManager.Instance;
 
-        GameManager.Instance.Damage += so.damage;
-        GameManager.Instance.HP += so.hp;
-        GameManager.Instance.Speed += so.speed;
-        GameManager.Instance.BulletSpd += so.bulletSpeed;
-        GameManager.Instance.KnowbackPower += so.knockbackPower;
-        GameManager.Instance.ReflexPower += so.reflexPower;
-        GameManager.Instance.WallBounceCnt += so.wallCnt;
+        if (so.damage) manager.bulletStat.damage++;
+        if (so.attackSpeed) manager.bulletStat.bulletDelay++;
+        if (so.maxHp) manager.playerStat.hp++;
+        if (so.autoHeal) manager.playerStat.autoHealDelay++;
+        if (so.bulletSpeed) manager.bulletStat.bulletSpd++;
+        if (so.multiShoot) manager.bulletStat.multiShotCount++;
+        if (so.penetration) manager.bulletStat.penetrationShot++;
+        if (so.bulletBounce) manager.bulletStat.wallBounceCnt++;
+        if (so.knockback) manager.bulletStat.knockback++;
+        if (so.bulletFreeze) manager.bulletStat.freeze++;
+        if (so.bulletExplosion) manager.bulletStat.explosion++;
+        if (so.stealHp) manager.playerStat.stealHp++;
+        if (so.dashChance) manager.playerStat.dashChance++;
+        if (so.dashGod) manager.playerStat.dashGod++;
 
+
+        selectImage.sprite = so.sprite;
 
         Init();
     }
-
     public void Init()
     {
         for (int i = 0; i < slotImages.Length; i++)
@@ -237,6 +226,8 @@ public class SlotMachineMg : MonoBehaviour
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
+        
+
         resultImageBtn.enabled = false;
         resultImageBtn.image.color = new Color(1, 1, 1, 0);
         explainTxt.text = "";

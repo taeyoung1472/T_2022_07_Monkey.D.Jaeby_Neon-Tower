@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class RotatePlayerItem : MonoBehaviour
 {
+    BulletStat stat;
+    public void Start()
+    {
+        stat = GameManager.Instance.bulletStat;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             DamageMessage message;
-            message.amount = 1;
+            message.amount = stat.damage * 0.5f;
             message.hitNormal = Vector3.zero;
             message.damager = gameObject;
             message.hitPoint = Vector3.zero;

@@ -14,26 +14,20 @@ public class AbilitySO : ScriptableObject
     }
     public Category myCategory;
 
-    public enum AttackType
-    {
-        Basic,
-        MultiShot,
-        BouncingShot,
-        ExplosionShot,
-        PenetrationShot
-    }
-    public AttackType attackType;
-
-    public bool stiffen;//°æÁ÷
-
-    public int reflexPower;
-    public int knockbackPower;
-    public int multiShotCnt;
-    public int hp;
-    public int damage;
-    public int speed;
-    public int bulletSpeed;
-    public int wallCnt;
+    public bool damage;
+    public bool attackSpeed;
+    public bool maxHp;
+    public bool autoHeal;
+    public bool bulletSpeed;
+    public bool multiShoot;
+    public bool penetration;
+    public bool bulletBounce;
+    public bool knockback;
+    public bool bulletFreeze;
+    public bool bulletExplosion;
+    public bool stealHp;
+    public bool dashChance;
+    public bool dashGod;
 
     public Sprite sprite;
     public string abilTxt;

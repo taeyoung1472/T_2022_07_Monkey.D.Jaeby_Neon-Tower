@@ -11,7 +11,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private FirePos[] firePos;
     [SerializeField] private GameObject bullet;
     [SerializeField] private int fireUpgradeIndex = 0;
-    [SerializeField] private float delay = 0.4f;
+    [SerializeField] private float[] delay;
 
     [Header("»ç¿îµå")]
     [SerializeField] private AudioClip shootClip;
@@ -25,13 +25,14 @@ public class GunController : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => Input.GetKey(KeyCode.Mouse0));
+            fireUpgradeIndex = GameManager.Instance.bulletStat.multiShotCount;
             foreach (var pos in firePos[fireUpgradeIndex].firepos)
             {
                 Bullet bullet = PoolManager.instance.Pop(PoolType.Bullet).GetComponent<Bullet>();
                 bullet.Set(pos.position, pos.rotation);
             }
             PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(shootClip, 1, Random.Range(0.9f, 1.1f));
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(delay[GameManager.Instance.bulletStat.bulletDelay]);
         }
     }
     [Serializable]
