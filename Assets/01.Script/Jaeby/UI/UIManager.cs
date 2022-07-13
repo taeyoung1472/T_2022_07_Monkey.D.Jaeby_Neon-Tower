@@ -34,12 +34,8 @@ public class UIManager : MonoBehaviour
             _escUI.GetComponent<IUserInterface>().OpenUI();
             _openUI = true;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GameEnding();
-        }
 
-        // PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play();
+       // PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play();
     }
 
     public void OpenUI(CanvasGroup canvasGroup)
@@ -75,19 +71,6 @@ public class UIManager : MonoBehaviour
         seq.AppendCallback(() =>
         {
             SceneManager.LoadScene(1);
-        });
-    }
-
-    public void GameEnding()
-    {
-        Time.timeScale = 0f;
-        _fadeUI.SetActive(true);
-        _fadeUI.GetComponent<Image>().color = new Color(1,1,1,0);
-        Sequence seq = DOTween.Sequence();
-        seq.Append(_fadeUI.GetComponent<Image>().DOFade(1f, 2f)).SetUpdate(true);
-        seq.AppendCallback(() =>
-        {
-            SceneManager.LoadScene(2);
         });
     }
 
