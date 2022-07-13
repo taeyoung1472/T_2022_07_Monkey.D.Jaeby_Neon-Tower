@@ -18,15 +18,27 @@ public class StartUIManager : MonoBehaviour
     private GameObject[] _texts = null;
 
     [SerializeField]
-    private GameObject _startButton = null;
+    private RectTransform _startButton = null;
     [SerializeField]
-    private GameObject _exitButton = null;
+    private RectTransform _exitButton = null;
 
     [SerializeField]
     private GameObject _textParent = null;
 
     [SerializeField]
     private GameObject[] _lights = null;
+
+    public static StartUIManager instance = null;
+    private bool _isClicked = false;
+    public bool IsClicked { get => _isClicked; }
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -49,9 +61,14 @@ public class StartUIManager : MonoBehaviour
     public void FadeButton()
     {
         Sequence seq = DOTween.Sequence();
-        seq.Append(_startButton.transform.DOMoveX(-800f, 0.2f));
-        seq.Append(_exitButton.transform.DOMoveX(-800f, 0.2f));
+        seq.Append(_startButton.DOAnchorPosX(-800f, 0.2f));
+        seq.Append(_exitButton.DOAnchorPosX(-800f, 0.2f));
         seq.AppendCallback(() => StartInit());
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.KillAll();
     }
 
     public void StartInit()
@@ -84,10 +101,15 @@ public class StartUIManager : MonoBehaviour
     public void ExitInit()
     {
         Sequence seq = DOTween.Sequence();
-        seq.Append(_startButton.transform.DOMoveX(-800f, 0.2f));
-        seq.Append(_exitButton.transform.DOMoveX(-800f, 0.2f));
+        seq.Append(_startButton.DOAnchorPosX(-800f, 0.2f));
+        seq.Append(_exitButton.DOAnchorPosX(-800f, 0.2f));
         seq.AppendInterval(0.4f);
         seq.Append(_textParent.transform.DOMoveY(-14f, 0.5f));
         Application.Quit();
+    }
+
+    public void IsClick()
+    {
+        _isClicked = true;
     }
 }

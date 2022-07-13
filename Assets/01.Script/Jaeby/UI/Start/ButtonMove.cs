@@ -7,6 +7,7 @@ using DG.Tweening;
 public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     RectTransform rect;
+
     public void Start()
     {
         rect = GetComponent<RectTransform>();
@@ -14,13 +15,19 @@ public class ButtonMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        rect.DOMoveX(150, 0.5f);
+        if (StartUIManager.instance.IsClicked)
+            return;
+
+        rect.DOAnchorPosX(100f, 0.25f);
         print("ENTER!");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        rect.DOMoveX(0, 0.5f);
+        if (StartUIManager.instance.IsClicked)
+            return;
+
+        rect.DOAnchorPosX(0, 0.25f);
         print("EXIT!");
     }
 }
