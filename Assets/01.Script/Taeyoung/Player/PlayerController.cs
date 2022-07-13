@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Color maxHpColor = Color.yellow;
     [SerializeField] private Color minHpColor = Color.red;
     [SerializeField] private AudioSource rollingSource;
+    [SerializeField] private float[] autoHealDelay;
     PlayerStat stat;
     float stealHp;
     int curHp;
