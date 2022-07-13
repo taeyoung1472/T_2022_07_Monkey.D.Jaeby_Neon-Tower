@@ -50,6 +50,26 @@ public class PopupPoolObject : PoolAbleObject
         });
     }
 
+    public void PopupTextCritical(Vector3 startPos, Vector3 lastPos, Color color, float duration, int fontSize = 5) // 시작 포지션, 마지막 포지션, 색깔, 폰트사이즈, 사이즈
+    {
+        startPos.z += 0.5f;
+        lastPos.z += 0.5f;
+        startPos.y += 2f;
+        lastPos.y += 2f;
+
+        transform.position = startPos;
+        _text.color = color;
+        _text.fontSize = fontSize;
+
+        _seq = DOTween.Sequence();
+        _seq.Append(transform.DOMove(lastPos, duration));
+        _seq.Join(_text.DOFade(0, duration));
+        _seq.AppendCallback(() =>
+        {
+            PoolManager.instance.Push(PoolType, gameObject);
+        });
+    }
+
     public void PopupJumpWithRandomness(Vector3 startPos, float jumpPower, float randomXmove, Color color, float duration, int fontSize = 5)
     {
         float originPos = startPos.z;
