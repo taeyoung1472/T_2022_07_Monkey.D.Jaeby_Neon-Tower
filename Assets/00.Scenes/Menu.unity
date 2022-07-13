@@ -350,7 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _max: 40
-  _min: -21
+  _min: -35
 --- !u!114 &191299941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _max: 20
-  _min: -21
+  _min: -35
 --- !u!1 &574085781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3558,7 +3558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _max: 20
-  _min: -21
+  _min: -35
 --- !u!1 &1761151474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3824,7 +3824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _max: 20
-  _min: -21
+  _min: -35
 --- !u!1 &1872563550
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,7 +3955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _max: 20
-  _min: -21
+  _min: -35
 --- !u!1 &1942591434
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,10 +35,6 @@ public class UIManager : MonoBehaviour
             _openUI = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            DieUISet();
-        }
        // PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play();
     }
 

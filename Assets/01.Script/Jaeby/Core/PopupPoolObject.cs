@@ -66,7 +66,7 @@ public class PopupPoolObject : PoolAbleObject
 
     public void PopupTextNormal(Vector3 startPos, string text) 
     {
-        startPos.y += 2f;
+        startPos.y += 1f;
         _text.fontSize = 5f;
         _text.color = Color.white;
 
@@ -88,7 +88,7 @@ public class PopupPoolObject : PoolAbleObject
     }
     public void PopupTextCritical(Vector3 startPos, string text)
     {
-        startPos.y += 2f;
+        startPos.y += 1f;
         _text.fontSize = 5f;
         _text.color = Color.white;
 
@@ -99,7 +99,7 @@ public class PopupPoolObject : PoolAbleObject
         _meshRenderer.material = _criticalMat;
         _text.SetText(text);
 
-        CameraManager.instance.CameraShake(1f,1f,0.1f);
+        CameraManager.instance.CameraShake(2f,2f,0.1f);
         Sequence seq = DOTween.Sequence();
         seq.Append(_text.DOFade(1f, 0.2f));
         seq.Join(transform.DOScale(1f, 0.1f));
