@@ -2161,7 +2161,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -3559,6 +3559,57 @@ MonoBehaviour:
   _speed: 4
   _max: 20
   _min: -35
+--- !u!1 &1594104654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1594104656}
+  - component: {fileID: 1594104655}
+  m_Layer: 0
+  m_Name: SampleController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1594104655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594104654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e759d4515f7b53d418fd4361ee4b205d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _digitalGlitchFeature: {fileID: 6274622047083885868, guid: bf53d832cd3d8e048950e26c0c96e1f3, type: 2}
+  _analogGlitchFeature: {fileID: -7781856633383133533, guid: bf53d832cd3d8e048950e26c0c96e1f3, type: 2}
+  _intensity: 0.01
+  _scanLineJitter: 0.025
+  _verticalJump: 0.025
+  _horizontalShake: 0.025
+  _colorDrift: 0.05
+--- !u!4 &1594104656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594104654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761151474
 GameObject:
   m_ObjectHideFlags: 0
