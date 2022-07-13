@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class StartUIManager : MonoBehaviour
 {
@@ -31,6 +32,13 @@ public class StartUIManager : MonoBehaviour
     public static StartUIManager instance = null;
     private bool _isClicked = false;
     public bool IsClicked { get => _isClicked; }
+
+    [SerializeField]
+    private AudioClip _middleClickClip = null;
+    [SerializeField]
+    private AudioClip _lightClickClip = null;
+    [SerializeField]
+    private Image _fadeUI = null;
 
     private void Awake()
     {
@@ -81,8 +89,10 @@ public class StartUIManager : MonoBehaviour
         seq.AppendCallback(() =>
         {
             CameraManager.instance.ZoomCamera(45f, 0.5f);
+            _fadeUI.gameObject.SetActive(true);
+            _fadeUI.DOFade(1f, 1f);
         });
-        seq.AppendInterval(1f);
+        seq.AppendInterval(0.8f);
         seq.AppendCallback(() =>
         {
             SceneManager.LoadScene(1);
@@ -111,5 +121,15 @@ public class StartUIManager : MonoBehaviour
     public void IsClick()
     {
         _isClicked = true;
+    }
+
+
+    public void MiddleButtonClick()
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_middleClickClip);
+    }
+    public void LightButtonClick()
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_lightClickClip);
     }
 }
