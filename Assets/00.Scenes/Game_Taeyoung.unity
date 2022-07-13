@@ -19497,6 +19497,7 @@ MonoBehaviour:
     m_Bits: 128
   maxStemina: 3
   dashClip: {fileID: 8300000, guid: a4be9d1c60696ab42a59c556f20d8006, type: 3}
+  meshRenderer: {fileID: 1452906751}
   maxHp: 10
   ignoreTime: 0.2
   maxHpColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -31442,7 +31443,7 @@ GameObject:
   - component: {fileID: 1269796568}
   m_Layer: 0
   m_Name: DeadZome(Collider)
-  m_TagString: Untagged
+  m_TagString: DeadZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36677,6 +36678,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1915518167264496000, guid: d14015e77c769374eb1bba9f9671d121, type: 3}
   m_PrefabInstance: {fileID: 1452323493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1452906751 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 33684110180243678, guid: 26822ed5d2ab83040a12c64df3251778, type: 3}
+  m_PrefabInstance: {fileID: 9921442377382383}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1453290129
 PrefabInstance:
@@ -54116,6 +54122,10 @@ PrefabInstance:
     - target: {fileID: 12527232874656206, guid: 26822ed5d2ab83040a12c64df3251778, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 33684110180243678, guid: 26822ed5d2ab83040a12c64df3251778, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26822ed5d2ab83040a12c64df3251778, type: 3}

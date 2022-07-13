@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - E
   - AttackPet
+  - DeadZone
   layers:
   - Default
   - TransparentFX

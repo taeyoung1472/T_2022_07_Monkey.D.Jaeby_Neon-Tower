@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private int maxStemina = 3;
     [SerializeField] private AudioClip dashClip;
-    private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
 
     [Header("생명관련")]
     [SerializeField] private int maxHp = 10;
@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         Stemina = maxStemina;
         curHp = maxHp;
-        meshRenderer = GetComponent<MeshRenderer>();
 
         StartCoroutine(DashSystem());
         StartCoroutine(SteminaSystem());
@@ -194,12 +193,18 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        warringTMP.gameObject.SetActive(true);
-        isInDeadZone = true;
+        if (other.CompareTag("DeadZone"))
+        {
+            warringTMP.gameObject.SetActive(true);
+            isInDeadZone = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        warringTMP.gameObject.SetActive(false);
-        isInDeadZone = false;
+        if (other.CompareTag("DeadZone"))
+        {
+            warringTMP.gameObject.SetActive(false);
+            isInDeadZone = false;
+        }
     }
 }

@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour
             curWaveTime = 0;
             curWave++;
 
-            if ((curWave + 1) % 3 == 0)
+            if (curWave % 3 == 0)
             {
                 background.FloorChange();
                 CameraManager.instance.CameraShake(1, 1, 4);
