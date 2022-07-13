@@ -8,14 +8,8 @@ public class Background : MonoBehaviour
     [SerializeField] private Material mat;
     [SerializeField] private float speed;
     [SerializeField] private AudioClip clip;
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            LevelUp();
-        }
-    }
-    public void LevelUp()
+
+    public void FloorChange()
     {
         mat.mainTextureOffset = Vector2.zero;
         Sequence seq = DOTween.Sequence();

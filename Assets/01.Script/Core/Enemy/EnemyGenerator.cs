@@ -6,8 +6,14 @@ using Random = UnityEngine.Random;
 
 public class EnemyGenerator : MonoBehaviour
 {
+    public static EnemyGenerator Instance;
+
     [SerializeField] private EnemySpawnTable[] spawnTables;
-    public int wave;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
 
     public GameObject GetEnemy()
     {
@@ -15,14 +21,14 @@ public class EnemyGenerator : MonoBehaviour
         int maxRand = 0;
         foreach (var spawn in spawnTables)
         {
-            maxRand += spawn.randValue[wave];
+            maxRand += spawn.randValue[WaveManager.instance.curWave];
         }
         
         int rand = Random.Range(0, maxRand);
         int stack = 0;
         foreach (var spawn in spawnTables)
         {
-            stack += spawn.randValue[wave];
+            stack += spawn.randValue[WaveManager.instance.curWave];
             if (rand < stack)
             {
                 returnObj = spawn.prefab;

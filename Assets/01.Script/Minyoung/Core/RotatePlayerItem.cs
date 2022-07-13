@@ -7,10 +7,17 @@ public class RotatePlayerItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("E"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("µ¥¹ÌÁö ÁÜ");
-            Debug.Log("Ä«¸Þ¶ó Èçµé¸² + Æø¹ß?");
+            DamageMessage message;
+            message.amount = 1;
+            message.hitNormal = Vector3.zero;
+            message.damager = gameObject;
+            message.hitPoint = Vector3.zero;
+
+            other.GetComponent<LivingEntity>().ApplyDamage(message);
+
+            PoolManager.instance.Pop(PoolType.BulletImpact).GetComponent<ParticlePool>().Set(other.transform.position, Quaternion.identity);
         }
     }
 }

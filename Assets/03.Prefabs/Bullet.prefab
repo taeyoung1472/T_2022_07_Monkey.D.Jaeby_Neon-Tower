@@ -9670,7 +9670,7 @@ MonoBehaviour:
   UseFirePointRotation: 0
   rotationOffset: {x: 0, y: 0, z: 0}
   isCanBump: 1
-  isCanExplosion: 0
+  isCanExplosion: 1
   bumpCount: 3
   explosionDamage: 1
   damage: 1
