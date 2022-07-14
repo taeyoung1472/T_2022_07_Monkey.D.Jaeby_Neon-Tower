@@ -13,11 +13,15 @@ public class DieEffect : MonoBehaviour
     public ParticleSystem particle2;
 
     public Transform playerTrm;
-    void Start()
+
+    public void Start()
     {
-      //  PlayerDieEffect();
+        particle.Stop();
+        particle1.Stop();
+        particle2.Stop();
     }
-    void PlayerDieEffect()
+
+    public void PlayerDieEffect()
     {
         particle.Stop();
         particle1.Stop();

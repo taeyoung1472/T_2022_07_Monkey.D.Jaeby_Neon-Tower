@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float[] hpStealValue;
     [SerializeField] private HPUI hpUi;
     [SerializeField] private HPUI dashUi;
+    [SerializeField] private DieEffect dieEffect;
     PlayerStat stat;
     float stealHp;
     float glitchTime;
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
 
     private void Dead()
     {
+        dieEffect.PlayerDieEffect();
         print("Á×À½!");
     }
 
