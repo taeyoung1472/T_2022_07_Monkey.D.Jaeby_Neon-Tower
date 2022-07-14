@@ -79,8 +79,9 @@ public class PopupPoolObject : PoolAbleObject
 
         Sequence seq = DOTween.Sequence();
         seq.Append(_text.DOFade(1f, 0.2f));
-        seq.Join(transform.DOScale(0.8f, 0.1f));
+        seq.Join(transform.DOScale(0.8f, 0.15f));
         seq.Join(_text.DOColor(_normalColor, 0.05f));
+        seq.Append(_text.DOFade(0f, 0.5f));
         seq.AppendCallback(() =>
         {
             PoolManager.instance.Push(PoolType, gameObject);
@@ -102,8 +103,9 @@ public class PopupPoolObject : PoolAbleObject
         CameraManager.instance.CameraShake(2f,2f,0.1f);
         Sequence seq = DOTween.Sequence();
         seq.Append(_text.DOFade(1f, 0.2f));
-        seq.Join(transform.DOScale(1f, 0.1f));
+        seq.Join(transform.DOScale(1f, 0.15f));
         seq.Join(_text.DOColor(_criticalColor, 0.05f));
+        seq.Append(_text.DOFade(0f, 0.5f));
         seq.AppendCallback(() =>
         {
             PoolManager.instance.Push(PoolType, gameObject);
