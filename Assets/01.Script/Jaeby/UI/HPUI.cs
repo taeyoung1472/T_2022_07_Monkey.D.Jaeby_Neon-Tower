@@ -16,7 +16,29 @@ public class HPUI : MonoBehaviour
     {
         _text = GetComponent<TextMeshProUGUI>();
     }
+    public void DisplaySteminaValue(int value, int maxValue)
+    {
+        if (value < 0) return;
 
+        print($"Value : {value}, MaxValue : {maxValue}");
+
+        string str = "";
+        str += $"<#{ColorUtility.ToHtmlStringRGBA(_damagedColor)}>";
+        for (int i = value; i < maxValue; i++)
+        {
+            str += "¢Â ";
+        }
+        str += "</color>";
+
+        str += $"<#{ColorUtility.ToHtmlStringRGBA(_normalColor)}>";
+        for (int i = 0; i < value; i++)
+        {
+            str += "¢Â ";
+        }
+        str += "</color>";
+
+        _text.text = str;
+    }
     public void DisplayValue(int value, int maxValue)
     {
         if (value < 0) return;
@@ -27,14 +49,14 @@ public class HPUI : MonoBehaviour
         str += $"<#{ColorUtility.ToHtmlStringRGBA(_damagedColor)}>";
         for (int i = value; i < maxValue; i++)
         {
-            str += "¡á ";
-        }
+            str += "¢¾ ";
+        }   
         str += "</color>";
 
         str += $"<#{ColorUtility.ToHtmlStringRGBA(_normalColor)}>";
         for (int i = 0; i < value; i++)
         {
-            str += "¡á ";
+            str += "¢¾ ";
         }
         str += "</color>";
 
