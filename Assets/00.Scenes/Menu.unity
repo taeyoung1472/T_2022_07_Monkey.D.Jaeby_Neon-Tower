@@ -3590,7 +3590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _digitalGlitchFeature: {fileID: 6274622047083885868, guid: bf53d832cd3d8e048950e26c0c96e1f3, type: 2}
   _analogGlitchFeature: {fileID: -7781856633383133533, guid: bf53d832cd3d8e048950e26c0c96e1f3, type: 2}
-  _intensity: 0.01
+  _intensity: 0.001
   _scanLineJitter: 0.025
   _verticalJump: 0.025
   _horizontalShake: 0.025

@@ -9,6 +9,8 @@ namespace Samples
 {
     sealed class SampleController : MonoBehaviour
     {
+        public static SampleController instance;
+
         [SerializeField] DigitalGlitchFeature _digitalGlitchFeature = default;
         [SerializeField] AnalogGlitchFeature _analogGlitchFeature = default;
 
@@ -26,6 +28,7 @@ namespace Samples
         public UnityEngine.Rendering.Universal.UniversalAdditionalCameraData additionalCameraData;
         private void Awake()
         {
+            instance = this;
             additionalCameraData =
                 MainCam.transform.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
         }
@@ -75,15 +78,35 @@ namespace Samples
             _analogGlitchFeature.HorizontalShake = _horizontalShake;
             _analogGlitchFeature.ColorDrift = _colorDrift;
         }
+        public void LoadGameCutScene()
+        {
+            StartCoroutine(StartCutScene());
+        }
+        public void StartGameCutScene()
+        {
+            _intensity = 0.8f;
+            StartCoroutine(GameStartCutScene());
+        }
+
+        IEnumerator GameStartCutScene()
+        {
+            while (_intensity > 0.005f)
+            {
+                _intensity -= 0.05f;
+
+                yield return new WaitForSeconds(0.05f);
+            }
+            _intensity = 0.001f;
+        }
         IEnumerator StartCutScene()
         {
-            while (_intensity < 0.7f)
+            while (_intensity < 1f)
             {
                 _intensity += 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
-            _intensity = 0.01f;
+            _intensity = 0.001f;
         }
         public void ChangeRenderModeOne()
         {
