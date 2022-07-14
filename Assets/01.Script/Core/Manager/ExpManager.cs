@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class ExpManager : MonoBehaviour
 {
     public static ExpManager instance;
     public SlotMachineMg slotMachine;
     public UIManagerHan han;
+    public SlotMachineManager slotMachineManager;
 
     public int[] expTable;
     int curExp = 0;
     int curLevel = 0;
-
-    public TextMeshProUGUI expPerTxt;
-    public TextMeshProUGUI levelTxt;
 
     [ContextMenu("Init")]
     public void Init()
@@ -44,8 +41,6 @@ public class ExpManager : MonoBehaviour
         {
             AddExp();
         }
-
-        ExpPercent();
     }
 
     public void AddExp()
@@ -55,14 +50,17 @@ public class ExpManager : MonoBehaviour
         {
             curExp = 0;
             curLevel++;
-            levelTxt.text = curLevel.ToString();
+            slotMachineManager.Make();
             slotMachine.StartRolling();
+            slotMachine.gardImage.raycastTarget = true;
+            StartCoroutine(RaycastCotroll());
             han.OpenLevelMenu();
         }
     }
-    public void ExpPercent()
+
+    IEnumerator RaycastCotroll()
     {
-        float expPer = expTable[curLevel] / (curExp + 1);
-        expPerTxt.text = expPer.ToString();
+        yield return new WaitForSecondsRealtime(4);
+        slotMachine.gardImage.raycastTarget = false;
     }
 }

@@ -29,5 +29,5 @@ MonoBehaviour:
   explosionDistance: 0
   explosionDamage: 0
   explosionRange: 0
-  hitClip: {fileID: 0}
-  deathClip: {fileID: 0}
+  hitClip: {fileID: 8300000, guid: ab59340ef60c4fc48be6af2ff943e11c, type: 3}
+  deathClip: {fileID: 8300000, guid: ad6b347f4cf35b942905f30c976928b1, type: 3}

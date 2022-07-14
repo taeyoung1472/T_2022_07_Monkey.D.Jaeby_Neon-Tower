@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FarEnemy : LivingEntity
+public class FarEnemy : LivingEntity, IEnemy
 {
     protected enum State
     {
@@ -55,11 +55,9 @@ public class FarEnemy : LivingEntity
     [SerializeField] private Transform eye;
     [SerializeField] private LayerMask playerLayer;
 
+    float freezeTimer;
+    Vector3 knockbackForce;
 
-    public Material orignMat;
-    public Material damageMat;
-
-    private MeshRenderer meshRenderer;
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
@@ -84,7 +82,7 @@ public class FarEnemy : LivingEntity
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<AudioSource>();
         skinRenderer = GetComponentInChildren<Renderer>();
-        meshRenderer = GetComponent<MeshRenderer>();
+
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
 
 
@@ -139,6 +137,8 @@ public class FarEnemy : LivingEntity
             }
             print("BBB");
         }
+
+        FreezeAndKnockbackSystem();
 
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
         animator.SetFloat("Speed", agent.desiredVelocity.magnitude);
@@ -211,14 +211,13 @@ public class FarEnemy : LivingEntity
     public override bool ApplyDamage(DamageMessage damageMessage)
     {
         if (!base.ApplyDamage(damageMessage)) return false;
-        
+
         if (targetEntity == null)
         {
             targetEntity = damageMessage.damager.GetComponent<LivingEntity>();
         }
-        StartCoroutine(ChangeMaterial());
-        //EffectManager.Instance.PlayHitEffect(damageMessage.hitPoint, damageMessage.hitNormal, transform, EffectManager.EffectType.Flesh);
-        audioPlayer.PlayOneShot(EnemyData.hitClip);
+
+        DamagedFeedback(damageMessage);
 
         return true;
     }
@@ -246,32 +245,52 @@ public class FarEnemy : LivingEntity
     }
 
 
-    // 사망 처리
     public override void Die()
     {
-        // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
-        base.Die();
-        StopCoroutine("ChangeMaterial");
+        PoolManager.instance.Pop(PoolType.EnemyDeadImpact).GetComponentInParent<ParticlePool>().Set(transform.position + Vector3.up * 1f, Quaternion.identity);
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.deathClip, 1, Random.Range(0.9f, 1.1f));
 
-        state = State.Tracking;
+        int rand = Random.Range(2, 5);
+        for (int i = 0; i < rand; i++)
+        {
+            GameObject obj = PoolManager.instance.Pop(PoolType.ExpBall);
+            Vector2 randVec = Random.insideUnitCircle * 1f;
+            obj.transform.position = transform.position + new Vector3(randVec.x, 0, randVec.y);
+        }
 
-        // 다른 AI들을 방해하지 않도록 자신의 모든 콜라이더들을 비활성화
-        GetComponent<Collider>().enabled = false;
+        Define.Instance.controller.StealHp();
 
-        // AI 추적을 중지하고 내비메쉬 컴포넌트를 비활성화
-        agent.enabled = false;
-
-        // 사망 애니메이션 재생
-        animator.applyRootMotion = true;
-        animator.SetTrigger("Die");
-
-        // 사망 효과음 재생
-        if (EnemyData.deathClip != null) audioPlayer.PlayOneShot(EnemyData.deathClip);
+        Destroy(gameObject);
     }
-    IEnumerator ChangeMaterial()
+    public void KnockBack(Vector3 dir, float force)
     {
-        meshRenderer.material = damageMat;
-        yield return new WaitForSeconds(.25f);
-        meshRenderer.material = orignMat;
+        knockbackForce = dir.normalized * force;
+    }
+    public void Freeze(float duration)
+    {
+        freezeTimer = duration;
+    }
+    void DamagedFeedback(DamageMessage damageMessage)
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
+        PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(transform.position, $"{damageMessage.amount:0.0}");
+    }
+    void FreezeAndKnockbackSystem()
+    {
+        if (freezeTimer > 0)
+        {
+            freezeTimer -= Time.deltaTime;
+            agent.isStopped = true;
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
+
+        knockbackForce = Vector3.Lerp(knockbackForce, Vector3.zero, Time.deltaTime * 2.5f);
+        if (knockbackForce.magnitude > 0.2f)
+        {
+            agent.velocity = knockbackForce;
+        }
     }
 }
