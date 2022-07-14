@@ -18,19 +18,19 @@ public class SlotMachineManager : MonoBehaviour
 
     private Transform _slotMachineTrm;
 
-    private Transform _playerSlotTrm;
-    private Transform _bulletSlotTrm;
-    private Transform _etcSlotTrm;
+    public Transform _playerSlotTrm;
+    public Transform _bulletSlotTrm;
+    public Transform _etcSlotTrm;
 
     private void Awake()
     {
         _slotMachineTrm = GameObject.Find("SlotMachine").transform;
 
-        _playerSlotTrm = _slotMachineTrm.Find("Panel/PlayerButton/SlotObj");
+        //_playerSlotTrm = _slotMachineTrm.Find("Panel/PlayerButton/MaskImage/SlotObj");
 
-        _bulletSlotTrm = _slotMachineTrm.Find("Panel/BulletButton/SlotObj");
+        //_bulletSlotTrm = _slotMachineTrm.Find("Panel/BulletButton/SlotObj");
 
-        _etcSlotTrm = _slotMachineTrm.Find("Panel/ETCButton/SlotObj");
+        //_etcSlotTrm = _slotMachineTrm.Find("Panel/ETCButton/SlotObj");
     }
 
     public void Make()
@@ -55,7 +55,7 @@ public class SlotMachineManager : MonoBehaviour
         {
             SlotImage slot = Instantiate(slotImagePrefab, _playerSlotTrm) as SlotImage;
 
-            slot.SetData(so[i]);
+            slot.SetData(0, so[i]);
             RectTransform rectTrm = slot.GetComponent<RectTransform>();
             rectTrm.anchoredPosition = new Vector2(0, 100) * i;
 
@@ -67,7 +67,7 @@ public class SlotMachineManager : MonoBehaviour
         {
             SlotImage slot = Instantiate(slotImagePrefab, _bulletSlotTrm) as SlotImage;
 
-            slot.SetData(so[i]);
+            slot.SetData(1, so[i]);
             RectTransform rectTrm = slot.GetComponent<RectTransform>();
             rectTrm.anchoredPosition = new Vector2(0, 100) * i;
 
@@ -79,7 +79,7 @@ public class SlotMachineManager : MonoBehaviour
         {
             SlotImage slot = Instantiate(slotImagePrefab, _etcSlotTrm) as SlotImage;
 
-            slot.SetData(so[i]);
+            slot.SetData(2, so[i]);
             RectTransform rectTrm = slot.GetComponent<RectTransform>();
             rectTrm.anchoredPosition = new Vector2(0, 100) * i;
 

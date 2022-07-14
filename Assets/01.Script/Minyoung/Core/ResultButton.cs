@@ -28,7 +28,7 @@ public class ResultButton : MonoBehaviour
     public void SetData(AbilitySO so)
     {
         _so = so;
-        _image.sprite = so.sprite;
+        //_image.sprite = so.sprite;
         _text.text = so.descString;
     }
 

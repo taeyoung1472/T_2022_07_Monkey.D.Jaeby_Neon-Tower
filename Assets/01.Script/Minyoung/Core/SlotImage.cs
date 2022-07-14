@@ -13,7 +13,7 @@ public class SlotImage : MonoBehaviour
 
     public Button _btn;
 
-
+    
     private void Awake()
     {
         _image = GetComponent<Image>();
@@ -23,8 +23,11 @@ public class SlotImage : MonoBehaviour
             Set();
         });
     }
-    public void SetData(AbilitySO so)
+
+    int Index;
+    public void SetData(int index, AbilitySO so)
     {
+        Index = index;
         _image.sprite = so.sprite;
         abilitySO = so;
     }
@@ -32,5 +35,23 @@ public class SlotImage : MonoBehaviour
     {
         SlotMachineMg.instance.resultImageBtn.image.color = new Color(1, 1, 1, 1);
         SlotMachineMg.instance.resultButton.SetData(abilitySO);
+       SlotMachineMg.instance.resultImageBtn.enabled = true;
+        //this._image.material = SlotMachineMg.instance.selectMat;
+        var list = new List<Image>
+        {
+            SlotMachineMg.instance.select1,
+            SlotMachineMg.instance.select2,
+            SlotMachineMg.instance.select3
+        };
+
+        for (int i = 0; i < 3; i ++)
+        {
+            if(Index ==i)
+                list[i].material = SlotMachineMg.instance.selectMat;
+            else
+                list[i].material = SlotMachineMg.instance.orignMat;
+        }
+        
     }
+
 }

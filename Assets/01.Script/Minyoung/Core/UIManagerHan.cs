@@ -11,6 +11,8 @@ public class UIManagerHan : MonoBehaviour
     public RectTransform selectDetail;
 
     public Image rotateSelect;
+
+    public GameObject pointLight;
     private void Start()
     {
     }
@@ -33,11 +35,13 @@ public class UIManagerHan : MonoBehaviour
     {
         Time.timeScale = 0f;
         levelUPMenu.DOAnchorPos(Vector2.zero, 1f).SetUpdate(true);
+        pointLight.SetActive(false);
         SlotMachineMg.instance.isShow = true;
     }
     public void CloseLevelMenu()
     {
-        levelUPMenu.DOAnchorPos(new Vector2(0, 1070), 1f).SetUpdate(true);
+        levelUPMenu.DOAnchorPos(new Vector2(0, 3000f), 1f).SetUpdate(true);
+        pointLight.SetActive(true);
         Time.timeScale = 1f;
     }
 }
