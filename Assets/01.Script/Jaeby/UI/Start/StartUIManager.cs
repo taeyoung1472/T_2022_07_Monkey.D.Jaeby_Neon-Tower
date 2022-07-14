@@ -92,7 +92,6 @@ public class StartUIManager : MonoBehaviour
         seq.Append(_vCam.transform.DOMove(_startInitPosition.position, 1.5f));
         seq.AppendCallback(() =>
         {
-            print("asdkljfsas");
             Samples.SampleController.instance.LoadGameCutScene();
             
             CameraManager.instance.ZoomCamera(45f, 0.5f);
