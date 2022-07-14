@@ -32,7 +32,6 @@ public class Enemy : LivingEntity, IEnemy
     public Transform attackRoot;
     public Transform dodgeRoot;
 
-    float freezeTimer;
 
     public float runSpeed = 10f;
     [Range(0.01f, 2f)] public float turnSmoothTime = 0.1f;
@@ -43,6 +42,7 @@ public class Enemy : LivingEntity, IEnemy
 
     bool isAttacked;
 
+    float freezeTimer;
     Vector3 knockbackForce;
 
     private void Awake()
@@ -89,21 +89,7 @@ public class Enemy : LivingEntity, IEnemy
             BeginAttack();
         }
 
-        if (freezeTimer > 0)
-        {
-            freezeTimer -= Time.deltaTime;
-            agent.isStopped = true;
-        }
-        else
-        {
-            agent.isStopped = false;
-        }
-
-        knockbackForce = Vector3.Lerp(knockbackForce, Vector3.zero, Time.deltaTime * 2.5f);
-        if(knockbackForce.magnitude > 0.2f)
-        {
-            agent.velocity = knockbackForce;
-        }
+        FreezeAndKnockbackSystem();
 
         animator.SetFloat("Speed", agent.desiredVelocity.magnitude);
     }
@@ -151,14 +137,6 @@ public class Enemy : LivingEntity, IEnemy
         }
     }
 
-    public override bool ApplyDamage(DamageMessage damageMessage)
-    {
-        if (!base.ApplyDamage(damageMessage)) return false;
-
-        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
-        PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(transform.position, $"{damageMessage.amount:0.0}");
-        return true;
-    }
 
     public void BeginAttack()
     {
@@ -178,8 +156,15 @@ public class Enemy : LivingEntity, IEnemy
         state = State.Tracking;
     }
 
+    public override bool ApplyDamage(DamageMessage damageMessage)
+    {
+        if (!base.ApplyDamage(damageMessage)) return false;
 
-    // »ç¸Á Ã³¸®
+        DamagedFeedback(damageMessage);
+
+        return true;
+    }
+
     public override void Die()
     {
         PoolManager.instance.Pop(PoolType.EnemyDeadImpact).GetComponentInParent<ParticlePool>().Set(transform.position + Vector3.up * 1f, Quaternion.identity);
@@ -197,14 +182,35 @@ public class Enemy : LivingEntity, IEnemy
 
         Destroy(gameObject);
     }
-
     public void KnockBack(Vector3 dir, float force)
     {
         knockbackForce = dir.normalized * force;
     }
-
     public void Freeze(float duration)
     {
         freezeTimer = duration;
+    }
+    void DamagedFeedback(DamageMessage damageMessage)
+    {
+        PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
+        PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(transform.position, $"{damageMessage.amount:0.0}");
+    }
+    void FreezeAndKnockbackSystem()
+    {
+        if (freezeTimer > 0)
+        {
+            freezeTimer -= Time.deltaTime;
+            agent.isStopped = true;
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
+
+        knockbackForce = Vector3.Lerp(knockbackForce, Vector3.zero, Time.deltaTime * 2.5f);
+        if (knockbackForce.magnitude > 0.2f)
+        {
+            agent.velocity = knockbackForce;
+        }
     }
 }

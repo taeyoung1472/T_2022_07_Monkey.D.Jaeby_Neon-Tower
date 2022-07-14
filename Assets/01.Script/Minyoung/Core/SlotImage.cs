@@ -32,6 +32,5 @@ public class SlotImage : MonoBehaviour
     {
         SlotMachineMg.instance.resultImageBtn.image.color = new Color(1, 1, 1, 1);
         SlotMachineMg.instance.resultButton.SetData(abilitySO);
-
     }
 }
