@@ -12,6 +12,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private int fireUpgradeIndex = 0;
     [SerializeField] private float[] delay;
+    public bool isCanFire = true;
 
     [Header("»ç¿îµå")]
     [SerializeField] private AudioClip shootClip;
@@ -24,7 +25,7 @@ public class GunController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => Input.GetKey(KeyCode.Mouse0));
+            yield return new WaitUntil(() => Input.GetKey(KeyCode.Mouse0) && isCanFire);
             fireUpgradeIndex = GameManager.Instance.bulletStat.multiShotCount;
             foreach (var pos in firePos[fireUpgradeIndex].firepos)
             {
