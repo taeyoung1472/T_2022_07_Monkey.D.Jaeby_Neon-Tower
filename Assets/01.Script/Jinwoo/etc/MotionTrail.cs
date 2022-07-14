@@ -98,7 +98,7 @@ public class MotionTrail : MonoBehaviour
         yield return new WaitForSeconds(2f);
         StopAllCoroutines();
     }
-    public void Update()
+    /*public void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
@@ -108,7 +108,7 @@ public class MotionTrail : MonoBehaviour
         {   
             StopTrail();
         }
-    }
+    }*/
     public void StartTrail()
     {
         if (isDrawing == false)
