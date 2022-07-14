@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     int stemina;
     bool isDead;
-    int Stemina { get { return stemina; } set { stemina = value; dashUi.DisplayValue(stemina, maxStemina); } }
+    int Stemina { get { return stemina; } set { stemina = value; dashUi.DisplaySteminaValue(stemina, maxStemina); } }
     CharacterController controller;
     Vector3 moveDir;
     Camera cam;
