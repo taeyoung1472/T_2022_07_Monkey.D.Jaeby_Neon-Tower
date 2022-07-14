@@ -61,6 +61,7 @@ public class ExpManager : MonoBehaviour
             curLevel++;
             Samples.SampleController.instance.ZeroValue();
             LevelUdateText();
+            Samples.SampleController.instance.ZeroValue();
             slotMachineManager.Make();
             slotMachine.StartRolling();
             slotMachine.gardImage.raycastTarget = true;
