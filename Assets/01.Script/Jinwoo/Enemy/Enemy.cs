@@ -82,6 +82,7 @@ public class Enemy : LivingEntity, IEnemy
     protected virtual void Start()
     {
         StartCoroutine(UpdatePath());
+        EnemySubject.instance.RegisterObserver(this);
     }
 
     private void Update()
@@ -185,6 +186,8 @@ public class Enemy : LivingEntity, IEnemy
 
         Define.Instance.controller.StealHp();
 
+        //EnemySubject.instance.RemoveObserver(this);
+
         Destroy(gameObject);
     }
     public void KnockBack(Vector3 dir, float force)
@@ -226,5 +229,10 @@ public class Enemy : LivingEntity, IEnemy
         meshRenderer.material = damageMat;
         yield return new WaitForSeconds(.25f);
         meshRenderer.material = orignMat;
+    }
+
+    public override void ObserverUpdate()
+    {
+        Die();
     }
 }
