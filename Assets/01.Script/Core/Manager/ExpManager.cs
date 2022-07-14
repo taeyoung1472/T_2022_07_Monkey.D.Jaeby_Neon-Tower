@@ -10,6 +10,7 @@ public class ExpManager : MonoBehaviour
     public SlotMachineMg slotMachine;
     public UIManagerHan han;
     public SlotMachineManager slotMachineManager;
+    public bool isCanLevelup = true;
 
     public int[] expTable;
     int curExp = 0;
@@ -18,7 +19,6 @@ public class ExpManager : MonoBehaviour
     public TextMeshProUGUI expPerTxt;
     public TextMeshProUGUI levelTxt;
 
-    public Slider expSlider;
 
     public Image expImage;
 
@@ -57,7 +57,7 @@ public class ExpManager : MonoBehaviour
     public void AddExp()
     {
         curExp++;
-        if (curExp >= expTable[curLevel])
+        if (curExp >= expTable[curLevel] && isCanLevelup)
         {
             curExp = 0;
             curLevel++;
@@ -73,9 +73,6 @@ public class ExpManager : MonoBehaviour
     {
         levelTxt.text = ($"LV.{curLevel + 1}");
         expImage.fillAmount = 0f;
-        //expSlider.value = 0;
-        //expSlider.maxValue = expTable[curLevel];
-        //levelFillAmontImage.fillAmount = 0;
     }
     IEnumerator RaycastCotroll()
     {
@@ -91,7 +88,6 @@ public class ExpManager : MonoBehaviour
         float a = expPer / 100f;
 
         DOTween.To(() => expImage.fillAmount, x => expImage.fillAmount = x, expPer / 100f, 0.3f);
-        //expSlider.value = Mathf.Lerp(expSlider.value, curExp, Time.deltaTime * 10);
         expPerTxt.text = ($"{Mathf.Ceil(expPer)}");
     }
 }

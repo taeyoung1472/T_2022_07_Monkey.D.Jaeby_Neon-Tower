@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float[] hpStealValue;
     [SerializeField] private HPUI hpUi;
     [SerializeField] private HPUI dashUi;
+    [SerializeField] private DieEffect dieEffect;
     PlayerStat stat;
     float stealHp;
     float glitchTime;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     int stemina;
+    bool isDead;
     int Stemina { get { return stemina; } set { stemina = value; dashUi.DisplayValue(stemina, maxStemina); } }
     CharacterController controller;
     Vector3 moveDir;
@@ -65,10 +67,13 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        Move();
-        Gravity();
-        Rotate();
-        OutRangeCheck();
+        if (!isDead)
+        {
+            Move();
+            Gravity();
+            Rotate();
+            OutRangeCheck();
+        }
         Glitch();
     }
 
@@ -106,6 +111,9 @@ public class PlayerController : MonoBehaviour
 
     private void Dead()
     {
+        dieEffect.PlayerDieEffect();
+        isDead = true;
+        ExpManager.instance.isCanLevelup = false;
         print("Á×À½!");
     }
 
