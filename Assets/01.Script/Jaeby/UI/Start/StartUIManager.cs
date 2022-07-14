@@ -88,6 +88,7 @@ public class StartUIManager : MonoBehaviour
         seq.Append(_vCam.transform.DOMove(_startInitPosition.position, 1.5f));
         seq.AppendCallback(() =>
         {
+            Samples.SampleController.instance.LoadGameCutScene();
             CameraManager.instance.ZoomCamera(45f, 0.5f);
             _fadeUI.gameObject.SetActive(true);
             _fadeUI.DOFade(1f, 1f);
@@ -95,6 +96,7 @@ public class StartUIManager : MonoBehaviour
         seq.AppendInterval(0.8f);
         seq.AppendCallback(() =>
         {
+            //Samples.SampleController.instance.StartSceneValue();
             SceneManager.LoadScene(1);
         });
     }

@@ -43,7 +43,7 @@ public class MotionTrail : MonoBehaviour
 
     [SerializeField] private Transform basePos = null;
     [SerializeField] private GameObject trailContainer;
-
+    [SerializeField] private GameObject playerPos;
 
     #endregion
 
@@ -52,7 +52,7 @@ public class MotionTrail : MonoBehaviour
     {
         MakeAfterimage();
         isDrawing = false;
-        //TrailContainer.gameObject.SetActive(false);
+        TrailContainer.gameObject.SetActive(false);
     }
     public void MakeAfterimage()
     {
@@ -92,7 +92,6 @@ public class MotionTrail : MonoBehaviour
         isDrawing = false;
         //StartCoroutine(BakeMeshCoroutine());
     }
-    
     IEnumerator EndDraw()
     {
         //TrailContainer.gameObject.SetActive(false);
@@ -124,26 +123,23 @@ public class MotionTrail : MonoBehaviour
     {
         isDrawing = false;
         StopAllCoroutines();
-        DeleteMotion();
+        
+        StartCoroutine(DeleteMotion());
     }
-    public void DeleteMotion()
+    IEnumerator DeleteMotion()
     {
-        for (int i = 0; i < TrailCount; i++)
+        for (int i = TrailCount - 1; i >= 0; i--)
         {
+            MeshTrailStructs[(TrailCount-1) - i].Container.transform.position = basePos.position;
+            
             MeshTrailStructs[i].bodyMesh.Clear();
+            yield return new WaitForSeconds(0.1f);
 
-            MeshTrailStructs[i].bodyMesh.Clear();
         }
-        for (int i = 0; i < bodyParts.Count; i++)
-        {
-            bodyParts[i].transform.position = basePos.position;
+        
+        yield return new WaitForSeconds(0.1f);
 
-            bodyParts[i].transform.rotation = basePos.rotation;
-        }
-
-
-        TrailContainer.gameObject.SetActive(false);
-
+        //StopCoroutine(BakeMeshCoroutine());
     }
 
     /// <summary>
@@ -191,3 +187,20 @@ public class MotionTrail : MonoBehaviour
     }
 
 }
+
+
+//for (int i = 0; i < TrailCount; i++)
+//{
+//    MeshTrailStructs[i].bodyMesh.Clear();
+
+//    MeshTrailStructs[i].bodyMesh.Clear();
+//}
+//for (int i = 0; i < bodyParts.Count; i++)
+//{
+//    bodyParts[i].transform.position = basePos.position;
+
+//    bodyParts[i].transform.rotation = basePos.rotation;
+//}
+//yield return new WaitForSeconds(0.1f);
+
+////TrailContainer.gameObject.SetActive(false);
