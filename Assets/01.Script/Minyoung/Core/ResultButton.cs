@@ -10,6 +10,7 @@ public class ResultButton : MonoBehaviour
 
     private Image _image = null;
     public TextMeshProUGUI _text = null;
+    public SlotMachineManager slotMachine;
     private AbilitySO _so = null;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class ResultButton : MonoBehaviour
         _btn.onClick.AddListener(() =>
         {
             SlotMachineMg.instance.InvokeAction(_so);
+            slotMachine.DestroyUpgradeTable(_so);
         });
     }
 
@@ -27,7 +29,7 @@ public class ResultButton : MonoBehaviour
     {
         _so = so;
         _image.sprite = so.sprite;
-        _text.text = so.abilTxt;
+        _text.text = so.descString;
     }
 
 }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effc34a6b1c100442a9ef3e1392e07c3, type: 3}
+  m_Name: DamageUp
+  m_EditorClassIdentifier: 
+  myCategory: 0
+  damage: 1
+  attackSpeed: 0
+  maxHp: 0
+  autoHeal: 0
+  bulletSpeed: 0
+  multiShoot: 0
+  penetration: 0
+  bulletBounce: 0
+  knockback: 0
+  bulletFreeze: 0
+  bulletExplosion: 0
+  stealHp: 0
+  dashChance: 0
+  dashGod: 0
+  sprite: {fileID: 21300000, guid: 6bee52cd35d845a4fb39461e3e50921d, type: 3}
+  descString: "\uACF5\uACA9\uB825\uC774 \uC99D\uAC00\uD55C\uB2E4 "

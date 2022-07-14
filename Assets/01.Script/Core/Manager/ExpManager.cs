@@ -7,6 +7,7 @@ public class ExpManager : MonoBehaviour
     public static ExpManager instance;
     public SlotMachineMg slotMachine;
     public UIManagerHan han;
+    public SlotMachineManager slotMachineManager;
 
     public int[] expTable;
     int curExp = 0;
@@ -49,8 +50,17 @@ public class ExpManager : MonoBehaviour
         {
             curExp = 0;
             curLevel++;
+            slotMachineManager.Make();
             slotMachine.StartRolling();
+            slotMachine.gardImage.raycastTarget = true;
+            StartCoroutine(RaycastCotroll());
             han.OpenLevelMenu();
         }
+    }
+
+    IEnumerator RaycastCotroll()
+    {
+        yield return new WaitForSecondsRealtime(4);
+        slotMachine.gardImage.raycastTarget = false;
     }
 }

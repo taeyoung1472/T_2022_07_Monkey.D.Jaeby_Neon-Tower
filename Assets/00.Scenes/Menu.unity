@@ -3595,6 +3595,7 @@ MonoBehaviour:
   _verticalJump: 0.025
   _horizontalShake: 0.025
   _colorDrift: 0.05
+  additionalCameraData: {fileID: 0}
 --- !u!4 &1594104656
 Transform:
   m_ObjectHideFlags: 0

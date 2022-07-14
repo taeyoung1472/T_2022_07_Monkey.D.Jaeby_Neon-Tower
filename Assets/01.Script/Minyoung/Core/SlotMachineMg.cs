@@ -21,12 +21,14 @@ public class SlotMachineMg : MonoBehaviour
 
     public Button resultImageBtn;
     public TextMeshProUGUI explainTxt;
+    public Image gardImage;
     float timere = 0f;
 
     public SlotImage[] slotImages;
 
-    public bool isShow = false;
+    public SlotImage maxImage;
 
+    public bool isShow = false;
 
     public Image selectImage;
     private void Awake()
@@ -55,9 +57,9 @@ public class SlotMachineMg : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(StartSpinPlayer(_playerSlotObj));
-                    StartCoroutine(StartSpinBullet(_bulletSlotObj));
-                    StartCoroutine(StartSpinETC(_etcSlotObj));
+                    StartCoroutine(StartSpin(_playerSlotObj));
+                    StartCoroutine(StartSpin(_bulletSlotObj));
+                    StartCoroutine(StartSpin(_etcSlotObj));
                 }
             }
         }
@@ -73,14 +75,14 @@ public class SlotMachineMg : MonoBehaviour
         }
         else
         {
-            StartCoroutine(StartSpinPlayer(_playerSlotObj));
-            StartCoroutine(StartSpinBullet(_bulletSlotObj));
-            StartCoroutine(StartSpinETC(_etcSlotObj));
+            StartCoroutine(StartSpin(_playerSlotObj));
+            StartCoroutine(StartSpin(_bulletSlotObj));
+            StartCoroutine(StartSpin(_etcSlotObj));
         }
         resultImageBtn.enabled = true;
     }
 
-    IEnumerator StartSpinPlayer(Transform target)
+    IEnumerator StartSpin(Transform target)
     {
         if (_isStop)
         {
@@ -107,84 +109,9 @@ public class SlotMachineMg : MonoBehaviour
                 if (rect.anchoredPosition.y <= -50)
                 {
                     rect.anchoredPosition = new Vector2(0, (target.childCount - 1) * 100);
-                    StartCoroutine(StartSpinPlayer(target));
+                    StartCoroutine(StartSpin(target));
                 }
-            });
 
-        }
-        yield return null;
-
-    }
-
-
-    IEnumerator StartSpinBullet(Transform target)
-    {
-        if (_isStop)
-        {
-            _delay += 0.25f;
-            if (_delay >= 1.5f)
-            {
-                for (int i = 0; i < slotImages.Length; i++)
-                {
-                    slotImages[i]._btn.enabled = true;
-                }
-                yield break;
-            }
-        }
-
-        _isSpin = true;
-        for (int i = 0; i < target.childCount; i++)
-        {
-            RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
-
-            Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
-            {
-                rect.anchoredPosition = origin + new Vector2(0, -100);
-                if (rect.anchoredPosition.y <= -50)
-                {
-                    rect.anchoredPosition = new Vector2(0, (target.childCount - 1) * 100);
-                    StartCoroutine(StartSpinBullet(target));
-                }
-                
-            });
-
-        }
-
-        yield return null;
-
-    }
-
-
-    IEnumerator StartSpinETC(Transform target)
-    {
-        if (_isStop)
-        {
-            _delay += 0.25f;
-            if (_delay >= 1.5f)
-            {
-                for (int i = 0; i < slotImages.Length; i++)
-                {
-                    slotImages[i]._btn.enabled = true;
-                }
-                yield break;
-            }
-        }
-
-        _isSpin = true;
-        for (int i = 0; i < target.childCount; i++)
-        {
-            RectTransform rect = target.GetChild(i).GetComponent<RectTransform>();
-
-            Vector2 origin = rect.anchoredPosition;
-            rect.DOAnchorPos(origin + new Vector2(0, -100), 0.1f + _delay).SetEase(Ease.Linear).SetUpdate(true).OnComplete(() =>
-            {
-                rect.anchoredPosition = origin + new Vector2(0, -100);
-                if (rect.anchoredPosition.y <= -50)
-                {
-                    rect.anchoredPosition = new Vector2(0, (target.childCount - 1) * 100);
-                    StartCoroutine(StartSpinETC(target));
-                }
             });
 
         }
