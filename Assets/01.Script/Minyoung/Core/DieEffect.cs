@@ -36,8 +36,8 @@ public class DieEffect : MonoBehaviour
         seq.AppendCallback(() => particle.Stop());
         seq.AppendCallback(() => EnemySubject.instance.NotifyObserver());
         seq.AppendCallback(() => Samples.SampleController.instance.cantDoZero = true);
-        seq.AppendCallback(() => Samples.SampleController.instance.StartSceneValue());
         seq.AppendInterval(0.25f);
+        seq.AppendCallback(() => Samples.SampleController.instance.StartSceneValue());
         seq.Append(DOTween.To(() => Samples.SampleController.instance._intensity, x => Samples.SampleController.instance._intensity = x, 1f, 3f));
         seq.AppendInterval(1f);
         seq.AppendCallback(() => Time.timeScale = 0);
