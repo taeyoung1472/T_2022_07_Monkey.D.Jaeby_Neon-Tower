@@ -21,6 +21,8 @@ public class StartUIManager : MonoBehaviour
     [SerializeField]
     private RectTransform _startButton = null;
     [SerializeField]
+    private RectTransform _tutorialButton = null;
+    [SerializeField]
     private RectTransform _exitButton = null;
 
     [SerializeField]
@@ -71,6 +73,7 @@ public class StartUIManager : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(_startButton.DOAnchorPosX(-800f, 0.2f));
+        seq.Append(_tutorialButton.DOAnchorPosX(-800f, 0.2f));
         seq.Append(_exitButton.DOAnchorPosX(-800f, 0.2f));
         seq.AppendCallback(() => StartInit());
     }
@@ -101,6 +104,17 @@ public class StartUIManager : MonoBehaviour
         {
             //Samples.SampleController.instance.StartSceneValue();
             SceneManager.LoadScene(1);
+        });
+    }
+
+    public void GoTutorial()
+    {
+        Sequence seq = DOTween.Sequence();
+        _fadeUI.gameObject.SetActive(true);
+        seq.Append(_fadeUI.DOFade(1f, 1f));
+        seq.AppendCallback(() =>
+        {
+            SceneManager.LoadScene(3);
         });
     }
 
