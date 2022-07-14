@@ -17,7 +17,7 @@ public class StartSceneCutScene : MonoBehaviour
 
     IEnumerator FadeOut()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         Sequence seq = DOTween.Sequence();
 
         seq.Append(img.DOFade(0, 1f));
@@ -27,7 +27,7 @@ public class StartSceneCutScene : MonoBehaviour
         seq.AppendCallback(() =>
         {
             Samples.SampleController.instance.ZeroValue();
-            Samples.SampleController.instance.ChangeRenderModeZero();
+            //Samples.SampleController.instance.ChangeRenderModeZero();
 
         });
 

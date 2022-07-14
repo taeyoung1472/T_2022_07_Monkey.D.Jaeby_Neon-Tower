@@ -21,14 +21,6 @@ public class EnemySubject : MonoBehaviour, ISubject
         observers.Clear();
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            NotifyObserver();
-        }
-    }
-
     public void RegisterObserver(IObserver _observer)
     {
         observers.Add(_observer);
