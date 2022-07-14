@@ -6,9 +6,12 @@ using DG.Tweening;
 public class TextEffect : MonoBehaviour
 {
     public TextMeshProUGUI floorTxt;
+    public float dur;
+    public float str;
+    public int vib;
     private void OnEnable()
     {
-        StartCoroutine(ShakeText(1, 30, 30));
+        StartCoroutine(ShakeText(dur, str, vib));
     }
     private IEnumerator ShakeText(float _dur, float _str, int _vib)
     {
