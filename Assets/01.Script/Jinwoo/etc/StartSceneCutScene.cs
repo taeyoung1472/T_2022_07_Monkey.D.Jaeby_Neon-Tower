@@ -27,7 +27,7 @@ public class StartSceneCutScene : MonoBehaviour
         seq.AppendCallback(() =>
         {
             Samples.SampleController.instance.ZeroValue();
-            Samples.SampleController.instance.ChangeRenderModeZero();
+            //Samples.SampleController.instance.ChangeRenderModeZero();
 
         });
 

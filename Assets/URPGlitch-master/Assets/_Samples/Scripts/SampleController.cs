@@ -35,15 +35,6 @@ namespace Samples
         }
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                //StartCoroutine(StartCutScene());
-                StartSceneValue();
-            }
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                ZeroValue();
-            }
 
             _digitalGlitchFeature.Intensity = _intensity;
         }
@@ -81,15 +72,16 @@ namespace Samples
         }
         public void StartGameCutScene()
         {
-            _digitalGlitchFeature.Intensity = 0.8f;
+            _intensity = 0.8f;
             StartCoroutine(GameStartCutScene());
         }
 
         IEnumerator GameStartCutScene()
         {
+            
             while (_intensity > 0.005f)
             {
-                _digitalGlitchFeature.Intensity -= 0.05f;
+                _intensity -= 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
@@ -97,9 +89,9 @@ namespace Samples
         }
         IEnumerator StartCutScene()
         {
-           while (_intensity < 1f)
+            while (_intensity < 1f)
             {
-                _digitalGlitchFeature.Intensity += 0.05f;
+                _intensity += 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
