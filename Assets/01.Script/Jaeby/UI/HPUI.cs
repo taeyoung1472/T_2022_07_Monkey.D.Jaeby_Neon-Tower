@@ -17,36 +17,28 @@ public class HPUI : MonoBehaviour
         _text = GetComponent<TextMeshProUGUI>();
     }
 
-    private int _hp = 10;
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            _hp--;
-            DisplayHP(_hp, 10);
-        }
-    }
-
-    public void DisplayHP(int value, int maxValue)
+    public void DisplayValue(int value, int maxValue)
     {
         if (value < 0) return;
 
-        string str = string.Empty;
-        str += $"<#{ColorUtility.ToHtmlStringRGBA(_normalColor)}>";
-        for (int i = 0; i<value; i++)
-        {
-            str += "бс ";
-        }
-        str += "</color>";
-        //str += "<#720000>";
+        print($"Value : {value}, MaxValue : {maxValue}");
+
+        string str = "";
         str += $"<#{ColorUtility.ToHtmlStringRGBA(_damagedColor)}>";
-        for (int i =0; i<maxValue-value; i++)
+        for (int i = value; i < maxValue; i++)
         {
             str += "бс ";
         }
         str += "</color>";
 
-        _text.SetText(str);
+        str += $"<#{ColorUtility.ToHtmlStringRGBA(_normalColor)}>";
+        for (int i = 0; i < value; i++)
+        {
+            str += "бс ";
+        }
+        str += "</color>";
+
+        _text.text = str;
     }
 
 

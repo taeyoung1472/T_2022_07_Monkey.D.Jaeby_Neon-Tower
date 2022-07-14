@@ -34,6 +34,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _text = null;
 
+    public static UIManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Update()
     {
         if (_openUI) return;
@@ -126,29 +133,5 @@ public class UIManager : MonoBehaviour
     public void HardClickSoundPlay()
     {
         PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_HardClick);
-    }
-
-
-
-    public void DisplayHP(int value, int maxValue)
-    {
-        if (value < 0) return;
-
-        string str = string.Empty;
-        str += $"<#{ColorUtility.ToHtmlStringRGBA(_normalColor)}>";
-        for (int i = 0; i < value; i++)
-        {
-            str += "бс ";
-        }
-        str += "</color>";
-        //str += "<#720000>";
-        str += $"<#{ColorUtility.ToHtmlStringRGBA(_damagedColor)}>";
-        for (int i = 0; i < maxValue - value; i++)
-        {
-            str += "бс ";
-        }
-        str += "</color>";
-
-        _text.SetText(str);
     }
 }
