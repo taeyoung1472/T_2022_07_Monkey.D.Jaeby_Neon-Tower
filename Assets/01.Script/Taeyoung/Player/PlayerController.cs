@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private DieEffect dieEffect;
     [SerializeField] private ParticleSystem dustParticle;
     [SerializeField] private GameObject volumeCollision;
-    [SerializeField] private MotionTrail motionTrail;
     PlayerStat stat;
     float stealHp;
     float glitchTime;

@@ -49,10 +49,6 @@ public class ExpManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddExp();
-        }
         ExpPercent();
     }
 
@@ -63,6 +59,7 @@ public class ExpManager : MonoBehaviour
         {
             curExp = 0;
             curLevel++;
+            Samples.SampleController.instance.ZeroValue();
             LevelUdateText();
             slotMachineManager.Make();
             slotMachine.StartRolling();
