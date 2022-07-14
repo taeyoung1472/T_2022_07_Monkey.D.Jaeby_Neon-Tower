@@ -15,22 +15,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI warringTMP;
     [SerializeField] private Transform mouseFocusObject;
     [SerializeField] private Animator animator;
-    [SerializeField] private Slider steminaSlider;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private int maxStemina = 3;
     [SerializeField] private AudioClip dashClip;
     [SerializeField] private MeshRenderer meshRenderer;
 
     [Header("생명관련")]
-    [SerializeField] private int maxHp = 10;
     [SerializeField] private float ignoreTime = 0.25f;
     [SerializeField] private Color maxHpColor = Color.yellow;
     [SerializeField] private Color minHpColor = Color.red;
     [SerializeField] private AudioSource rollingSource;
     [SerializeField] private int autoHealDelay;
     [SerializeField] private float[] hpStealValue;
+    [SerializeField] private HPUI hpUi;
+    [SerializeField] private HPUI dashUi;
     PlayerStat stat;
     float stealHp;
+    float glitchTime;
     int curHp;
     bool isDamaged = false;
     float rollinVolumeGoal;
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     int stemina;
-    int Stemina { get { return stemina; } set { stemina = value; steminaSlider.value = (float)stemina / (float)maxStemina; } }
+    int Stemina { get { return stemina; } set { stemina = value; dashUi.DisplayValue(stemina, maxStemina); } }
     CharacterController controller;
     Vector3 moveDir;
     Camera cam;
@@ -53,7 +54,9 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
         Stemina = maxStemina;
-        curHp = maxHp;
+        curHp = stat.hp;
+
+        hpUi.DisplayValue(curHp, stat.hp);
 
         StartCoroutine(DashSystem());
         StartCoroutine(SteminaSystem());
@@ -62,11 +65,24 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        maxHp = stat.hp;
         Move();
         Gravity();
         Rotate();
         OutRangeCheck();
+        Glitch();
+    }
+
+    private void Glitch()
+    {
+        if(glitchTime > 0)
+        {
+            glitchTime -= Time.deltaTime;
+            Samples.SampleController.instance.StartSceneValue();
+        }
+        else if(!isInDeadZone)
+        {
+            Samples.SampleController.instance.ZeroValue();
+        }
     }
 
     private void OutRangeCheck()
@@ -74,10 +90,12 @@ public class PlayerController : MonoBehaviour
         if (isInDeadZone)
         {
             deadClock -= Time.deltaTime;
+            Samples.SampleController.instance.StartSceneValue();
             warringTMP.text = $"OUT OF AREA : {deadClock:0.0} SEC";
         }
         else
         {
+            Samples.SampleController.instance.ZeroValue();
             deadClock = 2;
         }
         if (deadClock <= 0)
@@ -101,9 +119,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => stat.autoHealDelay < 16);
         while (true)
         {
-            yield return new WaitUntil(() => curHp != maxHp);
+            yield return new WaitUntil(() => curHp != stat.hp);
             yield return new WaitForSeconds(stat.autoHealDelay);
-            if(curHp != maxHp)
+            if(curHp != stat.hp)
             {
                 curHp++;
             }
@@ -118,10 +136,11 @@ public class PlayerController : MonoBehaviour
         }
         if(stealHp >= 1)
         {
-            if (curHp != maxHp)
+            if (curHp != stat.hp)
             {
                 curHp++;
                 stealHp -= 1;
+                hpUi.DisplayValue(curHp, stat.hp);
             }
         }
     }
@@ -158,6 +177,8 @@ public class PlayerController : MonoBehaviour
             yield return new WaitUntil(() => isDamaged);
 
             curHp--;
+            glitchTime = 0.6f;
+            CameraManager.instance.CameraShake(2, 2, 0.2f);
 
             if(curHp <= 0)
             {
@@ -165,8 +186,10 @@ public class PlayerController : MonoBehaviour
                 isDead = true;
             }
 
+            hpUi.DisplayValue(curHp, stat.hp);
+
             isDamaged = false;
-            meshRenderer.material.color = Color.Lerp(minHpColor, maxHpColor, (float)curHp / (float)maxHp);
+            meshRenderer.material.color = Color.Lerp(minHpColor, maxHpColor, (float)curHp / (float)stat.hp);
             yield return new WaitForSeconds(ignoreTime);
         }
         yield return null;
@@ -233,6 +256,21 @@ public class PlayerController : MonoBehaviour
         {
             warringTMP.gameObject.SetActive(true);
             isInDeadZone = true;
+        }
+        if (other.CompareTag("Item"))
+        {
+            Item item = other.gameObject.GetComponent<Item>();
+            switch (item.type)
+            {
+                case ItemType.HP:
+                    print("HP Item Use");
+                    break;
+                case ItemType.DMGBALL:
+                    print("DMGBALL Item Use");
+                    break;
+                default:
+                    break;
+            }
         }
     }
     private void OnTriggerExit(Collider other)

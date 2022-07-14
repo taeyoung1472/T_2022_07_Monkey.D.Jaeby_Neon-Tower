@@ -56,6 +56,23 @@ public class EndingManager : MonoBehaviour
 
     private bool _isEnding = false;
 
+
+
+
+    [Header("오디오 관련")]
+    [SerializeField]
+    private AudioSource _audioSource = null;
+    [SerializeField]
+    private AudioClip _jumpClip = null;
+    [SerializeField]
+    private AudioClip _buttonClip = null;
+    [SerializeField]
+    private AudioClip _explosionClip = null;
+    [SerializeField]
+    private AudioClip _waveClip = null;
+
+
+
     private void Awake()
     {
         Time.timeScale = 1f;
@@ -70,6 +87,8 @@ public class EndingManager : MonoBehaviour
         seq.AppendInterval(_startAni.length);
         seq.AppendCallback(() =>
         {
+            _audioSource.volume = 1f;
+            _audioSource.Play();
             _animator.SetBool("Move", true);
             _look = true;
         });
@@ -78,6 +97,8 @@ public class EndingManager : MonoBehaviour
         seq.Join(_lightObj.transform.DOMove(_lightPos[k], 3f));
         seq.AppendCallback(() =>
         {
+            _audioSource.volume = 0f;
+            _audioSource.Stop();
             _animator.SetBool("Move", false);
             _look = false;
         });
@@ -86,10 +107,18 @@ public class EndingManager : MonoBehaviour
         k++;
 
         seq.AppendInterval(1f);
+        seq.AppendCallback(() =>
+        {
+            PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_jumpClip);
+        });
         seq.Append(_playerObj.transform.DOMoveY(_playerObj.transform.position.y + 1f, 0.7f));
         seq.Join(_playerObj.transform.DOMoveX(_button.transform.position.x, 0.7f));
         seq.Join(_playerObj.transform.DOMoveZ(_button.transform.position.z, 0.7f));
         seq.Append(_playerObj.transform.DOMoveY(_playerObj.transform.position.y + -0.2f, 0.3f));
+        seq.AppendCallback(() =>
+        {
+            PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_buttonClip);
+        });
         seq.AppendCallback(() =>
         {
             for(int i = 0; i<3; i++)
@@ -99,8 +128,16 @@ public class EndingManager : MonoBehaviour
         });
 
 
-        seq.Append(_button.transform.DOMoveY(_button.transform.position.y - 0.5f, 2f));
-        seq.Append(_earthObj.transform.DOMove(_earthPos[j], 2.5f));
+        seq.Append(_button.transform.DOMoveY(_button.transform.position.y - 0.5f, 1.5f));
+
+        seq.AppendCallback(() =>
+        {
+            PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_waveClip);
+        });
+
+        //seq.AppendInterval(_waveClip.length - 1.5f);
+
+        seq.Append(_earthObj.transform.DOMove(_earthPos[j], _waveClip.length - 1.5f));
         seq.AppendCallback(() =>
         {
             StartCoroutine(OnBoom());
@@ -119,7 +156,8 @@ public class EndingManager : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            Instantiate(_boomEffect, _playerObj.transform.position + Vector3.forward * 20f + Random.insideUnitSphere * 10f, Quaternion.identity);
+            Instantiate(_boomEffect, _playerObj.transform.position + Vector3.forward * 50f + Random.insideUnitSphere * 15f, Quaternion.identity);
+            PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(_explosionClip);
             yield return new WaitForSeconds(0.3f);
         }
     }
