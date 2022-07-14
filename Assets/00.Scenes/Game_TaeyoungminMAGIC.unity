@@ -8176,6 +8176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2a77430ad1de147be6d184ded080c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCanGenerated: 1
   spawnTables:
   - name: "\uC77C\uBC18\uC801"
     prefab: {fileID: 6437738306033802312, guid: 7de9fb07db952294c89c159904ce03b8, type: 3}
@@ -8225,6 +8226,7 @@ MonoBehaviour:
   _verticalJump: 0.025
   _horizontalShake: 0.025
   _colorDrift: 0.05
+  cantDoZero: 0
   additionalCameraData: {fileID: 0}
 --- !u!4 &304963183
 Transform:
@@ -21774,6 +21776,8 @@ MonoBehaviour:
   hpUi: {fileID: 1080516325}
   dashUi: {fileID: 1829875063}
   dieEffect: {fileID: 7930866862908839340}
+  dustParticle: {fileID: 0}
+  volumeCollision: {fileID: 0}
 --- !u!114 &799309375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31615,6 +31619,7 @@ MonoBehaviour:
   han: {fileID: 2038084298}
   slotMachineManager: {fileID: 147050333}
   isCanLevelup: 1
+  levelUpEffect: {fileID: 0}
   expTable: 14000000190000001e00000023000000280000002d00000032000000370000003c00000041000000460000004b00000050000000550000005a0000005f00000064000000690000006e00000073000000780000007d00000082000000870000008c00000091000000960000009b000000a0000000a5000000aa000000af000000b4000000b9000000be000000c3000000c8000000cd000000d20000003f420f00
   expPerTxt: {fileID: 7667349219041255075}
   levelTxt: {fileID: 8817590927850988378}
