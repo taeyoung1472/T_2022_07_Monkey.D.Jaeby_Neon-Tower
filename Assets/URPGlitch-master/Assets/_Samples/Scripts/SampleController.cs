@@ -79,7 +79,7 @@ namespace Samples
         }
         public void StartGameCutScene()
         {
-            _intensity = 0.8f;
+            _digitalGlitchFeature.Intensity = 0.8f;
             StartCoroutine(GameStartCutScene());
         }
 
@@ -87,21 +87,21 @@ namespace Samples
         {
             while (_intensity > 0.005f)
             {
-                _intensity -= 0.05f;
+                _digitalGlitchFeature.Intensity -= 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
-            _intensity = 0.001f;
+            _digitalGlitchFeature.Intensity = 0.001f;
         }
         IEnumerator StartCutScene()
         {
-            while (_intensity < 1f)
+           while (_intensity < 1f)
             {
-                _intensity += 0.05f;
+                _digitalGlitchFeature.Intensity += 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
-            _intensity = 0.001f;
+            _digitalGlitchFeature.Intensity = 0.001f;
         }
         public void ChangeRenderModeOne()
         {
