@@ -113,6 +113,8 @@ public class ExplosionEnemy : LivingEntity, IEnemy
     {
         // 게임 오브젝트 활성화와 동시에 AI의 추적 루틴 시작
         StartCoroutine(UpdatePath());
+
+        EnemySubject.instance.RegisterObserver(this);
     }
     private void Update()
     {
@@ -324,5 +326,10 @@ public class ExplosionEnemy : LivingEntity, IEnemy
         meshRenderer.material = damageMat;
         yield return new WaitForSeconds(.25f);
         meshRenderer.material = orignMat;
+    }
+
+    public override void ObserverUpdate()
+    {
+        Die();
     }
 }

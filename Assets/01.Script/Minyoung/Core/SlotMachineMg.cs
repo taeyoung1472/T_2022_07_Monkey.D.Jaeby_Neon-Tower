@@ -8,9 +8,9 @@ using TMPro;
 public class SlotMachineMg : MonoBehaviour
 {
     public static SlotMachineMg instance;
-    private Transform _playerSlotObj;
-    private Transform _bulletSlotObj;
-    private Transform _etcSlotObj;
+    public Transform _playerSlotObj;
+    public Transform _bulletSlotObj;
+    public Transform _etcSlotObj;
 
 
     private bool _isSpin;
@@ -31,12 +31,19 @@ public class SlotMachineMg : MonoBehaviour
     public bool isShow = false;
 
     public Image selectImage;
+
+    public Material selectMat;
+    public Material orignMat;
+
+    public Image select1;
+    public Image select2;
+    public Image select3;
     private void Awake()
     {
         instance = this;
-        _playerSlotObj = transform.Find("Panel/PlayerButton/SlotObj");
-        _bulletSlotObj = transform.Find("Panel/BulletButton/SlotObj");
-        _etcSlotObj = transform.Find("Panel/ETCButton/SlotObj");
+        //_playerSlotObj = transform.Find("Panel/PlayerButton/SlotObj");
+        //_bulletSlotObj = transform.Find("Panel/BulletButton/SlotObj");
+        //_etcSlotObj = transform.Find("Panel/ETCButton/SlotObj");
     }
     private void Start()
     {
@@ -139,8 +146,9 @@ public class SlotMachineMg : MonoBehaviour
         if (so.dashGod) manager.playerStat.dashGod++;
 
 
-        selectImage.sprite = so.sprite;
-
+        //selectImage.sprite = so.sprite;
+        resultImageBtn.image.color = new Color(1, 1, 1, 0);
+        resultImageBtn.enabled = false;
         Init();
     }
     public void Init()
@@ -153,10 +161,14 @@ public class SlotMachineMg : MonoBehaviour
         _isStop = false;
         _isSpin = false;
         _delay = 0f;
-        
+
+        select1.material = orignMat;
+        select2.material = orignMat;
+        select3.material = orignMat;
 
         resultImageBtn.enabled = false;
         resultImageBtn.image.color = new Color(1, 1, 1, 0);
+
         explainTxt.text = "";
         timere = 0f;
         isShow = false;

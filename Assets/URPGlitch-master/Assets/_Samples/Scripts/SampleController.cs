@@ -15,7 +15,7 @@ namespace Samples
         [SerializeField] AnalogGlitchFeature _analogGlitchFeature = default;
 
         [Header("Digital")]
-        [SerializeField, Range(0f, 1f)] float _intensity = default;
+        [SerializeField, Range(0f, 1f)] public float _intensity = default;
 
         [Header("Analog")]
         [SerializeField, Range(0f, 1f)] float _scanLineJitter = default;
@@ -23,6 +23,7 @@ namespace Samples
         [SerializeField, Range(0f, 1f)] float _horizontalShake = default;
         [SerializeField, Range(0f, 1f)] float _colorDrift = default;
 
+        public bool cantDoZero = false;
 
 
         public UnityEngine.Rendering.Universal.UniversalAdditionalCameraData additionalCameraData;
@@ -44,10 +45,11 @@ namespace Samples
                 ZeroValue();
             }
 
-            
+            _digitalGlitchFeature.Intensity = _intensity;
         }
         public void ZeroValue()
         {
+            if (cantDoZero) return;
             _digitalGlitchFeature.Intensity = 0;
 
             _analogGlitchFeature.ScanLineJitter = 0;
