@@ -19436,6 +19436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9871f04872e08e449526ce783090e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damagedColor: {r: 1, g: 0, b: 0, a: 1}
+  _normalColor: {r: 0, g: 0.29986382, b: 1, a: 1}
 --- !u!114 &719132342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53776,7 +53778,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7775016151752120424, guid: f451fc3c396a11a46a93bcf2159c4536, type: 2}
   m_audioClip: {fileID: 8300000, guid: 956060411ac6d3741aa05ea101883207, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

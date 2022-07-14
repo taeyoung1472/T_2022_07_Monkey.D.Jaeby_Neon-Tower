@@ -5,18 +5,11 @@ using UnityEngine;
 
 public class HPUI : MonoBehaviour
 {
-    /*
-    Display(value, maxvalue){
-    string str;
-    int idx = 0;
-    str += 활성화 컬러 태러 태그
-    for(idx < value) str += ■
-    str += 활성화 컬러 태러 태그
-    str += 비활성화 컬러 태그
-    for(idx < max) str += ■
-    str += 비활성화 컬러 태그
-    } 
-     */
+    [SerializeField]
+    private Color _damagedColor = Color.white;
+    [SerializeField]
+    private Color _normalColor = Color.white;
+
     private TextMeshProUGUI _text = null;
 
     private void Awake()
@@ -39,11 +32,14 @@ public class HPUI : MonoBehaviour
         if (value < 0) return;
 
         string str = string.Empty;
-        for(int i = 0; i<value; i++)
+        str += $"<#{ColorUtility.ToHtmlStringRGBA(_normalColor)}>";
+        for (int i = 0; i<value; i++)
         {
             str += "■ ";
         }
-        str += "<#720000>";
+        str += "</color>";
+        //str += "<#720000>";
+        str += $"<#{ColorUtility.ToHtmlStringRGBA(_damagedColor)}>";
         for (int i =0; i<maxValue-value; i++)
         {
             str += "■ ";
