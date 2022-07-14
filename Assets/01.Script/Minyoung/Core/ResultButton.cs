@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 public class ResultButton : MonoBehaviour
 {
-    private Button _btn;
+    public static ResultButton Instance;
+    public Button _btn;
 
     private Image _image = null;
     public TextMeshProUGUI _text = null;
@@ -15,6 +16,7 @@ public class ResultButton : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         _btn = GetComponent<Button>();
         _image = GetComponent<Image>();
 
@@ -27,6 +29,7 @@ public class ResultButton : MonoBehaviour
 
     public void SetData(AbilitySO so)
     {
+        _btn.interactable = true;
         _so = so;
         //_image.sprite = so.sprite;
         _text.text = so.descString;

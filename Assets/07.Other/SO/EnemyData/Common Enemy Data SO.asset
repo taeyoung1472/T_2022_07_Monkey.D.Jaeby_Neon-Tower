@@ -16,13 +16,13 @@ MonoBehaviour:
   maxHealth: 2
   prefab: {fileID: 6437738306033802312, guid: 7de9fb07db952294c89c159904ce03b8, type: 3}
   damage: 1
-  attackDelay: 1
-  attackRadius: 2
-  attackDistance: 2
+  attackDelay: 2.5
+  attackRadius: 1
+  attackDistance: 1
   dodgeRadius: 2
   bulletSpeed: 0
   maxSpeed: 2
-  stoppingDistance: 2
+  stoppingDistance: 1
   dashDistance: 0
   dashSpeed: 0
   dashDamage: 0

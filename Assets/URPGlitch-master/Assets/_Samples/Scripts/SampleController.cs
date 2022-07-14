@@ -35,7 +35,6 @@ namespace Samples
         }
         void Update()
         {
-
             _digitalGlitchFeature.Intensity = _intensity;
         }
         public void ZeroValue()
@@ -78,18 +77,17 @@ namespace Samples
 
         IEnumerator GameStartCutScene()
         {
-            
             while (_intensity > 0.005f)
             {
                 _intensity -= 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
-            _digitalGlitchFeature.Intensity = 0.001f;
+            _intensity = 0.001f;
         }
         IEnumerator StartCutScene()
         {
-            while (_intensity < 1f)
+           while (_intensity < 1f)
             {
                 _intensity += 0.05f;
 

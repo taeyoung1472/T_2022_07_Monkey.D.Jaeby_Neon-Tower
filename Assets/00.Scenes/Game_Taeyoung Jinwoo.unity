@@ -76045,6 +76045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2f3ecac32a04b47a326adcc48cc15e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _btn: {fileID: 0}
   _text: {fileID: 8067386658392406695}
   slotMachine: {fileID: 147050333}
 --- !u!224 &7801105041837295574

@@ -35,7 +35,7 @@ public class SlotImage : MonoBehaviour
     {
         SlotMachineMg.instance.resultImageBtn.image.color = new Color(1, 1, 1, 1);
         SlotMachineMg.instance.resultButton.SetData(abilitySO);
-       SlotMachineMg.instance.resultImageBtn.enabled = true;
+        SlotMachineMg.instance.resultImageBtn.enabled = true;
         //this._image.material = SlotMachineMg.instance.selectMat;
         var list = new List<Image>
         {
