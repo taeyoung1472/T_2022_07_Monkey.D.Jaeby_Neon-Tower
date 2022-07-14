@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private DieEffect dieEffect;
     [SerializeField] private ParticleSystem dustParticle;
     [SerializeField] private GameObject volumeCollision;
+    [SerializeField] private float[] dashGodTime;
+    [SerializeField] private GameObject body;
+    public GunController gunController;
     PlayerStat stat;
     float stealHp;
     float glitchTime;
@@ -48,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     int stemina;
     bool isDead;
-    int Stemina { get { return stemina; } set { stemina = value; dashUi.DisplaySteminaValue(stemina, maxStemina); } }
+    int Stemina { get { return stemina; } set { stemina = value; dashUi.DisplaySteminaValue(stemina, maxStemina + stat.dashChance); } }
     CharacterController controller;
     Vector3 moveDir;
     Camera cam;
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
     float deadClock = 2f;
     void Start()
     {
+        StartCoroutine(GodEffect());
         stat = GameManager.Instance.playerStat;
         controller = GetComponent<CharacterController>();
         cam = Camera.main;
@@ -112,6 +116,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator GodEffect()
+    {
+        while (true)
+        {
+            body.SetActive(true);
+            yield return new WaitUntil(() => isGod);
+            while (isGod)
+            {
+                body.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                body.SetActive(false);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
     private void Glitch()
     {
         if(glitchTime > 0)
@@ -131,7 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             deadClock -= Time.deltaTime;
             Samples.SampleController.instance.StartSceneValue();
-            warringTMP.text = $"OUT OF AREA : {deadClock:0.0} SEC";
+            warringTMP.text = $"Go down to the floor : {deadClock:0.0} Sec";
         }
         else
         {
@@ -146,6 +165,7 @@ public class PlayerController : MonoBehaviour
 
     private void Dead()
     {
+        gunController.isCanFire = false;
         dieEffect.PlayerDieEffect();
         isDead = true;
         ExpManager.instance.isCanLevelup = false;
@@ -198,6 +218,7 @@ public class PlayerController : MonoBehaviour
             moveDir = moveDir.normalized * dashFixValue;
             PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(dashClip, 1, Random.Range(0.9f, 1.1f));
             yield return new WaitForSeconds(dashTime);
+            GodMode(dashGodTime[stat.dashGod]);
             isCanControll = true;
         }
     }
@@ -206,7 +227,7 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => Stemina < maxStemina);
+            yield return new WaitUntil(() => Stemina < maxStemina + stat.dashChance);
             yield return new WaitForSeconds(steminaChargeTime);
             Stemina++;
         }

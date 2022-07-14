@@ -11,10 +11,15 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float waveTime = 40;
     private float curWaveTime;
     public int curWave;
+    public int realcurWave = 1;
+    public int curFloor = 1;
 
-    [SerializeField] private TextMeshProUGUI nextWaveText;
-    [SerializeField] private TextMeshProUGUI floorText;
+    [SerializeField] private TextMeshProUGUI nextWaveText; //애가 웨이브 텍스트
+    [SerializeField] private TextMeshProUGUI floorText;  //얘가 플로어 텍스트
     [SerializeField] private Background background;
+
+    [SerializeField] private TextMeshProUGUI wave;
+    [SerializeField] private TextMeshProUGUI floor;
 
     public void Awake()
     {
@@ -22,7 +27,12 @@ public class WaveManager : MonoBehaviour
 
         DisplayFloor();
     }
-
+    private void Start()
+    {
+        wave.text = $"Wave 1-{curFloor}";
+        wave.gameObject.SetActive(true);
+        StartCoroutine(DisableText());
+    }
     public void Update()
     {
         curWaveTime += Time.deltaTime;
@@ -31,12 +41,18 @@ public class WaveManager : MonoBehaviour
         {
             curWaveTime = 0;
             curWave++;
-
+            curFloor++;
             if (curWave % 3 == 0)
             {
+                realcurWave++;
+                curFloor = 1;
                 background.FloorChange();
                 EnemySubject.instance.NotifyObserver();
                 CameraManager.instance.CameraShake(1, 1, 4);
+                //여기다가 웨이브 올라가는 텍스트
+                //wave.text = $"Wave {curWave}-{curFloor}";
+                //wave.gameObject.SetActive(true);
+
                 Sequence seq = DOTween.Sequence();
                 Define.Instance.controller.GodMode(8);
                 seq.AppendCallback(() => ExpManager.instance.isCanLevelup = false);
@@ -46,16 +62,24 @@ public class WaveManager : MonoBehaviour
                 seq.AppendCallback(() => EnemyGenerator.Instance.isCanGenerated = true);
             }
 
+            wave.text = $"Wave {realcurWave}-{curFloor}";
+            wave.gameObject.SetActive(true);
+            StartCoroutine(DisableText());
+
             DisplayFloor();
         }
 
-        nextWaveText.text = $"다음 웨이브 까지 : {waveTime - curWaveTime:0.0}초";
+        nextWaveText.text = $"Next Wave : {waveTime - curWaveTime:0.0} Sec";
     }
-
+    IEnumerator DisableText()
+    {
+        yield return new WaitForSeconds(3f);
+        wave.gameObject.SetActive(false);
+    }
     private void DisplayFloor()
     {
         string str = "";
-        str += $"{curWave / 3 + 1}층 |";
+        str += $"{curWave / 3 + 1} Floor |";
         for (int i = 0; i < 3; i++)
         {
             if ((curWave + 1) % 3 > i || (curWave + 1) % 3 == 0)

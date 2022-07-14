@@ -55,13 +55,12 @@ public class ExpManager : MonoBehaviour
     public void AddExp()
     {
         curExp++;
-        if (curExp >= expTable[curLevel] )//&& isCanLevelup)
+        if (curExp >= expTable[curLevel] && isCanLevelup)
         {
             curExp = 0;
             curLevel++;
             Samples.SampleController.instance.ZeroValue();
             LevelUdateText();
-            Samples.SampleController.instance.ZeroValue();
             slotMachineManager.Make();
             slotMachine.StartRolling();
             slotMachine.gardImage.raycastTarget = true;
