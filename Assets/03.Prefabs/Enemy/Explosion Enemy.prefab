@@ -343,6 +343,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   explosionEffect: {fileID: 6562739250803433395}
+  orignMat: {fileID: 2100000, guid: 6cd94d87d38e584468be6eaee40db91b, type: 2}
+  damageMat: {fileID: 2100000, guid: 69a51376cda1ed945bb12c43d325757f, type: 2}
 --- !u!1001 &8349105357813736925
 PrefabInstance:
   m_ObjectHideFlags: 0

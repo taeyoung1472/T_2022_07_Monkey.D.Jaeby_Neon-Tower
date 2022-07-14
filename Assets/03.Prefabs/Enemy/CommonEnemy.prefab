@@ -300,6 +300,9 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 64
+  outLine: {fileID: 0}
+  orignMat: {fileID: 2100000, guid: 17485e6b01475ad4199f4fdb0ce99754, type: 2}
+  damageMat: {fileID: 2100000, guid: d344a32c48d98e3439a1a02480e58303, type: 2}
 --- !u!65 &159637254020327886
 BoxCollider:
   m_ObjectHideFlags: 0

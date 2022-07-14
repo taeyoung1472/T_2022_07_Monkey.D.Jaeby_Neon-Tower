@@ -55,6 +55,11 @@ public class FarEnemy : LivingEntity
     [SerializeField] private Transform eye;
     [SerializeField] private LayerMask playerLayer;
 
+
+    public Material orignMat;
+    public Material damageMat;
+
+    private MeshRenderer meshRenderer;
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
@@ -79,7 +84,7 @@ public class FarEnemy : LivingEntity
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<AudioSource>();
         skinRenderer = GetComponentInChildren<Renderer>();
-
+        meshRenderer = GetComponent<MeshRenderer>();
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
 
 
@@ -206,12 +211,12 @@ public class FarEnemy : LivingEntity
     public override bool ApplyDamage(DamageMessage damageMessage)
     {
         if (!base.ApplyDamage(damageMessage)) return false;
-
+        
         if (targetEntity == null)
         {
             targetEntity = damageMessage.damager.GetComponent<LivingEntity>();
         }
-
+        StartCoroutine(ChangeMaterial());
         //EffectManager.Instance.PlayHitEffect(damageMessage.hitPoint, damageMessage.hitNormal, transform, EffectManager.EffectType.Flesh);
         audioPlayer.PlayOneShot(EnemyData.hitClip);
 
@@ -246,6 +251,7 @@ public class FarEnemy : LivingEntity
     {
         // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
         base.Die();
+        StopCoroutine("ChangeMaterial");
 
         state = State.Tracking;
 
@@ -261,5 +267,11 @@ public class FarEnemy : LivingEntity
 
         // 사망 효과음 재생
         if (EnemyData.deathClip != null) audioPlayer.PlayOneShot(EnemyData.deathClip);
+    }
+    IEnumerator ChangeMaterial()
+    {
+        meshRenderer.material = damageMat;
+        yield return new WaitForSeconds(.25f);
+        meshRenderer.material = orignMat;
     }
 }
