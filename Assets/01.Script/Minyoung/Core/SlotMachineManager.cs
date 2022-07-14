@@ -182,6 +182,7 @@ public class SlotMachineManager : MonoBehaviour
     public void DestroyUpgradeTable(AbilitySO so)
     {
         ResultButton.Instance._btn.interactable = false;
+        UpgradeDisplay.instance.Regist(so);
         if (so == null)
             return;
         foreach (var item in playerSO)

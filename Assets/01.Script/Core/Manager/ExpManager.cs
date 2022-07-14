@@ -55,7 +55,7 @@ public class ExpManager : MonoBehaviour
     public void AddExp()
     {
         curExp++;
-        if (curExp >= expTable[curLevel] )//&& isCanLevelup)
+        if (curExp >= expTable[curLevel] && isCanLevelup)
         {
             curExp = 0;
             curLevel++;
