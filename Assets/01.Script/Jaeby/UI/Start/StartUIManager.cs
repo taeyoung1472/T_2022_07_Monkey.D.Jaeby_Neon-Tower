@@ -134,7 +134,10 @@ public class StartUIManager : MonoBehaviour
         seq.Append(_exitButton.DOAnchorPosX(-800f, 0.2f));
         seq.AppendInterval(0.4f);
         seq.Append(_textParent.transform.DOMoveY(-14f, 0.5f));
-        Application.Quit();
+        seq.AppendCallback(() =>
+        {
+            Application.Quit();
+        });
     }
 
     public void IsClick()

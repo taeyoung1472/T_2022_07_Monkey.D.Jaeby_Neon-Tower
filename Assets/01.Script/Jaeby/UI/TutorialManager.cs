@@ -36,6 +36,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
+
         StartCoroutine(StartTutorial());
     }
 
@@ -215,9 +217,10 @@ public class TutorialManager : MonoBehaviour
     }
 
 
-    public void Test4Start()
+    public void Test4Start(Collider col)
     {
         StartCoroutine(Test4Coroutine());
+        col.gameObject.SetActive(false);
     }
 
     private IEnumerator Test4Coroutine()
