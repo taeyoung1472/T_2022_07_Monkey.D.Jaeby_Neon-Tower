@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class EnemyGenerator : MonoBehaviour
 {
+    public bool isCanGenerated = true;
+
     public static EnemyGenerator Instance;
 
     [SerializeField] private EnemySpawnTable[] spawnTables;

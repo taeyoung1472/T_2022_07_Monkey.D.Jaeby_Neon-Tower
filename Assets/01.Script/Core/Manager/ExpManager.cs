@@ -12,6 +12,8 @@ public class ExpManager : MonoBehaviour
     public SlotMachineManager slotMachineManager;
     public bool isCanLevelup = true;
 
+    [SerializeField] private GameObject levelUpEffect;
+
     public int[] expTable;
     int curExp = 0;
     int curLevel = 0;
@@ -67,6 +69,19 @@ public class ExpManager : MonoBehaviour
             slotMachine.gardImage.raycastTarget = true;
             StartCoroutine(RaycastCotroll());
             han.OpenLevelMenu();
+
+
+            Sequence seq = DOTween.Sequence();
+
+            GameObject e = null;
+
+            seq.AppendInterval(0.25f);
+
+            seq.AppendCallback(() => e = Instantiate(levelUpEffect, Define.Instance.controller.transform.position, Quaternion.identity));
+
+            seq.AppendCallback(() => Destroy(e, 6));
+
+            Define.Instance.controller.GodMode(2f);
         }
     }
     public void LevelUdateText()

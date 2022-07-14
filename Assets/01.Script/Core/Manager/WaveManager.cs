@@ -38,9 +38,12 @@ public class WaveManager : MonoBehaviour
                 EnemySubject.instance.NotifyObserver();
                 CameraManager.instance.CameraShake(1, 1, 4);
                 Sequence seq = DOTween.Sequence();
+                Define.Instance.controller.GodMode(8);
                 seq.AppendCallback(() => ExpManager.instance.isCanLevelup = false);
+                seq.AppendCallback(() => EnemyGenerator.Instance.isCanGenerated = false);
                 seq.AppendInterval(8);
                 seq.AppendCallback(() => ExpManager.instance.isCanLevelup = true);
+                seq.AppendCallback(() => EnemyGenerator.Instance.isCanGenerated = true);
             }
 
             DisplayFloor();

@@ -30,12 +30,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HPUI hpUi;
     [SerializeField] private HPUI dashUi;
     [SerializeField] private DieEffect dieEffect;
+    [SerializeField] private ParticleSystem dustParticle;
+    [SerializeField] private GameObject volumeCollision;
     PlayerStat stat;
     float stealHp;
     float glitchTime;
+    float grayTime;
     int curHp;
     bool isDamaged = false;
     float rollinVolumeGoal;
+    bool isGod = true;
+    float godTime = 0;
 
     #region Animator Hash
     readonly int moveHash = Animator.StringToHash("Move");
@@ -60,6 +65,8 @@ public class PlayerController : MonoBehaviour
 
         hpUi.DisplayValue(curHp, stat.hp);
 
+        Time.timeScale = 1;
+
         StartCoroutine(DashSystem());
         StartCoroutine(SteminaSystem());
         StartCoroutine(DamagedCor());
@@ -75,6 +82,34 @@ public class PlayerController : MonoBehaviour
             OutRangeCheck();
         }
         Glitch();
+        Gray();
+        God();
+    }
+
+    private void Gray()
+    {
+        if(grayTime > 0)
+        {
+            grayTime -= Time.deltaTime;
+            volumeCollision.gameObject.SetActive(true);
+        }
+        else
+        {
+            volumeCollision.gameObject.SetActive(false);
+        }
+    }
+
+    private void God()
+    {
+        if(godTime > 0)
+        {
+            godTime -= Time.deltaTime;
+            isGod = true;
+        }
+        else
+        {
+            isGod = false;
+        }
     }
 
     private void Glitch()
@@ -183,21 +218,25 @@ public class PlayerController : MonoBehaviour
         while (!isDead)
         {
             yield return new WaitUntil(() => isDamaged);
-
-            curHp--;
-            glitchTime = 0.6f;
-            CameraManager.instance.CameraShake(2, 2, 0.2f);
-
-            if(curHp <= 0)
+            if (!isGod)
             {
-                Dead();
-                isDead = true;
+                curHp--;
+                glitchTime = 0.6f;
+                grayTime = 0.2f;
+                CameraManager.instance.CameraShake(2, 2, 0.2f);
+
+                if (curHp <= 0)
+                {
+                    Dead();
+                    isDead = true;
+                }
+
+                hpUi.DisplayValue(curHp, stat.hp);
+
+                isDamaged = false;
+                meshRenderer.material.color = Color.Lerp(minHpColor, maxHpColor, (float)curHp / (float)stat.hp);
+                GodMode(0.3f);
             }
-
-            hpUi.DisplayValue(curHp, stat.hp);
-
-            isDamaged = false;
-            meshRenderer.material.color = Color.Lerp(minHpColor, maxHpColor, (float)curHp / (float)stat.hp);
             yield return new WaitForSeconds(ignoreTime);
         }
         yield return null;
@@ -235,12 +274,16 @@ public class PlayerController : MonoBehaviour
             animator.SetBool(moveHash, true);
             animator.transform.rotation = Quaternion.LookRotation(new Vector3(h, 0, v));
             rollinVolumeGoal = 1;
+            var e = dustParticle.emission;
+            e.enabled = true;
         }
         else
         {
             animator.SetBool(moveHash, false);
             animator.transform.localRotation = Quaternion.identity;
             rollinVolumeGoal = 0;
+            var e = dustParticle.emission;
+            e.enabled = false;
         }
 
         rollingSource.volume = Mathf.Lerp(rollingSource.volume, rollinVolumeGoal, Time.deltaTime * 5);
@@ -258,6 +301,13 @@ public class PlayerController : MonoBehaviour
             moveDir.y = 0;
         }
     }
+    public void GodMode(float dur)
+    {
+        if(godTime < dur)
+        {
+            godTime = dur;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
@@ -271,7 +321,11 @@ public class PlayerController : MonoBehaviour
             switch (item.type)
             {
                 case ItemType.HP:
-                    print("HP Item Use");
+                    curHp += 2;
+                    if(curHp >= stat.hp)
+                    {
+                        curHp = stat.hp;
+                    }
                     break;
                 case ItemType.DMGBALL:
                     print("DMGBALL Item Use");

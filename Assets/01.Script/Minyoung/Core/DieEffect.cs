@@ -27,7 +27,6 @@ public class DieEffect : MonoBehaviour
         particle1.Stop();
         particle2.Stop();
         Sequence seq = DOTween.Sequence();
-        EnemySubject.instance.NotifyObserver();
         seq.AppendCallback(() => particle.Play());
         seq.AppendInterval(3f);
         seq.AppendCallback(() => particle1.Play());
@@ -35,6 +34,14 @@ public class DieEffect : MonoBehaviour
         seq.AppendCallback(() => CameraManager.instance.CameraShake(6f, 2f, .5f));
         seq.AppendCallback(() => particle2.Play());
         seq.AppendCallback(() => particle.Stop());
+        seq.AppendCallback(() => EnemySubject.instance.NotifyObserver());
+        seq.AppendCallback(() => Samples.SampleController.instance.cantDoZero = true);
+        seq.AppendCallback(() => Samples.SampleController.instance.StartSceneValue());
+        seq.AppendInterval(0.25f);
+        seq.Append(DOTween.To(() => Samples.SampleController.instance._intensity, x => Samples.SampleController.instance._intensity = x, 1f, 3f));
+        seq.AppendInterval(1f);
+        seq.AppendCallback(() => Time.timeScale = 0);
+        seq.AppendCallback(() => UIManager.Instance.DieUISet());
         Samples.SampleController.instance.LoadGameCutScene();
     }
 }
