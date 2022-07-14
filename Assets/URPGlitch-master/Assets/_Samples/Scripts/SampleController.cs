@@ -77,12 +77,14 @@ namespace Samples
 
         IEnumerator GameStartCutScene()
         {
-            while (_intensity > 0.005f)
+            cantDoZero = true;
+            while (_intensity > 0.01f)
             {
                 _intensity -= 0.05f;
 
                 yield return new WaitForSeconds(0.05f);
             }
+            cantDoZero = false;
             _intensity = 0.001f;
         }
         IEnumerator StartCutScene()

@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             deadClock -= Time.deltaTime;
             Samples.SampleController.instance.StartSceneValue();
-            warringTMP.text = $"바닥으로 내려가세요 : {deadClock:0.0} 초";
+            warringTMP.text = $"Go down to the floor : {deadClock:0.0} Sec";
         }
         else
         {

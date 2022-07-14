@@ -69,7 +69,7 @@ public class WaveManager : MonoBehaviour
             DisplayFloor();
         }
 
-        nextWaveText.text = $"다음 웨이브 까지 : {waveTime - curWaveTime:0.0}초";
+        nextWaveText.text = $"Next Wave : {waveTime - curWaveTime:0.0} Sec";
     }
     IEnumerator DisableText()
     {
@@ -79,7 +79,7 @@ public class WaveManager : MonoBehaviour
     private void DisplayFloor()
     {
         string str = "";
-        str += $"{curWave / 3 + 1}층 |";
+        str += $"{curWave / 3 + 1} Floor |";
         for (int i = 0; i < 3; i++)
         {
             if ((curWave + 1) % 3 > i || (curWave + 1) % 3 == 0)
