@@ -53,7 +53,10 @@ public class ExplosionEnemy : LivingEntity, IEnemy
     float freezeTimer;
     Vector3 knockbackForce;
 
+    public Material orignMat;
+    public Material damageMat;
 
+    private MeshRenderer meshRenderer;
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
@@ -78,6 +81,7 @@ public class ExplosionEnemy : LivingEntity, IEnemy
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<AudioSource>();
         skinRenderer = GetComponentInChildren<Renderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
 
         targetEntity = GameObject.Find("Player").GetComponent<LivingEntity>();
 
@@ -290,6 +294,8 @@ public class ExplosionEnemy : LivingEntity, IEnemy
     }
     void DamagedFeedback(DamageMessage damageMessage)
     {
+        StartCoroutine(ChangeMaterial());
+
         PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
         PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(transform.position, $"{damageMessage.amount:0.0}");
     }
@@ -310,5 +316,13 @@ public class ExplosionEnemy : LivingEntity, IEnemy
         {
             agent.velocity = knockbackForce;
         }
+    }
+
+
+    IEnumerator ChangeMaterial()
+    {
+        meshRenderer.material = damageMat;
+        yield return new WaitForSeconds(.25f);
+        meshRenderer.material = orignMat;
     }
 }

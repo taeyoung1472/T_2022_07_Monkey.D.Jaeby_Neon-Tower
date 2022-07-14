@@ -432,6 +432,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 65
+  orignMat: {fileID: 2100000, guid: a5ba589cca0a35b4d88365b991b4489b, type: 2}
+  damageMat: {fileID: 2100000, guid: ebdafc5ef8b12934a865e5d219a2bfff, type: 2}
 --- !u!1 &8502297328691468496
 GameObject:
   m_ObjectHideFlags: 0
