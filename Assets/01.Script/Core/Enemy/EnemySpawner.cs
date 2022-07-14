@@ -17,11 +17,14 @@ public class EnemySpawner : MonoBehaviour
         int spawnerIndex = 0;
         while (true)
         {
-            localSpawners[spawnerIndex].SpawnEnemy(EnemyGenerator.Instance.GetEnemy());
-            spawnerIndex++;
-            if(spawnerIndex >= localSpawners.Length)
+            if (EnemyGenerator.Instance.isCanGenerated)
             {
-                spawnerIndex = 0;
+                localSpawners[spawnerIndex].SpawnEnemy(EnemyGenerator.Instance.GetEnemy());
+                spawnerIndex++;
+                if (spawnerIndex >= localSpawners.Length)
+                {
+                    spawnerIndex = 0;
+                }
             }
             yield return new WaitForSeconds(spawnTime[WaveManager.instance.curWave]);
         }
