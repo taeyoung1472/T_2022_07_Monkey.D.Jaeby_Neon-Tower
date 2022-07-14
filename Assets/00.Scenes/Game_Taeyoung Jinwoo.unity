@@ -4453,6 +4453,9 @@ MonoBehaviour:
   - ability: {fileID: 11400000, guid: accd91e8ba6b3804eac4fd5672ee41ef, type: 2}
     count: 2
   maxSO: {fileID: 11400000, guid: ae51403b92ac5b24d876b8ea5a2d65cd, type: 2}
+  _playerSlotTrm: {fileID: 0}
+  _bulletSlotTrm: {fileID: 0}
+  _etcSlotTrm: {fileID: 0}
 --- !u!1 &148656853
 GameObject:
   m_ObjectHideFlags: 0
@@ -7835,6 +7838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2a77430ad1de147be6d184ded080c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCanGenerated: 1
   spawnTables:
   - name: "\uC77C\uBC18\uC801"
     prefab: {fileID: 6437738306033802312, guid: 7de9fb07db952294c89c159904ce03b8, type: 3}
@@ -21019,6 +21023,8 @@ MonoBehaviour:
   hpUi: {fileID: 0}
   dashUi: {fileID: 0}
   dieEffect: {fileID: 0}
+  dustParticle: {fileID: 0}
+  volumeCollision: {fileID: 0}
 --- !u!114 &799309375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30401,6 +30407,7 @@ MonoBehaviour:
   han: {fileID: 2038084298}
   slotMachineManager: {fileID: 147050333}
   isCanLevelup: 1
+  levelUpEffect: {fileID: 0}
   expTable: 14000000190000001e00000023000000280000002d00000032000000370000003c00000041000000460000004b00000050000000550000005a0000005f00000064000000690000006e00000073000000780000007d00000082000000870000008c00000091000000960000009b000000a0000000a5000000aa000000af000000b4000000b9000000be000000c3000000c8000000cd000000d20000003f420f00
   expPerTxt: {fileID: 0}
   levelTxt: {fileID: 0}
@@ -41488,6 +41495,7 @@ MonoBehaviour:
   _verticalJump: 0.025
   _horizontalShake: 0.025
   _colorDrift: 0.05
+  cantDoZero: 0
   additionalCameraData: {fileID: 0}
 --- !u!4 &1531036489
 Transform:
@@ -50330,7 +50338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1901713917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54940,6 +54948,7 @@ MonoBehaviour:
   levelUPMenu: {fileID: 7801105041532102665}
   selectDetail: {fileID: 4146464760722171003}
   rotateSelect: {fileID: 4146464760722170997}
+  pointLight: {fileID: 0}
 --- !u!1001 &2038773463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64470,6 +64479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089fe0f4743c4f24381b2dd9692d59dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerSlotObj: {fileID: 0}
+  _bulletSlotObj: {fileID: 0}
+  _etcSlotObj: {fileID: 0}
   resultButton: {fileID: 7801105041837295572}
   resultImageBtn: {fileID: 7801105041837295595}
   explainTxt: {fileID: 8067386658392406695}
@@ -64478,6 +64490,11 @@ MonoBehaviour:
   maxImage: {fileID: 0}
   isShow: 0
   selectImage: {fileID: 4146464761791984358}
+  selectMat: {fileID: 0}
+  orignMat: {fileID: 0}
+  select1: {fileID: 0}
+  select2: {fileID: 0}
+  select3: {fileID: 0}
 --- !u!1 &2563157304610416694
 GameObject:
   m_ObjectHideFlags: 0
@@ -76028,6 +76045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2f3ecac32a04b47a326adcc48cc15e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _btn: {fileID: 0}
   _text: {fileID: 8067386658392406695}
   slotMachine: {fileID: 147050333}
 --- !u!224 &7801105041837295574

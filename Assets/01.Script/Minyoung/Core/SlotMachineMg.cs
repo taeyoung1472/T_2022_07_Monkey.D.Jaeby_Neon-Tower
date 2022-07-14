@@ -146,7 +146,7 @@ public class SlotMachineMg : MonoBehaviour
         if (so.dashGod) manager.playerStat.dashGod++;
 
 
-        //selectImage.sprite = so.sprite;
+        selectImage.sprite = so.sprite;
         resultImageBtn.image.color = new Color(1, 1, 1, 0);
         resultImageBtn.enabled = false;
         Init();
