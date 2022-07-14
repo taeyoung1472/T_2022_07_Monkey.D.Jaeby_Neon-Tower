@@ -36,20 +36,15 @@ namespace Samples
         {
             if (Input.GetKeyDown(KeyCode.N))
             {
-                StartCoroutine(StartCutScene());
+                //StartCoroutine(StartCutScene());
+                StartSceneValue();
             }
             if (Input.GetKeyDown(KeyCode.M))
             {
                 ZeroValue();
             }
 
-
-            _digitalGlitchFeature.Intensity = _intensity;
-
-            _analogGlitchFeature.ScanLineJitter = _scanLineJitter;
-            _analogGlitchFeature.VerticalJump = _verticalJump;
-            _analogGlitchFeature.HorizontalShake = _horizontalShake;
-            _analogGlitchFeature.ColorDrift = _colorDrift;
+            
         }
         public void ZeroValue()
         {

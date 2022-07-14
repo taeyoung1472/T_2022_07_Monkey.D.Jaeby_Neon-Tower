@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private HPUI dashUi;
     PlayerStat stat;
     float stealHp;
+    float glitchTime;
     int curHp;
     bool isDamaged = false;
     float rollinVolumeGoal;
@@ -68,6 +69,20 @@ public class PlayerController : MonoBehaviour
         Gravity();
         Rotate();
         OutRangeCheck();
+        Glitch();
+    }
+
+    private void Glitch()
+    {
+        if(glitchTime > 0)
+        {
+            glitchTime -= Time.deltaTime;
+            Samples.SampleController.instance.StartSceneValue();
+        }
+        else if(!isInDeadZone)
+        {
+            Samples.SampleController.instance.ZeroValue();
+        }
     }
 
     private void OutRangeCheck()
@@ -75,10 +90,12 @@ public class PlayerController : MonoBehaviour
         if (isInDeadZone)
         {
             deadClock -= Time.deltaTime;
+            Samples.SampleController.instance.StartSceneValue();
             warringTMP.text = $"OUT OF AREA : {deadClock:0.0} SEC";
         }
         else
         {
+            Samples.SampleController.instance.ZeroValue();
             deadClock = 2;
         }
         if (deadClock <= 0)
@@ -160,6 +177,8 @@ public class PlayerController : MonoBehaviour
             yield return new WaitUntil(() => isDamaged);
 
             curHp--;
+            glitchTime = 0.6f;
+            CameraManager.instance.CameraShake(2, 2, 0.2f);
 
             if(curHp <= 0)
             {
