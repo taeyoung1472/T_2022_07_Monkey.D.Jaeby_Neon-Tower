@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class WaveManager : MonoBehaviour
 {
@@ -34,7 +35,12 @@ public class WaveManager : MonoBehaviour
             if (curWave % 3 == 0)
             {
                 background.FloorChange();
+                EnemySubject.instance.NotifyObserver();
                 CameraManager.instance.CameraShake(1, 1, 4);
+                Sequence seq = DOTween.Sequence();
+                seq.AppendCallback(() => ExpManager.instance.isCanLevelup = false);
+                seq.AppendInterval(8);
+                seq.AppendCallback(() => ExpManager.instance.isCanLevelup = true);
             }
 
             DisplayFloor();

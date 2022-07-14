@@ -10,6 +10,7 @@ public class ExpManager : MonoBehaviour
     public SlotMachineMg slotMachine;
     public UIManagerHan han;
     public SlotMachineManager slotMachineManager;
+    public bool isCanLevelup = true;
 
     public int[] expTable;
     int curExp = 0;
@@ -56,7 +57,7 @@ public class ExpManager : MonoBehaviour
     public void AddExp()
     {
         curExp++;
-        if (curExp >= expTable[curLevel])
+        if (curExp >= expTable[curLevel] && isCanLevelup)
         {
             curExp = 0;
             curLevel++;
