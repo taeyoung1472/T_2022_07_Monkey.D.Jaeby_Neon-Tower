@@ -93,7 +93,7 @@ namespace Samples
 
                 yield return new WaitForSeconds(0.05f);
             }
-            _digitalGlitchFeature.Intensity = 0.001f;
+            _intensity = 0.001f;
         }
         public void ChangeRenderModeOne()
         {
