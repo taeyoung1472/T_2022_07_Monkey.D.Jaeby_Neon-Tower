@@ -59,7 +59,7 @@ public class ExpManager : MonoBehaviour
     public void AddExp()
     {
         curExp++;
-        if (curExp >= expTable[curLevel] && isCanLevelup)
+        if (curExp >= expTable[curLevel] )//&& isCanLevelup)
         {
             curExp = 0;
             curLevel++;
@@ -102,7 +102,7 @@ public class ExpManager : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         float a = expPer / 100f;
 
-        DOTween.To(() => expImage.fillAmount, x => expImage.fillAmount = x, expPer / 100f, 0.3f);
+        DOTween.To(() => expImage.fillAmount, x => expImage.fillAmount = x, expPer / 100f, 0.3f).SetUpdate(true);
         expPerTxt.text = ($"{Mathf.Ceil(expPer)}");
     }
 }
