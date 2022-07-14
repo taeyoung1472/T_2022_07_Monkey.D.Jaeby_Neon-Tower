@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_EnemyDamageShader
+  m_Name: FarEnemyMat
   m_Shader: {fileID: -6465566751694194690, guid: f8c1f8e44edc94447b8c923f0658d08d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,12 +34,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EffectDetail: 1.1
+    - _EffectDetail: 6
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Thickness: 1.1
     m_Colors:
-    - _OutlineColor: {r: 0.13328585, g: 0.5887019, b: 0.6037736, a: 0}
+    - _OutlineColor: {r: 7.937255, g: 7.592157, b: 7.592157, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &778512073544182164
 MonoBehaviour:

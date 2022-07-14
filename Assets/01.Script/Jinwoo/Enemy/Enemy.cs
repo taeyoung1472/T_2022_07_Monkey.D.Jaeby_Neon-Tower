@@ -45,10 +45,18 @@ public class Enemy : LivingEntity, IEnemy
 
     Vector3 knockbackForce;
 
+   // public OutLineEffect outLine;
+
+
+    public Material orignMat;
+    public Material damageMat;
+
+    private MeshRenderer meshRenderer;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        meshRenderer = GetComponent<MeshRenderer>();
 
         player = Define.Instance.controller.transform;
 
@@ -154,9 +162,12 @@ public class Enemy : LivingEntity, IEnemy
     public override bool ApplyDamage(DamageMessage damageMessage)
     {
         if (!base.ApplyDamage(damageMessage)) return false;
-
+        StartCoroutine(ChangeMaterial());
+        //outLine.OnDamage();
         PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.hitClip, 1, Random.Range(0.9f, 1.1f));
         PoolManager.instance.Pop(PoolType.Popup).GetComponent<PopupPoolObject>().PopupTextCritical(transform.position, $"{damageMessage.amount:0.0}");
+
+
         return true;
     }
 
@@ -184,7 +195,7 @@ public class Enemy : LivingEntity, IEnemy
     {
         PoolManager.instance.Pop(PoolType.EnemyDeadImpact).GetComponentInParent<ParticlePool>().Set(transform.position + Vector3.up * 1f, Quaternion.identity);
         PoolManager.instance.Pop(PoolType.Sound).GetComponent<AudioPoolObject>().Play(EnemyData.deathClip, 1, Random.Range(0.9f, 1.1f));
-
+        StopCoroutine("ChangeMaterial");
         int rand = Random.Range(2, 5);
         for (int i = 0; i < rand; i++)
         {
@@ -207,4 +218,11 @@ public class Enemy : LivingEntity, IEnemy
     {
         freezeTimer = duration;
     }
+    IEnumerator ChangeMaterial()
+    {
+        meshRenderer.material = damageMat;
+        yield return new WaitForSeconds(.25f);
+        meshRenderer.material = orignMat;
+    }
+
 }

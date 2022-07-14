@@ -246,6 +246,8 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 64
+  orignMat: {fileID: 2100000, guid: 84e9755c2d110bd4e810d51cecfbbeb7, type: 2}
+  damageMat: {fileID: 2100000, guid: f7a9b9655340b824a81f019d6d195a91, type: 2}
 --- !u!1 &5732408651050743549
 GameObject:
   m_ObjectHideFlags: 0
