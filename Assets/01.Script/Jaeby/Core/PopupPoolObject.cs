@@ -31,6 +31,8 @@ public class PopupPoolObject : PoolAbleObject
 
     public override void Init_Push()
     {
+        StopAllCoroutines();
+
         if(_seq != null)
         {
             _seq.Kill();
@@ -101,15 +103,24 @@ public class PopupPoolObject : PoolAbleObject
         _text.SetText(text);
 
         CameraManager.instance.CameraShake(2f,2f,0.1f);
+        StartCoroutine(FadeCoroutine());
+
         Sequence seq = DOTween.Sequence();
         seq.Append(_text.DOFade(1f, 0.2f));
         seq.Join(transform.DOScale(1f, 0.15f));
         seq.Join(_text.DOColor(_criticalColor, 0.05f));
         seq.Append(_text.DOFade(0f, 0.5f));
+
         seq.AppendCallback(() =>
         {
             PoolManager.instance.Push(PoolType, gameObject);
         });
+    }
+
+    private IEnumerator FadeCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _text.color = new Color(0f, 0f, 0f, 0f);
     }
 
     public void PopupJumpWithRandomness(Vector3 startPos, float jumpPower, float randomXmove, Color color, float duration, int fontSize = 5)
