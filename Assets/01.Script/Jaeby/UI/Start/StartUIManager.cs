@@ -24,6 +24,8 @@ public class StartUIManager : MonoBehaviour
     private RectTransform _tutorialButton = null;
     [SerializeField]
     private RectTransform _exitButton = null;
+    [SerializeField]
+    private RectTransform _optionButton = null;
 
     [SerializeField]
     private GameObject _textParent = null;
@@ -74,6 +76,7 @@ public class StartUIManager : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         seq.Append(_startButton.DOAnchorPosX(-800f, 0.2f));
         seq.Append(_tutorialButton.DOAnchorPosX(-800f, 0.2f));
+        seq.Append(_optionButton.DOAnchorPosX(-800f, 0.2f));
         seq.Append(_exitButton.DOAnchorPosX(-800f, 0.2f));
         seq.AppendCallback(() => StartInit());
     }
@@ -131,6 +134,7 @@ public class StartUIManager : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         seq.Append(_startButton.DOAnchorPosX(-800f, 0.2f));
         seq.Append(_tutorialButton.DOAnchorPosX(-800f, 0.2f));
+        seq.Append(_optionButton.DOAnchorPosX(-800f, 0.2f));
         seq.Append(_exitButton.DOAnchorPosX(-800f, 0.2f));
         seq.AppendInterval(0.4f);
         seq.Append(_textParent.transform.DOMoveY(-14f, 0.5f));
