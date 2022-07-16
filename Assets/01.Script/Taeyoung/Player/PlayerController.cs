@@ -39,11 +39,12 @@ public class PlayerController : MonoBehaviour
     float stealHp;
     float glitchTime;
     float grayTime;
-    int curHp;
+    public int curHp;
     bool isDamaged = false;
     float rollinVolumeGoal;
     bool isGod = true;
     float godTime = 0;
+    public bool isTuto = false;
 
     #region Animator Hash
     readonly int moveHash = Animator.StringToHash("Move");
@@ -174,6 +175,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damaged()
     {
+        if (isTuto) return;
         isDamaged = true;
     }
 

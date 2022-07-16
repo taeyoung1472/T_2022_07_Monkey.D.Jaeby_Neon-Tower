@@ -144,6 +144,7 @@ public class SlotMachineMg : MonoBehaviour
         if (so.stealHp) manager.playerStat.stealHp++;
         if (so.dashChance) manager.playerStat.dashChance++;
         if (so.dashGod) manager.playerStat.dashGod++;
+        if (so.maxHp) Define.Instance.controller.curHp++;
 
 
         selectImage.sprite = so.sprite;

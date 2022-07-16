@@ -69,7 +69,7 @@ public class Enemy : LivingEntity, IEnemy
     protected virtual void Setup()
     {
         // 체력 설정
-        this.health = EnemyData.maxHealth;
+        this.health = EnemyData.maxHealth + WaveManager.instance.GetFloor();
 
         // 내비메쉬 에이전트의 이동 속도 설정  
         this.runSpeed = EnemyData.maxSpeed;

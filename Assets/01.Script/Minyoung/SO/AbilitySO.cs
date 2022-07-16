@@ -28,6 +28,7 @@ public class AbilitySO : ScriptableObject
     public bool stealHp;
     public bool dashChance;
     public bool dashGod;
+    public bool Heal;
 
     public Sprite sprite;
     public string descString;

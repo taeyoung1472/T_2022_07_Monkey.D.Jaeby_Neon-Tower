@@ -37,7 +37,7 @@ public class ExpManager : MonoBehaviour
                 return;
             }
             expTable[i] = dif;
-            dif += 5;
+            dif += 15;
         }
     }
 

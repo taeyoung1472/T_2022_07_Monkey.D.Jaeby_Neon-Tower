@@ -27,5 +27,6 @@ MonoBehaviour:
   stealHp: 0
   dashChance: 0
   dashGod: 0
+  Heal: 0
   sprite: {fileID: 21300000, guid: 61f30ade442ef244db9da18bc1335aed, type: 3}
   descString: MAX

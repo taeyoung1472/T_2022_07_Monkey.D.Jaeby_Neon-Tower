@@ -71,6 +71,10 @@ public class WaveManager : MonoBehaviour
 
         nextWaveText.text = $"Next Wave : {waveTime - curWaveTime:0.0} Sec";
     }
+    public int GetFloor()
+    {
+        return curWave / 3 + 1;
+    }
     IEnumerator DisableText()
     {
         yield return new WaitForSeconds(3f);
@@ -79,8 +83,12 @@ public class WaveManager : MonoBehaviour
     private void DisplayFloor()
     {
         string str = "";
-        str += $"{curWave / 3 + 1} Floor |";
-        for (int i = 0; i < 3; i++)
+        str += $"{curWave / 3 + 1} Floor";
+        if(curWave / 3 + 1 == 6)
+        {
+            UIManager.Instance.GameEnding();
+        }
+        /*for (int i = 0; i < 3; i++)
         {
             if ((curWave + 1) % 3 > i || (curWave + 1) % 3 == 0)
             {
@@ -90,7 +98,7 @@ public class WaveManager : MonoBehaviour
             {
                 str += " ¡Ü";
             }
-        }
+        }*/
         floorText.text = str;
     }
 }

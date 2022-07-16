@@ -1769,8 +1769,6 @@ MonoBehaviour:
     count: 3
   - ability: {fileID: 11400000, guid: 503b6f18433670a43862637f84291f04, type: 2}
     count: 3
-  - ability: {fileID: 11400000, guid: 4510b585b02743a479967adfad486d8b, type: 2}
-    count: 3
   ETCSO:
   - ability: {fileID: 11400000, guid: cfbb774a70f837e4b9f44effc75d1b55, type: 2}
     count: 3
@@ -8658,6 +8656,7 @@ MonoBehaviour:
   - 1
   body: {fileID: 96062489}
   gunController: {fileID: 1846305436}
+  isTuto: 0
 --- !u!114 &799309375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14534,8 +14533,9 @@ MonoBehaviour:
   han: {fileID: 2038084298}
   slotMachineManager: {fileID: 147050333}
   isCanLevelup: 1
+  clip: {fileID: 8300000, guid: 46a9a4f3f85c42a4fa1144a48bc80096, type: 3}
   levelUpEffect: {fileID: 1160843651214142383, guid: 6466381457c1ac247bc30e1d0875cb2c, type: 3}
-  expTable: 14000000190000001e00000023000000280000002d00000032000000370000003c00000041000000460000004b00000050000000550000005a0000005f00000064000000690000006e00000073000000780000007d00000082000000870000008c00000091000000960000009b000000a0000000a5000000aa000000af000000b4000000b9000000be000000c3000000c8000000cd000000d20000003f420f00
+  expTable: 14000000230000003200000041000000500000005f0000006e0000007d0000008c0000009b000000aa000000b9000000c8000000d7000000e6000000f500000004010000130100002201000031010000400100004f0100005e0100006d0100007c0100008b0100009a010000a9010000b8010000c7010000d6010000e5010000f4010000030200001202000021020000300200003f0200004e0200003f420f00
   expPerTxt: {fileID: 5509287254646891188}
   levelTxt: {fileID: 6651094096242925389}
   expImage: {fileID: 5298929263220256491}
@@ -17525,21 +17525,21 @@ MonoBehaviour:
   - {fileID: 791475943}
   - {fileID: 1128919701}
   spawnTime:
-  - 0.8
-  - 0.7
-  - 0.6
+  - 1.3333334
+  - 1.1428572
+  - 1
+  - 0.5714286
   - 0.5
-  - 0.45
+  - 0.44444445
   - 0.4
-  - 0.35
-  - 0.325
-  - 0.3
-  - 0.285
-  - 0.265
+  - 0.36363637
+  - 0.33333334
+  - 0.30769232
+  - 0.2857143
+  - 0.26666668
   - 0.25
-  - 0.235
-  - 0.22
-  - 0.21
+  - 0.23529412
+  - 0.22222222
 --- !u!23 &1452906751 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 33684110180243678, guid: 26822ed5d2ab83040a12c64df3251778, type: 3}
@@ -34441,6 +34441,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7930866862908839341}
     m_Modifications:
+    - target: {fileID: 5713104126761342468, guid: 9af3f3179f76c6f47a988c5e7ffc0035, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713104127082307316, guid: 9af3f3179f76c6f47a988c5e7ffc0035, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5713104127726258712, guid: 9af3f3179f76c6f47a988c5e7ffc0035, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -34496,6 +34504,10 @@ PrefabInstance:
     - target: {fileID: 5713104127726258715, guid: 9af3f3179f76c6f47a988c5e7ffc0035, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713104128343233480, guid: 9af3f3179f76c6f47a988c5e7ffc0035, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9af3f3179f76c6f47a988c5e7ffc0035, type: 3}
@@ -34637,6 +34649,10 @@ PrefabInstance:
       propertyPath: lengthInSec
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 199915915945871069, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1801864034920526993, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -34697,6 +34713,10 @@ PrefabInstance:
       propertyPath: lengthInSec
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2004343273888563721, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2004386112231212885, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
       propertyPath: looping
       value: 0
@@ -34717,6 +34737,10 @@ PrefabInstance:
       propertyPath: lengthInSec
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2004423152917167861, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2005216357873858715, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
       propertyPath: looping
       value: 0
@@ -34724,6 +34748,10 @@ PrefabInstance:
     - target: {fileID: 2005216357873858715, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
       propertyPath: lengthInSec
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005216357873858715, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0891a29fd99668e4faa0f9871c906936, type: 3}
