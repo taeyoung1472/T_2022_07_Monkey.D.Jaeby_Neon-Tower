@@ -32,6 +32,9 @@ public class TutorialManager : MonoBehaviour
     private GameObject[] _enemyPrefabs = null;
 
     [SerializeField]
+    private GameObject _spawnEffectPrefab = null;
+
+    [SerializeField]
     private Color _impactColor = Color.white;
 
     private void Start()
@@ -192,8 +195,11 @@ public class TutorialManager : MonoBehaviour
         TextPop("Ω√¿€!!");
         for(int i = 0; i<_enemyPrefabs.Length; i++)
         {
+            GameObject effect = Instantiate(_spawnEffectPrefab, _enemyPrefabs[i].transform.position, Quaternion.identity);
+            effect.transform.localScale = Vector3.one * 0.05f;
+            yield return new WaitForSeconds(1f);
             _enemyPrefabs[i].SetActive(true);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

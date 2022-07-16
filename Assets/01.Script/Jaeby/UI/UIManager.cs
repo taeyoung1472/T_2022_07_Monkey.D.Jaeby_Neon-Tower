@@ -41,8 +41,14 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
+    private float _startFadeTime = 1.5f;
+    private float _timer = 0f;
+
     private void Update()
     {
+        _timer += Time.deltaTime;
+
+        if (_timer < _startFadeTime) return;
         if (_openUI) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
